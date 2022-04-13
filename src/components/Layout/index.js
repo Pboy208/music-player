@@ -2,15 +2,19 @@ import * as React from 'react';
 import styled from 'styled-components';
 import MusicPlayer from 'components/MusicPlayer';
 import NavigationBar from 'components/NavigationBar';
-import FriendList from 'components/FriendList';
+import PlayerQueue from 'components/PlayerQueue';
+import Header from 'components/Header';
 
 function Layout({ children }) {
   return (
     <Wrapper>
       <Body>
         <NavigationBar />
-        <App>{children}</App>
-        <FriendList />
+        <AppWrapper>
+          <Header />
+          <App>{children}</App>
+        </AppWrapper>
+        <PlayerQueue />
       </Body>
       <MusicPlayer />
     </Wrapper>
@@ -33,9 +37,18 @@ const Body = styled.div`
   display: flex;
 `;
 
+const AppWrapper = styled.div`
+  flex: 1 1 auto;
+  height: 100%;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+`;
+
 const App = styled.div`
   flex: 1 1 auto;
   height: 100%;
+  width: 100%;
   overflow: auto;
 `;
 
