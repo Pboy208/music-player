@@ -30,6 +30,16 @@ const GlobalStyle = createGlobalStyle`
     border-color: ${({ theme }) => themes[theme].borderColor} !important;
   }
 
+  .card{
+    padding: 0 40px;
+    ${'' /* overflow: auto; */}
+  }
+
+  .aligned-center {
+    display: flex;
+    justify-content: center;
+  }
+
 `;
 
 export default GlobalStyle;

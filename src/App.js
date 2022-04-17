@@ -1,12 +1,13 @@
 import Layout from 'components/Layout';
 import GlobalStyle from 'components/common/GlobalStyle';
+import Personal from 'screens/Personal';
 
 function App() {
   return (
     <>
       <GlobalStyle theme="dark" />
       <Layout>
-        <div>Music player app</div>
+        <Personal />
       </Layout>
     </>
   );
