@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import PlayerControl from './PlayerControl';
 
 function MusicPlayer() {
   return (
     <Wrapper>
       <SongInfo />
-      <MusicActions />
+      <PlayerControl />
       <AdditionActions />
     </Wrapper>
   );
@@ -21,13 +22,6 @@ const Wrapper = styled.div`
 
 const SongInfo = styled.div`
   flex: 10 1 auto;
-  border-right: 1px solid white;
-`;
-
-const MusicActions = styled.div`
-  flex: 1 999999 min(540px, 38vw);
-  min-width: min(540px, 38vw);
-  border-left: 1px solid white;
   border-right: 1px solid white;
 `;
 
