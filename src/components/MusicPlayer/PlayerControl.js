@@ -1,12 +1,17 @@
-/* eslint-disable react/button-has-type */
+/* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import {
+  FaPlayCircle,
+  FaPauseCircle,
+  FaRandom,
+  FaStepBackward,
+  FaStepForward,
+  FaUndoAlt,
+} from 'react-icons/fa';
 
-const songSrc =
-  'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/6fb6c197-6413-7508-38c7-21b180c0988f.mp3';
-
-function PlayerControl() {
+function PlayerControl({ song, moveNext, movePrev }) {
   const playerRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -24,10 +29,11 @@ function PlayerControl() {
   useEffect(() => {
     const interval = setInterval(() => {
       const { duration, currentTime } = playerRef.current;
+      if (currentTime / duration === 1) return moveNext();
       setProgress(() => (currentTime / duration) * 100);
     }, 100);
     return () => clearInterval(interval);
-  }, [playerRef]);
+  }, [moveNext, playerRef, song]);
 
   const handleProgressChange = (e) => {
     setProgress(() => e.target.value);
@@ -37,8 +43,24 @@ function PlayerControl() {
 
   return (
     <Wrapper>
-      <audio src={songSrc} ref={playerRef} />
-      <button onClick={togglePlaying}> play/stop</button>
+      <audio src={song.urlMusic} ref={playerRef} />
+      <ActionsWrapper>
+        <PlayerAction size="small">
+          <FaRandom />
+        </PlayerAction>
+        <PlayerAction size="small" onClick={movePrev}>
+          <FaStepBackward />
+        </PlayerAction>
+        <PlayerAction size="large" onClick={togglePlaying}>
+          {isPlaying ? <FaPauseCircle /> : <FaPlayCircle />}
+        </PlayerAction>
+        <PlayerAction size="small" onClick={moveNext}>
+          <FaStepForward />
+        </PlayerAction>
+        <PlayerAction size="small">
+          <FaUndoAlt />
+        </PlayerAction>
+      </ActionsWrapper>
       <ProgressBar
         type="range"
         value={progress}
@@ -55,24 +77,46 @@ const Wrapper = styled.div`
   min-width: min(540px, 38vw);
   border-left: 1px solid white;
   border-right: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ActionsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: baseline;
+`;
+
+const PlayerAction = styled.div`
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
+  & svg {
+    font-size: ${(props) => (props.size === 'small' ? '24px' : '36px')};
+  }
 `;
 
 const ProgressBar = styled.input`
-  width: 90%;
-  /* -webkit-appearance: none;
+  width: 80%;
   height: 6px;
+  -webkit-appearance: none;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-  */
+  cursor: pointer;
+
   &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 12px;
     height: 6px;
+    -webkit-appearance: none;
     background-color: grey;
+    appearance: none;
     cursor: pointer;
   }
 `;
