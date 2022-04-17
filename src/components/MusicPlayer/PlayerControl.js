@@ -9,6 +9,7 @@ const songSrc =
 function PlayerControl() {
   const playerRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const togglePlaying = () => setIsPlaying((prev) => !prev);
 
@@ -19,12 +20,33 @@ function PlayerControl() {
       playerRef.current.pause();
     }
   }, [isPlaying]);
-  
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const { duration, currentTime } = playerRef.current;
+      setProgress(() => (currentTime / duration) * 100);
+    }, 100);
+    return () => clearInterval(interval);
+  }, [playerRef]);
+
+  const handleProgressChange = (e) => {
+    setProgress(() => e.target.value);
+    playerRef.current.currentTime =
+      (e.target.value / 100) * playerRef.current.duration;
+  };
+
   return (
     <Wrapper>
       <audio src={songSrc} ref={playerRef} />
       <button onClick={togglePlaying}> play/stop</button>
-      <SongProgress type="range" value="0" step="1" min="0" max="100" />
+      <ProgressBar
+        type="range"
+        value={progress}
+        step="1"
+        min="0"
+        max="100"
+        onChange={handleProgressChange}
+      />
     </Wrapper>
   );
 }
@@ -35,6 +57,24 @@ const Wrapper = styled.div`
   border-right: 1px solid white;
 `;
 
-const SongProgress = styled.input``;
+const ProgressBar = styled.input`
+  width: 90%;
+  /* -webkit-appearance: none;
+  height: 6px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  */
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 6px;
+    background-color: grey;
+    cursor: pointer;
+  }
+`;
 
 export default PlayerControl;
