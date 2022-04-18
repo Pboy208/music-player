@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 import {
   FaPlayCircle,
@@ -10,13 +10,42 @@ import {
   FaStepForward,
   FaUndoAlt,
 } from 'react-icons/fa';
+import { timeFormatter } from 'util/formatter';
 
-function PlayerControl({ song, moveNext, movePrev }) {
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_PLAYING':
+      return { ...state, isPlaying: action.isPlaying };
+    case 'SET_PROGRESS':
+      return {
+        ...state,
+        progress: action.progress,
+        currentTime: Math.round(action.currentTime),
+      };
+    default:
+      return state;
+  }
+};
+
+function PlayerControl({
+  song,
+  moveNext,
+  movePrev,
+  volume,
+  toggleShuffle,
+  togglePlayback,
+}) {
   const playerRef = useRef();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
 
-  const togglePlaying = () => setIsPlaying((prev) => !prev);
+  const [state, setState] = useReducer(reducer, {
+    isPlaying: false,
+    progress: 0,
+    currentTime: 0,
+  });
+  const { isPlaying, progress, currentTime } = state;
+
+  const togglePlaying = () =>
+    setState({ type: 'SET_PLAYING', isPlaying: !isPlaying });
 
   useEffect(() => {
     if (isPlaying) {
@@ -24,19 +53,30 @@ function PlayerControl({ song, moveNext, movePrev }) {
     } else {
       playerRef.current.pause();
     }
-  }, [isPlaying]);
+  }, [isPlaying, song]);
+
+  useEffect(() => {
+    playerRef.current.volume = volume / 100;
+  }, [volume]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const { duration, currentTime } = playerRef.current;
-      if (currentTime / duration === 1) return moveNext();
-      setProgress(() => (currentTime / duration) * 100);
-    }, 100);
+      const { duration, currentTime: songCurrentTime } = playerRef.current;
+      if (songCurrentTime / duration === 1) return moveNext();
+      setState({
+        type: 'SET_PROGRESS',
+        progress: (songCurrentTime / duration) * 100,
+        currentTime: songCurrentTime,
+      });
+    }, 1000);
     return () => clearInterval(interval);
-  }, [moveNext, playerRef, song]);
+  }, [moveNext, playerRef]);
 
   const handleProgressChange = (e) => {
-    setProgress(() => e.target.value);
+    setState({
+      type: 'SET_PROGRESS',
+      progress: e.target.value,
+    });
     playerRef.current.currentTime =
       (e.target.value / 100) * playerRef.current.duration;
   };
@@ -45,7 +85,7 @@ function PlayerControl({ song, moveNext, movePrev }) {
     <Wrapper>
       <audio src={song.urlMusic} ref={playerRef} />
       <ActionsWrapper>
-        <PlayerAction size="small">
+        <PlayerAction size="small" onClick={toggleShuffle}>
           <FaRandom />
         </PlayerAction>
         <PlayerAction size="small" onClick={movePrev}>
@@ -57,21 +97,26 @@ function PlayerControl({ song, moveNext, movePrev }) {
         <PlayerAction size="small" onClick={moveNext}>
           <FaStepForward />
         </PlayerAction>
-        <PlayerAction size="small">
+        <PlayerAction size="small" onClick={togglePlayback}>
           <FaUndoAlt />
         </PlayerAction>
       </ActionsWrapper>
-      <ProgressBar
-        type="range"
-        value={progress}
-        step="1"
-        min="0"
-        max="100"
-        onChange={handleProgressChange}
-      />
+      <ProgressBarWrapper>
+        <Time>{timeFormatter(currentTime)}</Time>
+        <ProgressBar
+          type="range"
+          value={progress}
+          step="1"
+          min="0"
+          max="100"
+          onChange={handleProgressChange}
+        />
+        <Time>{timeFormatter(song.timePlays / 1000)}</Time>
+      </ProgressBarWrapper>
     </Wrapper>
   );
 }
+
 const Wrapper = styled.div`
   flex: 1 999999 min(540px, 38vw);
   min-width: min(540px, 38vw);
@@ -80,7 +125,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 6px;
 `;
 
 const ActionsWrapper = styled.div`
@@ -92,12 +137,24 @@ const ActionsWrapper = styled.div`
 `;
 
 const PlayerAction = styled.div`
-  height: 36px;
-  width: 36px;
+  height: ${(props) => (props.size === 'small' ? '20px' : '28px')};
+  width: ${(props) => (props.size === 'small' ? '20px' : '28px')};
   cursor: pointer;
   & svg {
-    font-size: ${(props) => (props.size === 'small' ? '24px' : '36px')};
+    font-size: ${(props) => (props.size === 'small' ? '20px' : '28px')};
   }
+`;
+
+const Time = styled.p`
+  font-size: 16px;
+`;
+
+const ProgressBarWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 `;
 
 const ProgressBar = styled.input`
