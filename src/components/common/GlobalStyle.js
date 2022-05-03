@@ -9,7 +9,8 @@ const themes = {
   },
   dark: {
     body: '#171717',
-    background: 'rgb(0, 30, 60)',
+    // background: 'rgb(0, 30, 60)',
+    background: 'black',
     text: '#FAFAFA',
     borderColor: '#FAFAFA',
   },
@@ -22,6 +23,8 @@ const GlobalStyle = createGlobalStyle`
     --big-space: 30px;
     --medium-space: 20px;
     --small-space: 10px;
+    --background-color: ${({ theme }) => themes[theme].background};
+    --text-color: ${({ theme }) => themes[theme].text};
   }
 
   body {
@@ -40,6 +43,9 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
   }
 
+  .active {
+    background-color: gray;
+  }
 `;
 
 export default GlobalStyle;

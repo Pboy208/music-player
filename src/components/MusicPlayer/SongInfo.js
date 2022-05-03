@@ -36,11 +36,11 @@ const Info = styled.div`
   gap: 4px;
 `;
 
-const Title = styled.p`
+const Title = styled.span`
   font-size: ${(props) => (props.size === 'medium' ? '16px' : '22px')};
 `;
 
-const Artist = styled.p`
+const Artist = styled.span`
   font-size: ${(props) => (props.size === 'medium' ? '12px' : '14px')};
 `;
 
