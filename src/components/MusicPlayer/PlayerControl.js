@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useEffect, useReducer, useRef } from 'react';
@@ -34,6 +35,8 @@ function PlayerControl({
   volume,
   toggleShuffle,
   togglePlayback,
+  isShuffle,
+  isPlayback,
 }) {
   const playerRef = useRef();
 
@@ -62,7 +65,16 @@ function PlayerControl({
   useEffect(() => {
     const interval = setInterval(() => {
       const { duration, currentTime: songCurrentTime } = playerRef.current;
-      if (songCurrentTime / duration === 1) return moveNext();
+      // khi het nhac thi move tiep
+      if (songCurrentTime / duration === 1) {
+        if (isPlayback) {
+          playerRef.current.currentTime = 0;
+          playerRef.current.play();
+          return;
+        }
+        return moveNext();
+      }
+
       setState({
         type: 'SET_PROGRESS',
         progress: (songCurrentTime / duration) * 100,
@@ -70,7 +82,7 @@ function PlayerControl({
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [moveNext, playerRef]);
+  }, [isPlayback, moveNext, playerRef]);
 
   const handleProgressChange = (e) => {
     setState({
