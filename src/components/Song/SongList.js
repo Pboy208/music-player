@@ -12,16 +12,17 @@ function SongList() {
       <SongItem />
       <SongItem />
       <SongItem />
+      <SongItem />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
+  width: 100%;
+  min-height: 70vh;
+  border: 1px solid blue;
   display: flex;
   flex-direction: column;
-  min-height: 70vh;
-  width: 100%;
-  border: 1px solid blue;
 `;
 
 const TitlesWrapper = styled.div`

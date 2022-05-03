@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 
-function SongInfo({ song }) {
+function SongInfo({ song, size }) {
   return (
     <Wrapper>
-      <Avatar src={song.urlImage} />
+      <Avatar src={song.urlImage} size={size} />
       <Info>
-        <Title>{song.name}</Title>
-        <Artist>{song.name_artist}</Artist>
+        <Title size={size}>{song.name}</Title>
+        <Artist size={size}>{song.name_artist}</Artist>
       </Info>
     </Wrapper>
   );
@@ -21,9 +21,9 @@ const Wrapper = styled.div`
 `;
 
 const Avatar = styled.img`
-  height: 50px;
-  width: 50px;
-  margin: 0 10px;
+  height: ${(props) => (props.size === 'medium' ? '40px' : '50px')};
+  width: ${(props) => (props.size === 'medium' ? '40px' : '50px')};
+  margin: ${(props) => (props.size === 'medium' ? '5px' : '10px')};
   border: 1px solid white;
   border-radius: 4px;
   overflow: hidden;
@@ -37,11 +37,11 @@ const Info = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 22px;
+  font-size: ${(props) => (props.size === 'medium' ? '16px' : '22px')};
 `;
 
 const Artist = styled.p`
-  font-size: 14px;
+  font-size: ${(props) => (props.size === 'medium' ? '12px' : '14px')};
 `;
 
 export default SongInfo;
