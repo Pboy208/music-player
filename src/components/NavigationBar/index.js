@@ -12,8 +12,8 @@ function NavigationBar() {
 }
 
 const Wrapper = styled.div`
-  flex: 1 999999 250px;
-  max-width: 250px;
+  flex: 1 999999 230px;
+  max-width: 230px;
   border-right: 1px solid white;
   display: flex;
   flex-direction: column;
