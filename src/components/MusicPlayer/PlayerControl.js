@@ -11,7 +11,7 @@ import {
   FaStepForward,
   FaUndoAlt,
 } from 'react-icons/fa';
-import { timeFormatter } from 'util/formatter';
+import { timeFormatter } from 'utils/formatter';
 
 const reducer = (state, action) => {
   switch (action.type) {
