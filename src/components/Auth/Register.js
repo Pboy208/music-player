@@ -149,7 +149,7 @@ function Register() {
               />
             </FormGroup>
 
-            <RegisterButton size="small" variant="primary">
+            <RegisterButton variant="primary">
               <Button.Label>
                 {/* {isLoading ? (
                   <Loader aria-label="Loading" size="small" />
@@ -275,43 +275,41 @@ const Wrapper = styled.div`
               margin-left: 5px;
             }
           `;
-const FormCheckBox = styled(Form.Check)`
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-`;
-
-const RegisterButton = styled(Button)`
-  margin-top: 20px;
-  line-height: 1.25rem;
-  font-weight: 700;
-  background-color: var(--background-base,#1ed760);
-  border: none;
-  color: var(--text-base,#000000);
-  border-radius: 500px;
-  font-size: inherit;
-  padding: 14px 32px;
-  cursor: pointer;
-  transition: 100ms;
-  &:hover {
-    transform: scale(1.05); 
-  }
-`;
-
-const OldAccount = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Ask = styled.p`
-  font-size: 16px;
-  font-weight: 400;
-`;
-const LoginLink = styled(Link)`
-  margin-left: 5px;
-  color: rgb(29, 185, 84);
-  &:hover {
-    opacity: 0.6;
-  }
-`;
+          const FormCheckBox = styled(Form.Check)`
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+          `;
+        const RegisterButton = styled(Button)`
+          margin-top: 20px;
+          line-height: 1.25rem;
+          font-weight: 700;
+          background-color: var(--background-base,#1ed760);
+          border: none;
+          color: var(--text-base,#000000);
+          border-radius: 500px;
+          font-size: inherit;
+          padding: 14px 32px;
+          cursor: pointer;
+          transition: 100ms;
+          &:hover {
+            transform: scale(1.05); 
+          }
+        `;
+        const OldAccount = styled.div`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        `;
+          const Ask = styled.p`
+            font-size: 16px;
+            font-weight: 400;
+          `;
+          const LoginLink = styled(Link)`
+            margin-left: 5px;
+            color: rgb(29, 185, 84);
+            &:hover {
+              opacity: 0.6;
+            }
+          `;
 
 export default Register;
