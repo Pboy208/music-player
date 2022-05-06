@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-props-no-spreading */
-
 import * as React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
@@ -55,9 +54,7 @@ function Login() {
                 <title>Login to Spotify</title>
                 <meta name="description" content="Login to Leo's shopping store" />
             </Helmet>
-
             <Suggest>To continue, log in to Spotify.</Suggest>
-
             <FormGroup controlId="loginForm.email">
               <FormLabel sizeLabel="small">Email address</FormLabel>
               <FormInput
@@ -71,7 +68,6 @@ function Login() {
               {errors?.email?.message}
               </FormFeedback>
             </FormGroup>
-
             <FormGroup controlId="loginForm.password">
               <FormLabel sizeLabel="small">Password</FormLabel>
               <FormInput
@@ -86,7 +82,6 @@ function Login() {
               </FormFeedback>
             </FormGroup>
             <Forgot to="/forgot">Forgot your password?</Forgot>
-
             <Direct>
               <LoginButton size="big" variant="primary">
                 <ButtonLabel>
@@ -94,21 +89,13 @@ function Login() {
                 </ButtonLabel>
               </LoginButton>
             </Direct>
-
             <NewAccount>
               <Ask>Don't have an account?</Ask>  
               <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
             </NewAccount>
           </Row>
         </LoginForm>
-
       </Body>
-      
-      
-
-      {/* <Footer>
-        Created by group 8
-      </Footer> */}
     </Wrapper>
   );
 }
@@ -253,7 +240,6 @@ const Wrapper = styled.div`
               line-height: 1.25rem;
               font-weight: 700;
             `;
-
         const NewAccount = styled.div`
           width: 100%;
         `;
