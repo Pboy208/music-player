@@ -17,7 +17,23 @@ module.exports = class User {
   });
 
   static getUserById = tryCatchBlock(async (id) => {
-    const [resultSet] = await database.execute(`SELECT * from User where user_id = '${id}'`);
+    const [resultSet] = await database.execute(`SELECT * from User where userID = '${id}'`);
     return resultSet;
   })
+  
+  signIn = tryCatchBlock(async () => {
+    const [resultSet] = await database.execute(
+      `SELECT * FROM User WHERE email LIKE '${this.email}' AND password LIKE '${this.password}'`
+    );
+    return resultSet.length === 0
+      ? null
+      : { userID: resultSet[0].userID, avatar: resultSet[0].avatar };
+  });
+
+  signUp = tryCatchBlock(async () => {
+    await database.execute(
+      `INSERT INTO User(userID,email,password,name,createdDate,phoneNumber,isVip) 
+      VALUES(uuid(),'${this.email}','${this.password}','${this.name}',CURRENT_TIMESTAMP(),'${this.phoneNumber}',0)`
+    );
+  });
 };
