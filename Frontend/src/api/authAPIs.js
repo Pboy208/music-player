@@ -1,6 +1,6 @@
 import { post } from 'utils/request';
 
-export const login = (loginInfo) => post('/login', { body: loginInfo });
+export const login = (loginInfo) => post('/auth/sign-in', { body: loginInfo });
 
 export const register = (registerInfo) =>
-  post('/register', { body: registerInfo });
+  post('/auth/sign-up', { body: registerInfo });

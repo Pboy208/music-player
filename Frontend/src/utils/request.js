@@ -11,7 +11,7 @@ const generateUrlWithParams = (givenUrl, params) => {
 
 const getToken = () => localStorage.getItem('token');
 
-export const createRequest = async ({
+const createRequest = async ({
   endpoint,
   method = 'GET',
   body = null,
