@@ -13,7 +13,6 @@ import * as Toast from 'components/common/Toast';
 import validationSchema from 'utils/schemas/registerSchema';
 // import { register as registerThunk } from 'store/authSlice';
 
-
 function Register() {
   const {
     setValue,
@@ -24,30 +23,33 @@ function Register() {
     mode: 'onSubmit',
     resolver: yupResolver(validationSchema),
   });
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const { isLoading } = useSelector((state) => state.auth);
+  //   const dispatch = useDispatch();
+  //   const navigate = useNavigate();
+  //   const { isLoading } = useSelector((state) => state.auth);
   const isUserNameInvalid = !!errors.userName;
   const isPasswordInvalid = !!errors.password;
   const isConfirmPasswordInvalid = !!errors.confirmPassword;
   const isEmailInvalid = !!errors.email;
   const [selectedValue, setSelectedValue] = useState([]);
 
-//   const handleRegister = (registerInfo) => {
-//     dispatch(registerThunk(registerInfo))
-//       .unwrap()
-//       .then(() => {
-//         Toast.success('Register success');
-//         navigate('/home');
-//       })
-//       .catch(console.error);
-//   };
+  //   const handleRegister = (registerInfo) => {
+  //     dispatch(registerThunk(registerInfo))
+  //       .unwrap()
+  //       .then(() => {
+  //         Toast.success('Register success');
+  //         navigate('/home');
+  //       })
+  //       .catch(console.error);
+  //   };
 
   return (
     <Wrapper>
       <Header>
         <Logo to="/home">
-          <Img src='https://i.pinimg.com/originals/93/46/53/934653214719cf630e0f5cf9c746b364.png' alt='logo'/>
+          <Img
+            src="https://i.pinimg.com/originals/93/46/53/934653214719cf630e0f5cf9c746b364.png"
+            alt="logo"
+          />
           <Name>Spotify</Name>
         </Logo>
       </Header>
@@ -109,7 +111,9 @@ function Register() {
                 type="password"
                 isInvalid={isConfirmPasswordInvalid}
                 {...register('confirmPassword')}
-                onBlur={(e) => setValue('confirmPassword', e.target.value.trim())}
+                onBlur={(e) =>
+                  setValue('confirmPassword', e.target.value.trim())
+                }
               />
               <FormFeedback type="invalid" role="alert">
                 {errors?.confirmPassword?.message}
@@ -120,17 +124,19 @@ function Register() {
               <FormLabel>What's your date of birth?</FormLabel>
               <FormInput
                 type="date"
-                onBlur={(e) => setValue('confirmPassword', e.target.value.trim())}
+                onBlur={(e) =>
+                  setValue('confirmPassword', e.target.value.trim())
+                }
               />
               {/* <FormFeedback type="invalid" role="alert">
                 {errors?.confirmPassword?.message}
               </FormFeedback> */}
             </FormGroup>
 
-            <FormGroup >
+            <FormGroup>
               <FormLabel>What's your gender?</FormLabel>
               <FormCheckGroup>
-                {["Male", "Female", "Non-binary"].map((value) => (
+                {['Male', 'Female', 'Non-binary'].map((value) => (
                   <FormCheck
                     key={value.id}
                     checked={value === selectedValue}
@@ -159,16 +165,15 @@ function Register() {
                 Register
               </Button.Label>
             </RegisterButton>
-            
+
             <OldAccount>
-              <Ask>Have an account?</Ask>  
+              <Ask>Have an account?</Ask>
               <LoginLink to="/login">Log in</LoginLink>.
             </OldAccount>
           </Row>
         </RegisterForm>
       </Body>
     </Wrapper>
-    
   );
 }
 const Wrapper = styled.div`
@@ -178,138 +183,137 @@ const Wrapper = styled.div`
   width: var(--wrapper-width);
   position: relative;
 `;
-  const Header = styled.div`
-    padding: 10px;
-    width: 100%;
-    @media (min-width: 768px){
-      padding: 30px 0;
-    }
+const Header = styled.div`
+  padding: 10px;
+  width: 100%;
+  @media (min-width: 768px) {
+    padding: 30px 0;
   }
-  `;
-    const Logo = styled(Link)`
-      height: 42px;
-      display: flex;
-      text-decoration: none;
-      justify-content: center;
-    `;
-      const Img = styled.img`
-        height: 110%;
-        margin-right: 5px;
-      `;
-      const Name = styled.h1`
-        font-weight: 600;
-        font-size: 30px;
-        margin-top: 5px;
-        color: #000000;
-      `;
-  const Footer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: min(10vh, 50px);
-    border-top: 1px solid rgb(217, 218, 220);
-    width: 100%;
-  `;
-  const Body = styled.div`
-    max-width: 450px;
-    margin: 0px auto;
-    padding-bottom: 130px;
-  `;
-    const RegisterForm = styled.form`
-      max-width: 450px;
-      width: 100%;
-    `;
-      const Row = styled.div`
-        display: flex;
-        flex-direction: column;
-        row-gap: 10px;
-        font-size: 0.9rem;
-        line-height: 1.25rem;
-        font-weight: 400;
-      `;
-        const Suggest = styled.h2`
-          box-sizing: border-box;
-          text-align: center;
-          line-height: 36px;
-          margin: 0px;
-          font-weight: 700;
-          font-size: 27px;
-          border-bottom: 1px solid rgb(217, 218, 220);
-          text-align: center;
-          padding: 10px 0;
-        `;
-        const FormGroup = styled(Form.Group)`
-          margin-top: 20px;
-        `;
-          const FormLabel = styled(Form.Label)`
-            box-sizing: border-box;
-            align-items: center;
-            display: flex;
-            width: 100%;
-            padding-bottom: 8px;
-          `;
-          const FormInput = styled(Form.Input)`
-            border: 0px;
-            font-size: 1rem;
-            line-height: 1.5rem;
-            padding : 14px;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 4px;
-            box-shadow: inset 0 0 0 1px var(--essential-subdued,#878787);
-          `;
-          const FormFeedback = styled(Form.Feedback)`
-            font-size: var(--font-size);
-          `;
-        const FormCheckGroup = styled.div`
-          display: flex;
-        `;
-          const FormCheck = styled(Form.Check)`
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            margin-right: 25px;
-            input {
-              transform: scale(1.3); 
-            }
-            label {
-              margin-left: 5px;
-            }
-          `;
-          const FormCheckBox = styled(Form.Check)`
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-          `;
-        const RegisterButton = styled(Button)`
-          margin-top: 20px;
-          line-height: 1.25rem;
-          font-weight: 700;
-          background-color: var(--background-base,#1ed760);
-          border: none;
-          color: var(--text-base,#000000);
-          border-radius: 500px;
-          font-size: inherit;
-          padding: 14px 32px;
-          cursor: pointer;
-          transition: 100ms;
-          &:hover {
-            transform: scale(1.05); 
-          }
-        `;
-        const OldAccount = styled.div`
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        `;
-          const Ask = styled.p`
-            font-size: 16px;
-            font-weight: 400;
-          `;
-          const LoginLink = styled(Link)`
-            margin-left: 5px;
-            color: rgb(29, 185, 84);
-            &:hover {
-              opacity: 0.6;
-            }
-          `;
+`;
+const Logo = styled(Link)`
+  height: 42px;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+`;
+const Img = styled.img`
+  height: 110%;
+  margin-right: 5px;
+`;
+const Name = styled.h1`
+  font-weight: 600;
+  font-size: 30px;
+  margin-top: 5px;
+  color: #000000;
+`;
+const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: min(10vh, 50px);
+  border-top: 1px solid rgb(217, 218, 220);
+  width: 100%;
+`;
+const Body = styled.div`
+  max-width: 450px;
+  margin: 0px auto;
+  padding-bottom: 130px;
+`;
+const RegisterForm = styled.form`
+  max-width: 450px;
+  width: 100%;
+`;
+const Row = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-size: 0.9rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+`;
+const Suggest = styled.h2`
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 36px;
+  margin: 0px;
+  font-weight: 700;
+  font-size: 27px;
+  border-bottom: 1px solid rgb(217, 218, 220);
+  text-align: center;
+  padding: 10px 0;
+`;
+const FormGroup = styled(Form.Group)`
+  margin-top: 20px;
+`;
+const FormLabel = styled(Form.Label)`
+  box-sizing: border-box;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  padding-bottom: 8px;
+`;
+const FormInput = styled(Form.Input)`
+  border: 0px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px var(--essential-subdued, #878787);
+`;
+const FormFeedback = styled(Form.Feedback)`
+  font-size: var(--font-size);
+`;
+const FormCheckGroup = styled.div`
+  display: flex;
+`;
+const FormCheck = styled(Form.Check)`
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-right: 25px;
+  input {
+    transform: scale(1.3);
+  }
+  label {
+    margin-left: 5px;
+  }
+`;
+const FormCheckBox = styled(Form.Check)`
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+`;
+const RegisterButton = styled(Button)`
+  margin-top: 20px;
+  line-height: 1.25rem;
+  font-weight: 700;
+  background-color: var(--background-base, #1ed760);
+  border: none;
+  color: var(--text-base, #000000);
+  border-radius: 500px;
+  font-size: inherit;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: 100ms;
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+const OldAccount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Ask = styled.p`
+  font-size: 16px;
+  font-weight: 400;
+`;
+const LoginLink = styled(Link)`
+  margin-left: 5px;
+  color: rgb(29, 185, 84);
+  &:hover {
+    opacity: 0.6;
+  }
+`;
 
 export default Register;
