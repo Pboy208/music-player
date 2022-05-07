@@ -1,4 +1,5 @@
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
 const express = require("express");
 
 const authRoute = require("./routes/auth-router");
@@ -8,6 +9,7 @@ const songRoute = require("./routes/song-router");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
