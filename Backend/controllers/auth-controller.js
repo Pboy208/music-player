@@ -45,7 +45,8 @@ module.exports = {
 
     return res
       .status(200)
-      .send({ message: 'SIGN_IN_SUCCESS', data: Authentication.createToken(userInfo) });
+      .setHeder('set-cookie', `token=${Authentication.createToken(userInfo)}`)
+      .send({ message: 'SIGN_IN_SUCCESS'});
   }),
 
   renewToken: async (req, res, next) => {
