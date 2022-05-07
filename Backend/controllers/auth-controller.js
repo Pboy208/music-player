@@ -43,13 +43,15 @@ module.exports = {
 
     if (!userInfo) return res.status(404).send({ message: 'SIGN_IN_FAIL' });
 
-    return res
-      .status(200)
-      .cookie('token', Authentication.createToken(userInfo), {
-        httpOnly: true,
-        secure:true,
-      })
-      .send({ message: 'SIGN_IN_SUCCESS' });
+    return (
+      res
+        .status(200)
+        // .cookie('token', Authentication.createToken(userInfo), {
+        //   httpOnly: true,
+        //   secure:true,
+        // })
+        .send({ message: 'SIGN_IN_SUCCESS', data: Authentication.createToken(userInfo) })
+    );
   }),
 
   renewToken: async (req, res, next) => {
