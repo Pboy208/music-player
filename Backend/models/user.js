@@ -6,7 +6,7 @@ module.exports = class User {
   constructor(userData) {
     this.email = userData.email;
     this.password = userData.password? md5(userData.password) : "";
-    this.name = userData.name;
+    this.userName = userData.userName;
     this.userID = userData.userID;
     // this.address = userData.address;
     // this.avatar = userData.avatar;
