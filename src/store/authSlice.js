@@ -1,5 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import decode from 'jwt-decode';
+import * as authApi from 'api/authAPIs';
+
+export const login = createAsyncThunk('auth/login', (loginInfo) =>
+  authApi.login(loginInfo),
+);
+
+export const register = createAsyncThunk('auth/login', (registerInfo) =>
+  authApi.register(registerInfo),
+);
 
 const initialState = {
   isLoggedIn: false,

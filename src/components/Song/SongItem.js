@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { timeFormatter } from 'util/formatter';
+import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
 
 const song = {
