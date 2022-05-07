@@ -28,15 +28,15 @@ function Login() {
   const isEmailInvalid = !!errors.email;
   const isPasswordInvalid = !!errors.password;
 
-  //   const handleLogin = (loginInfo) => {
-  //     dispatch(login(loginInfo))
-  //       .unwrap()
-  //       .then(() => {
-  //         Toast.success('Login success');
-  //         navigate('/home');
-  //       })
-  //       .catch(console.error);
-  //   };
+    const handleLogin = (loginInfo) => {
+      // dispatch(login(loginInfo))
+      //   .unwrap()
+      //   .then(() => {
+      //     Toast.success('Login success');
+      //     navigate('/home');
+      //   })
+      //   .catch(console.error);
+    };
 
   return (
     <Wrapper>
@@ -50,8 +50,7 @@ function Login() {
         </Logo>
       </Header>
       <Body>
-        {/* <LoginForm onSubmit={handleSubmit(handleLogin)} data-testid="login-page"> */}
-        <LoginForm>
+        <LoginForm onSubmit={handleSubmit(handleLogin)} data-testid="login-page">
           <Row>
             <Helmet>
               <title>Login to Spotify</title>
