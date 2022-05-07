@@ -20,7 +20,7 @@ const isTokenValid = (token) => {
   if (!token) return false;
   try {
     const decodedToken = decode(token);
-    return !!decodedToken.userId;
+    return !!decodedToken.userID;
   } catch (e) {
     return false;
   }
