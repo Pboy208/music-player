@@ -1,5 +1,5 @@
 const generateSchema = (properties, required) => ({
-  type: "object",
+  type: 'object',
   properties,
   required,
   additionalProperties: false,
@@ -8,31 +8,30 @@ const generateSchema = (properties, required) => ({
 module.exports = {
   resetPassword: generateSchema(
     {
-      password: { type: "string", minLength: 8, maxLength: 20 },
+      password: { type: 'string', minLength: 5, maxLength: 40 },
     },
-    ["password"]
+    ['password'],
   ),
 
   getResetPwLink: generateSchema(
     {
-      email: { type: "string", format: "email" },
+      email: { type: 'string', format: 'email' },
     },
-    ["email"]
+    ['email'],
   ),
   signIn: generateSchema(
     {
-      email: { type: "string", format: "email" },
-      password: { type: "string", minLength: 8, maxLength: 50 },
+      email: { type: 'string', format: 'email' },
+      password: { type: 'string', minLength: 5, maxLength: 40 },
     },
-    ["password", "email"]
+    ['password', 'email'],
   ),
   signUp: generateSchema(
     {
-      email: { type: "string", format: "email" },
-      password: { type: "string", minLength: 8, maxLength: 50 },
-      name: { type: "string", minLength: 5, maxLength: 25 },
+      email: { type: 'string', format: 'email' },
+      password: { type: 'string', minLength: 5, maxLength: 40 },
+      userName: { type: 'string', minLength: 5, maxLength: 20 },
     },
-    ["name", "password", "email"]
+    ['name', 'password', 'email'],
   ),
-
 };
