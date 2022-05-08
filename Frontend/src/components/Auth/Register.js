@@ -29,10 +29,12 @@ function Register() {
   const isUserNameInvalid = !!errors.userName;
   const isPasswordInvalid = !!errors.password;
   const isConfirmPasswordInvalid = !!errors.confirmPassword;
+  const isPhoneInvalid = !!errors.phone;
+  const isDobInvalid = !!errors.dob;
   const isEmailInvalid = !!errors.email;
   const [selectedValue, setSelectedValue] = useState([]);
 
-  //   const handleRegister = (registerInfo) => {
+    const handleRegister = (registerInfo) => {
   //     dispatch(registerThunk(registerInfo))
   //       .unwrap()
   //       .then(() => {
@@ -40,7 +42,7 @@ function Register() {
   //         navigate('/home');
   //       })
   //       .catch(console.error);
-  //   };
+    };
 
   return (
     <Wrapper>
@@ -120,17 +122,34 @@ function Register() {
               </FormFeedback>
             </FormGroup>
 
+            <FormGroup controlId="registerForm.phone">
+              <FormLabel>What's your phone number?</FormLabel>
+              <FormInput
+                type="tel"
+                isInvalid={isPhoneInvalid}
+                {...register('phone')}
+                onBlur={(e) =>
+                  setValue('phone', e.target.value.trim())
+                }
+              />
+              <FormFeedback type="invalid" role="alert">
+                {errors?.phone?.message}
+              </FormFeedback>
+            </FormGroup>
+
             <FormGroup controlId="registerForm.dob">
               <FormLabel>What's your date of birth?</FormLabel>
               <FormInput
                 type="date"
+                isInvalid={isDobInvalid}
+                {...register('dob')}
                 onBlur={(e) =>
-                  setValue('confirmPassword', e.target.value.trim())
+                  setValue('dob', e.target.value.trim())
                 }
               />
-              {/* <FormFeedback type="invalid" role="alert">
-                {errors?.confirmPassword?.message}
-              </FormFeedback> */}
+              <FormFeedback type="invalid" role="alert">
+                {errors?.dob?.message}
+              </FormFeedback>
             </FormGroup>
 
             <FormGroup>
