@@ -27,7 +27,6 @@ function Login() {
   const navigate = useNavigate();
   const isEmailInvalid = !!errors.email;
   const isPasswordInvalid = !!errors.password;
-  console.log(isLoading);
   const handleLogin = (loginInfo) => {
     dispatch(login(loginInfo))
       .unwrap()

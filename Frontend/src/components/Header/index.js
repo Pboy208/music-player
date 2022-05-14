@@ -1,12 +1,17 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 function Header() {
+  const user = useSelector((state) => state.auth.user);
+
   return (
     <Wrapper>
       <SearchBar>SearchBar</SearchBar>
       <ActionsWrapper>
         <ToggleThemeButton>Theme</ToggleThemeButton>
-        <UserDropdown>User</UserDropdown>
+        <UserDropdown>
+          <UserAvatar src={user.avatar} />
+        </UserDropdown>
       </ActionsWrapper>
     </Wrapper>
   );
@@ -42,5 +47,14 @@ const UserDropdown = styled.div`
   width: 40px;
   color: black;
   background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+`;
+
+const UserAvatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 export default Header;
