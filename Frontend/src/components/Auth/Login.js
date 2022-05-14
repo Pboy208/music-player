@@ -93,7 +93,7 @@ function Login() {
               <LoginButton size="big" variant="primary">
                 <ButtonLabel>
                   {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'}{' '}
-                  Log in
+                  
                 </ButtonLabel>
               </LoginButton>
             </Direct>

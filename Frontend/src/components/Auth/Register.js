@@ -179,7 +179,7 @@ function Register() {
                 ) : (
                   'Register'
                 )}
-                Register
+                
               </Button.Label>
             </RegisterButton>
 

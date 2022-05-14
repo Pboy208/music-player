@@ -38,9 +38,9 @@ module.exports = {
 
   signIn: tryCatchBlock(signInSchema, async (req, res, next) => {
     const { email, password } = req.body;
-
     const user = new User({ email, password });
     const userInfo = await user.signIn();
+    console.log(userInfo)
 
     if (!userInfo) return res.status(404).send({ message: 'SIGN_IN_FAIL' });
 
