@@ -19,6 +19,7 @@ module.exports = {
     },
     ['email'],
   ),
+  
   signIn: generateSchema(
     {
       email: { type: 'string', format: 'email' },
@@ -26,12 +27,14 @@ module.exports = {
     },
     ['password', 'email'],
   ),
+
   signUp: generateSchema(
     {
       email: { type: 'string', format: 'email' },
       password: { type: 'string', minLength: 5, maxLength: 40 },
-      userName: { type: 'string', minLength: 5, maxLength: 20 },
+      name: { type: 'string', minLength: 5, maxLength: 20 },
+      phoneNumber: { type: 'string', minLength: 10, maxLength: 11 },
     },
-    ['name', 'password', 'email'],
+    ['name', 'password', 'email', 'phoneNumber'],
   ),
 };

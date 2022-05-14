@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import validationSchema from 'utils/schemas/loginSchema';
-// import { login } from 'store/authSlice';
+import { login } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
 
 function Login() {
@@ -22,21 +22,21 @@ function Login() {
     mode: 'onSubmit',
     resolver: yupResolver(validationSchema),
   });
-  //   const { isLoading } = useSelector((state) => state.auth);
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const { isLoading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isEmailInvalid = !!errors.email;
   const isPasswordInvalid = !!errors.password;
-
-    const handleLogin = (loginInfo) => {
-      // dispatch(login(loginInfo))
-      //   .unwrap()
-      //   .then(() => {
-      //     Toast.success('Login success');
-      //     navigate('/home');
-      //   })
-      //   .catch(console.error);
-    };
+  console.log(isLoading);
+  const handleLogin = (loginInfo) => {
+    dispatch(login(loginInfo))
+      .unwrap()
+      .then(() => {
+        Toast.success('Login success');
+        navigate('/home');
+      })
+      .catch(console.error);
+  };
 
   return (
     <Wrapper>
@@ -50,7 +50,10 @@ function Login() {
         </Logo>
       </Header>
       <Body>
-        <LoginForm onSubmit={handleSubmit(handleLogin)} data-testid="login-page">
+        <LoginForm
+          onSubmit={handleSubmit(handleLogin)}
+          data-testid="login-page"
+        >
           <Row>
             <Helmet>
               <title>Login to Spotify</title>
@@ -90,7 +93,7 @@ function Login() {
             <Direct>
               <LoginButton size="big" variant="primary">
                 <ButtonLabel>
-                  {/* {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'} */}{' '}
+                  {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'}{' '}
                   Log in
                 </ButtonLabel>
               </LoginButton>

@@ -16,7 +16,7 @@ const constUtils = require('../util/const');
 
 module.exports = {
   signUp: tryCatchBlock(signUpSchema, async (req, res, next) => {
-    const { email, password, userName } = req.body;
+    const { email, password, name, phoneNumber } = req.body;
 
     const emailIsExist = await User.isEmailExist(email);
     if (emailIsExist) return next(new HttpError('SIGN_UP_FAIL_DUPPLICATE_EMAIL', 400));
@@ -25,7 +25,8 @@ module.exports = {
     const user = new User({
       email,
       password,
-      userName,
+      name,
+      phoneNumber,
       address: defaultValue.address,
       avatar: defaultValue.avtURL,
     });

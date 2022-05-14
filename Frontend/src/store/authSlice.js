@@ -12,7 +12,7 @@ export const register = createAsyncThunk('auth/login', (registerInfo) =>
 
 const initialState = {
   isLoggedIn: false,
-  userName: '',
+  name: '',
   isLoading: false,
 };
 
@@ -30,7 +30,7 @@ const token = localStorage.getItem('token');
 
 if (isTokenValid(token)) {
   initialState.isLoggedIn = true;
-  initialState.userName = decode(token).userName;
+  initialState.name = decode(token).name;
 }
 
 const authSlice = createSlice({
@@ -39,7 +39,7 @@ const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.isLoggedIn = false;
-      state.userName = '';
+      state.name = '';
       localStorage.removeItem('token');
     },
     setIsLoading(state, action) {
@@ -47,7 +47,7 @@ const authSlice = createSlice({
     },
     resetAuthState: (state) => {
       state.isLoggedIn = false;
-      state.userName = '';
+      state.name = '';
       state.isLoading = false;
     },
   },

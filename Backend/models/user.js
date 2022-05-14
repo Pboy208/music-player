@@ -6,8 +6,9 @@ module.exports = class User {
   constructor(userData) {
     this.email = userData.email;
     this.password = userData.password? md5(userData.password) : "";
-    this.userName = userData.userName;
+    this.name = userData.name;
     this.userID = userData.userID;
+    this.phoneNumber = userData.phoneNumber;
     // this.address = userData.address;
     // this.avatar = userData.avatar;
   }
@@ -27,7 +28,7 @@ module.exports = class User {
     );
     return resultSet.length === 0
       ? null
-      : { userID: resultSet[0].userID, avatar: resultSet[0].avatar };
+      : { userID: resultSet[0].userID, avatar: resultSet[0].avatar, name: resultSet[0].name};
   });
 
   signUp = tryCatchBlock(async () => {
