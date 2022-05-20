@@ -9,8 +9,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import validationSchema from 'utils/schemas/loginSchema';
-// import { login } from 'store/authSlice';
+import { login } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
+import {BiErrorCircle} from 'react-icons/bi';
 
 function Login() {
   const {
@@ -22,20 +23,20 @@ function Login() {
     mode: 'onSubmit',
     resolver: yupResolver(validationSchema),
   });
-  //   const { isLoading } = useSelector((state) => state.auth);
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+    const { isLoading } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
   const isEmailInvalid = !!errors.email;
   const isPasswordInvalid = !!errors.password;
 
     const handleLogin = (loginInfo) => {
-      // dispatch(login(loginInfo))
-      //   .unwrap()
-      //   .then(() => {
-      //     Toast.success('Login success');
-      //     navigate('/home');
-      //   })
-      //   .catch(console.error);
+      dispatch(login(loginInfo))
+        .unwrap()
+        .then(() => {
+          Toast.success('Login success');
+          navigate('/home');
+        })
+        .catch(console.error);
     };
 
   return (
@@ -56,7 +57,7 @@ function Login() {
               <title>Login to Spotify</title>
               <meta
                 name="description"
-                content="Login to Leo's shopping store"
+                content="Login to Spotify"
               />
             </Helmet>
             <Suggest>To continue, log in to Spotify.</Suggest>
@@ -90,8 +91,8 @@ function Login() {
             <Direct>
               <LoginButton size="big" variant="primary">
                 <ButtonLabel>
-                  {/* {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'} */}{' '}
-                  Log in
+                  {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'}{' '}
+                  {/* Log in */}
                 </ButtonLabel>
               </LoginButton>
             </Direct>
@@ -190,6 +191,11 @@ const FormLabel = styled(Form.Label)`
 `;
 const FormFeedback = styled(Form.Feedback)`
   font-size: var(--font-size);
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  margin: 5px 25%;
+  background-color: red;
 `;
 const FormInput = styled(Form.Input)`
   border: 0px;
@@ -251,6 +257,7 @@ const Ask = styled.p`
   line-height: 1.5rem;
   font-weight: 800;
   text-align: center;
+  margin-bottom: 10px;
 `;
 const Signup = styled(Link)`
   display: inline-flex;
