@@ -12,6 +12,7 @@ import validationSchema from 'utils/schemas/loginSchema';
 import { login } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
 import {BiErrorCircle} from 'react-icons/bi';
+import LoginGoogle from './LoginGoogle';
 
 function Login() {
   const {
@@ -61,6 +62,7 @@ function Login() {
               />
             </Helmet>
             <Suggest>To continue, log in to Spotify.</Suggest>
+            <LoginGoogle/>
             <FormGroup controlId="loginForm.email">
               <FormLabel sizeLabel="small">Email address</FormLabel>
               <FormInput
