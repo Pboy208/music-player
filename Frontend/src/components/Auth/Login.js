@@ -9,8 +9,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import validationSchema from 'utils/schemas/loginSchema';
-import { login } from 'store/authSlice';
+import { login, googleLogin } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
+import { FcGoogle } from 'react-icons/fc';
+import GoogleOneTapLogin from 'react-google-one-tap-login';
 
 function Login() {
   const {
@@ -22,11 +24,14 @@ function Login() {
     mode: 'onSubmit',
     resolver: yupResolver(validationSchema),
   });
+  
   const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isEmailInvalid = !!errors.email;
   const isPasswordInvalid = !!errors.password;
+  
+  
   const handleLogin = (loginInfo) => {
     dispatch(login(loginInfo))
       .unwrap()
@@ -36,16 +41,37 @@ function Login() {
       })
       .catch(console.error);
   };
+  const handleGoogleLogin = (loginInfo) => {
+    dispatch(googleLogin(loginInfo))
+      .unwrap()
+      .then(() => {
+        Toast.success('Login success');
+        navigate('/home');
+      })
+      .catch(console.error);
+  };
+  const googleSuccess =  (res) =>{
+    const loginInfo = {}
+    loginInfo.email = res.email;
+    loginInfo.avatar = res.picture;
+    loginInfo.username = res.name;
+    console.log(loginInfo)
+    handleGoogleLogin(loginInfo);
+  }
+  const googleFailure = (error) => {
+    console.log(error)
+  }
 
   return (
     <Wrapper>
+    <GoogleOneTapLogin onError={googleFailure} onSuccess={googleSuccess} googleAccountConfigs={{ client_id: "893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com"}} />
       <Header>
         <Logo to="/home">
           <Img
-            src="https://i.pinimg.com/originals/93/46/53/934653214719cf630e0f5cf9c746b364.png"
+            src="/assets/img/zingmp3.png"
             alt="logo"
           />
-          <Name>Spotify</Name>
+          <Name>Zing MP3</Name>
         </Logo>
       </Header>
       <Body>
@@ -61,7 +87,7 @@ function Login() {
                 content="Login to Leo's shopping store"
               />
             </Helmet>
-            <Suggest>To continue, log in to Spotify.</Suggest>
+            <Suggest>To continue, log in to Zing Mp3.</Suggest>
             <FormGroup controlId="loginForm.email">
               <FormLabel sizeLabel="small">Email address</FormLabel>
               <FormInput
@@ -97,6 +123,7 @@ function Login() {
                 </ButtonLabel>
               </LoginButton>
             </Direct>
+            
             <NewAccount>
               <Ask>Don't have an account?</Ask>
               <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
@@ -136,16 +163,18 @@ const Logo = styled(Link)`
   justify-content: center;
 `;
 const Img = styled.img`
-  height: 110%;
+  height: 100%;
   margin: -10px 10px 0px 0px;
   @media (max-width: 768px) {
     height: 100%;
     margin: 0px 10px 0px 0px;
   }
+  border-radius: 50%;
 `;
-const Name = styled.h1`
+const Name = styled.div`
   font-weight: 600;
-  font-size: 40px;
+  font-size: 30px;
+  font-family: "Roboto","segoe ui",Helvetica,Arial,sans-serif;
   margin: 0;
   color: #000000;
 `;
@@ -181,6 +210,8 @@ const Suggest = styled.p`
   font-weight: 900;
   border-bottom: 1px solid rgb(217, 218, 220);
   padding-bottom: 20px;
+  font-family: "Roboto","segoe ui",Helvetica,Arial,sans-serif;
+  font-size: 17px;
 `;
 const FormGroup = styled(Form.Group)``;
 const FormLabel = styled(Form.Label)`
@@ -229,11 +260,12 @@ const LoginButton = styled(Button)`
   }
   border: none;
   letter-spacing: 2px;
-  background-color: var(--background-base, #1ed760);
+  background-color: var(--background-base, #a845de);
   border-radius: 500px;
   padding: 14px 32px;
   cursor: pointer;
   transition: 200ms;
+  color: white;
   &:hover {
     transform: scale(1.1);
   }
@@ -275,5 +307,27 @@ const Signup = styled(Link)`
     border: 1px solid black;
   }
 `;
-
+const SignIn= styled.div`
+  display: inline-flex;
+  justify-content: center;
+  box-sizing: border-box;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-subdued, #6a6a6a);
+  font-weight: 700;
+  border-radius: 500px;
+  border: 1px solid #6a6a6a; 
+  width: 100%;
+  padding: 13px;
+  &::after{
+    content: ${()=> <FcGoogle/>};
+  }
+  &:hover {
+    color: black;
+    border: 1px solid black;
+  }
+`;
 export default Login;

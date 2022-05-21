@@ -16,7 +16,12 @@ module.exports = class User {
     const [resultSet] = await database.execute(`SELECT * from User`);
     return resultSet;
   });
-
+  static getUserByEmail = tryCatchBlock(async (email,avatar,username) =>{
+    const [resultSet] = await database.execute(`Call Proc_User_FindOneOrCreate('${email}','${avatar}','${username}')`);
+    return resultSet.length === 0
+      ? null
+      : { userID: resultSet[0][0].userID, avatar: resultSet[0][0].avatar, name: resultSet[0][0].name};
+  })
   static getUserById = tryCatchBlock(async (id) => {
     const [resultSet] = await database.execute(`SELECT * from User where userID = '${id}'`);
     return resultSet;
@@ -40,4 +45,5 @@ module.exports = class User {
       VALUES(uuid(),'${this.email}','${this.password}','${this.name}',CURRENT_TIMESTAMP(),'${this.phoneNumber}',0)`
     );
   });
+
 };

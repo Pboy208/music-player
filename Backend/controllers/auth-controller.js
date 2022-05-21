@@ -1,5 +1,6 @@
 const signUpSchema = require('../schemas/schemas').signUp;
 const signInSchema = require('../schemas/schemas').signIn;
+const googleSignInSchema = require('../schemas/schemas').googleSignIn;
 const getResetPwLinkSchema = require('../schemas/schemas').getResetPwLink;
 const resetPasswordSchema = require('../schemas/schemas').resetPassword;
 const User = require('../models/user');
@@ -37,11 +38,23 @@ module.exports = {
   }),
 
   signIn: tryCatchBlock(signInSchema, async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, type } = req.body;
     const user = new User({ email, password });
-    const userInfo = await user.signIn();
-    console.log(userInfo)
-
+    const  userInfo = await user.signIn();
+    if (!userInfo) return res.status(404).send({ message: 'SIGN_IN_FAIL' });
+    return (
+      res
+        .status(200)
+        // .cookie('token', Authentication.createToken(userInfo), {
+        //   httpOnly: true,
+        //   secure:true,
+        // })
+        .send({ message: 'SIGN_IN_SUCCESS', data: Authentication.createToken(userInfo) })
+    );
+  }),
+  googleSignIn: tryCatchBlock(googleSignInSchema, async (req, res, next) => {
+    const { email, username, avatar } = req.body;
+    const  userInfo = await User.getUserByEmail(email,avatar,username);
     if (!userInfo) return res.status(404).send({ message: 'SIGN_IN_FAIL' });
 
     return (
@@ -54,7 +67,6 @@ module.exports = {
         .send({ message: 'SIGN_IN_SUCCESS', data: Authentication.createToken(userInfo) })
     );
   }),
-
   renewToken: async (req, res, next) => {
     try {
       const token = getTokenFromRequest(req);
