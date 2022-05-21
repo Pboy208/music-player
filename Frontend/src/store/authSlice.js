@@ -5,7 +5,9 @@ import * as authApi from 'api/authAPIs';
 export const login = createAsyncThunk('auth/login', (loginInfo) =>
   authApi.login(loginInfo),
 );
-
+export const googleLogin = createAsyncThunk('auth/google/login', (loginInfo) =>
+  authApi.googleLogin(loginInfo),
+);
 export const register = createAsyncThunk('auth/register', (registerInfo) =>
   authApi.register(registerInfo),
 );
