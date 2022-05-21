@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { MdLogout } from 'react-icons/md';
 
 function Header() {
   const user = useSelector((state) => state.auth.user);
@@ -11,6 +12,9 @@ function Header() {
         <ToggleThemeButton>Theme</ToggleThemeButton>
         <UserDropdown>
           <UserAvatar src={user.avatar} />
+          <Dropdown>
+            <DropdownItem>Logout</DropdownItem>
+          </Dropdown>
         </UserDropdown>
       </ActionsWrapper>
     </Wrapper>
@@ -49,6 +53,13 @@ const UserDropdown = styled.div`
   background-color: #fff;
   border-radius: 50%;
   cursor: pointer;
+  position: relative;
+
+  &:hover {
+    & > ul {
+      display: unset;
+    }
+  }
 `;
 
 const UserAvatar = styled.img`
@@ -56,5 +67,20 @@ const UserAvatar = styled.img`
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+`;
+
+const Dropdown = styled.ul`
+  position: absolute;
+  top: 40px;
+  left: -60px;
+  display: none;
+`;
+
+const DropdownItem = styled.li`
+  text-decoration: none;
+  list-style: none;
+  width: 100px;
+  height: 40px;
+  background-color: white;
 `;
 export default Header;
