@@ -12,7 +12,7 @@ import validationSchema from 'utils/schemas/loginSchema';
 import { login, googleLogin } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
 import { FcGoogle } from 'react-icons/fc';
-import GoogleOneTapLogin from 'react-google-one-tap-login';
+import { GoogleLogin } from "react-google-login"
 
 function Login() {
   const {
@@ -52,10 +52,11 @@ function Login() {
   };
 
   const googleSuccess =  (res) =>{
-    const loginInfo = {}
-    loginInfo.email = res.email;
-    loginInfo.avatar = res.picture;
-    loginInfo.name = res.name;
+    const loginInfo = {
+      email: res.profileObj.email,
+      avatar: res.profileObj.imageUrl,
+      name: res.profileObj.name,
+    }
     console.log(loginInfo)
     handleGoogleLogin(loginInfo);
   }
@@ -66,13 +67,9 @@ function Login() {
 
   return (
     <Wrapper>
-    <GoogleOneTapLogin onError={googleFailure} onSuccess={googleSuccess} googleAccountConfigs={{ client_id: "893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com"}} />
       <Header>
         <Logo to="/home">
-          <Img
-            src="/assets/img/zingmp3.png"
-            alt="logo"
-          />
+          <Img src="/assets/img/zingmp3.png" alt="logo" />
           <Name>Zing MP3</Name>
         </Logo>
       </Header>
@@ -84,10 +81,7 @@ function Login() {
           <Row>
             <Helmet>
               <title>Login to Spotify</title>
-              <meta
-                name="description"
-                content="Login to Spotify"
-              />
+              <meta name="description" content="Login to Spotify" />
             </Helmet>
             <Suggest>To continue, log in to Zing Mp3.</Suggest>
             <FormGroup controlId="loginForm.email">
@@ -120,15 +114,31 @@ function Login() {
             <Direct>
               <LoginButton size="big" variant="primary">
                 <ButtonLabel>
-                  {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'}{' '}
-                  
+                  {isLoading ? (
+                    <Loader aria-label="Loading" size="big" />
+                  ) : (
+                    'Log in'
+                  )}{' '}
                 </ButtonLabel>
               </LoginButton>
             </Direct>
-            
+
             <NewAccount>
               <Ask>Don't have an account?</Ask>
               <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
+              <GoogleLogin
+                clientId="893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com"
+                render={(renderProps) => (
+                  <Signup
+                    to="/login"
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >LOGIN WITH GOOGLE</Signup>
+                )}
+                onSuccess={googleSuccess}
+                onFailure={googleFailure}
+                cookiePolicy="single_host_origin"
+              />
             </NewAccount>
           </Row>
         </LoginForm>
@@ -286,6 +296,9 @@ const ButtonLabel = styled(Button.Label)`
 `;
 const NewAccount = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 const Ask = styled.p`
   font-size: 1.125rem;
