@@ -11,7 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Helmet } from 'react-helmet';
 import * as Toast from 'components/common/Toast';
 import validationSchema from 'utils/schemas/registerSchema';
-// import { register as registerThunk } from 'store/authSlice';
+import { register as registerThunk } from 'store/authSlice';
 
 function Register() {
   const {
@@ -23,26 +23,28 @@ function Register() {
     mode: 'onSubmit',
     resolver: yupResolver(validationSchema),
   });
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
-  //   const { isLoading } = useSelector((state) => state.auth);
-  const isUserNameInvalid = !!errors.userName;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading } = useSelector((state) => state.auth);
+  const isNameInvalid = !!errors.name;
   const isPasswordInvalid = !!errors.password;
   const isConfirmPasswordInvalid = !!errors.confirmPassword;
-  const isPhoneInvalid = !!errors.phone;
+  const isPhoneNumberInvalid = !!errors.phoneNumber;
   const isDobInvalid = !!errors.dob;
   const isEmailInvalid = !!errors.email;
   const [selectedValue, setSelectedValue] = useState([]);
 
-    const handleRegister = (registerInfo) => {
-  //     dispatch(registerThunk(registerInfo))
-  //       .unwrap()
-  //       .then(() => {
-  //         Toast.success('Register success');
-  //         navigate('/home');
-  //       })
-  //       .catch(console.error);
-    };
+  const handleRegister = (registerInfo) => {
+    // eslint-disable-next-line no-param-reassign
+    delete registerInfo.confirmPassword;
+    dispatch(registerThunk(registerInfo))
+      .unwrap()
+      .then(() => {
+        Toast.success('Register success');
+        navigate('/home');
+      })
+      .catch(console.error);
+  };
 
   return (
     <Wrapper>
@@ -57,8 +59,8 @@ function Register() {
       </Header>
       <Body>
         <RegisterForm
-        //   onSubmit={handleSubmit(handleRegister)}
-        //   data-testid="register-page"
+          onSubmit={handleSubmit(handleRegister)}
+          data-testid="register-page"
         >
           <Row>
             <Helmet>
@@ -81,16 +83,16 @@ function Register() {
               </FormFeedback>
             </FormGroup>
 
-            <FormGroup controlId="registerForm.userName">
+            <FormGroup controlId="registerForm.name">
               <FormLabel>What should we call you?</FormLabel>
               <FormInput
                 type="text"
-                isInvalid={isUserNameInvalid}
-                {...register('userName')}
-                onBlur={(e) => setValue('userName', e.target.value.trim())}
+                isInvalid={isNameInvalid}
+                {...register('name')}
+                onBlur={(e) => setValue('name', e.target.value.trim())}
               />
               <FormFeedback type="invalid" role="alert">
-                {errors?.userName?.message}
+                {errors?.name?.message}
               </FormFeedback>
             </FormGroup>
 
@@ -122,30 +124,26 @@ function Register() {
               </FormFeedback>
             </FormGroup>
 
-            <FormGroup controlId="registerForm.phone">
+            <FormGroup controlId="registerForm.phoneNumber">
               <FormLabel>What's your phone number?</FormLabel>
               <FormInput
                 type="tel"
-                isInvalid={isPhoneInvalid}
-                {...register('phone')}
-                onBlur={(e) =>
-                  setValue('phone', e.target.value.trim())
-                }
+                isInvalid={isPhoneNumberInvalid}
+                {...register('phoneNumber')}
+                onBlur={(e) => setValue('phoneNumber', e.target.value.trim())}
               />
               <FormFeedback type="invalid" role="alert">
-                {errors?.phone?.message}
+                {errors?.phoneNumber?.message}
               </FormFeedback>
             </FormGroup>
-
+            {/* 
             <FormGroup controlId="registerForm.dob">
               <FormLabel>What's your date of birth?</FormLabel>
               <FormInput
                 type="date"
                 isInvalid={isDobInvalid}
                 {...register('dob')}
-                onBlur={(e) =>
-                  setValue('dob', e.target.value.trim())
-                }
+                onBlur={(e) => setValue('dob', e.target.value.trim())}
               />
               <FormFeedback type="invalid" role="alert">
                 {errors?.dob?.message}
@@ -172,16 +170,16 @@ function Register() {
               <FormCheckBox
                 label={`Share my registration data with Spotify's content providers for marketing purposes.`}
               />
-            </FormGroup>
+            </FormGroup> */}
 
             <RegisterButton variant="primary">
               <Button.Label>
-                {/* {isLoading ? (
+                {isLoading ? (
                   <Loader aria-label="Loading" size="small" />
                 ) : (
                   'Register'
-                )} */}
-                Register
+                )}
+                
               </Button.Label>
             </RegisterButton>
 
