@@ -31,7 +31,6 @@ function Login() {
   const isEmailInvalid = !!errors.email;
   const isPasswordInvalid = !!errors.password;
   
-  
   const handleLogin = (loginInfo) => {
     dispatch(login(loginInfo))
       .unwrap()
@@ -41,6 +40,7 @@ function Login() {
       })
       .catch(console.error);
   };
+
   const handleGoogleLogin = (loginInfo) => {
     dispatch(googleLogin(loginInfo))
       .unwrap()
@@ -50,14 +50,16 @@ function Login() {
       })
       .catch(console.error);
   };
+
   const googleSuccess =  (res) =>{
     const loginInfo = {}
     loginInfo.email = res.email;
     loginInfo.avatar = res.picture;
-    loginInfo.username = res.name;
+    loginInfo.name = res.name;
     console.log(loginInfo)
     handleGoogleLogin(loginInfo);
   }
+
   const googleFailure = (error) => {
     console.log(error)
   }
