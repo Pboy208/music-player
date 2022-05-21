@@ -281,6 +281,11 @@ const FormInput = styled(Form.Input)`
 `;
 const FormFeedback = styled(Form.Feedback)`
   font-size: var(--font-size);
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  margin: 5px 25%;
+  background-color: red;
 `;
 const FormCheckGroup = styled.div`
   display: flex;

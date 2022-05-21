@@ -84,7 +84,7 @@ function Login() {
               <title>Login to Spotify</title>
               <meta
                 name="description"
-                content="Login to Leo's shopping store"
+                content="Login to Spotify"
               />
             </Helmet>
             <Suggest>To continue, log in to Zing Mp3.</Suggest>
@@ -223,6 +223,11 @@ const FormLabel = styled(Form.Label)`
 `;
 const FormFeedback = styled(Form.Feedback)`
   font-size: var(--font-size);
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  margin: 5px 25%;
+  background-color: red;
 `;
 const FormInput = styled(Form.Input)`
   border: 0px;
@@ -285,6 +290,7 @@ const Ask = styled.p`
   line-height: 1.5rem;
   font-weight: 800;
   text-align: center;
+  margin-bottom: 10px;
 `;
 const Signup = styled(Link)`
   display: inline-flex;

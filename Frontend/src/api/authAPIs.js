@@ -1,4 +1,4 @@
-import { post } from 'utils/request';
+import { createRequest, post } from 'utils/request';
 
 export const login = (loginInfo) => post('/auth/sign-in', { body: loginInfo });
 
