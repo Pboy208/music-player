@@ -13,6 +13,8 @@ import { login, googleLogin } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
 import { FcGoogle } from 'react-icons/fc';
 import GoogleOneTapLogin from 'react-google-one-tap-login';
+import LoginGoogle from './LoginGoogle';
+import LogoutGoogle from './LogoutGoogle';
 
 function Login() {
   const {
@@ -64,74 +66,79 @@ function Login() {
 
   return (
     <Wrapper>
-    <GoogleOneTapLogin onError={googleFailure} onSuccess={googleSuccess} googleAccountConfigs={{ client_id: "893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com"}} />
-      <Header>
-        <Logo to="/home">
-          <Img
-            src="/assets/img/zingmp3.png"
-            alt="logo"
-          />
-          <Name>Zing MP3</Name>
-        </Logo>
-      </Header>
-      <Body>
-        <LoginForm
-          onSubmit={handleSubmit(handleLogin)}
-          data-testid="login-page"
-        >
-          <Row>
-            <Helmet>
-              <title>Login to Spotify</title>
-              <meta
-                name="description"
-                content="Login to Spotify"
-              />
-            </Helmet>
-            <Suggest>To continue, log in to Zing Mp3.</Suggest>
-            <FormGroup controlId="loginForm.email">
-              <FormLabel sizeLabel="small">Email address</FormLabel>
-              <FormInput
-                type="text"
-                isInvalid={isEmailInvalid}
-                {...register('email')}
-                onBlur={(e) => setValue('email', e.target.value.trim())}
-                placeholder="Email address"
-              />
-              <FormFeedback type="invalid" role="alert">
-                {errors?.email?.message}
-              </FormFeedback>
-            </FormGroup>
-            <FormGroup controlId="loginForm.password">
-              <FormLabel sizeLabel="small">Password</FormLabel>
-              <FormInput
-                type="password"
-                isInvalid={isPasswordInvalid}
-                {...register('password')}
-                onBlur={(e) => setValue('password', e.target.value.trim())}
-                placeholder="Password"
-              />
-              <FormFeedback type="invalid" role="alert">
-                {errors?.password?.message}
-              </FormFeedback>
-            </FormGroup>
-            <Forgot to="/forgot">Forgot your password?</Forgot>
-            <Direct>
-              <LoginButton size="big" variant="primary">
-                <ButtonLabel>
-                  {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'}{' '}
-                  
-                </ButtonLabel>
-              </LoginButton>
-            </Direct>
-            
-            <NewAccount>
-              <Ask>Don't have an account?</Ask>
-              <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
-            </NewAccount>
-          </Row>
-        </LoginForm>
-      </Body>
-    </Wrapper>
+    <GoogleOneTapLogin 
+      onError={googleFailure} 
+      onSuccess={googleSuccess}
+      googleAccountConfigs={{ client_id: "893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com"}} 
+    />
+    <Header>
+      <Logo to="/home">
+        <Img
+          src="/assets/img/zingmp3.png"
+          alt="logo"
+        />
+        <Name>Zing MP3</Name>
+      </Logo>
+    </Header>
+    <Body>
+      <LoginForm
+        onSubmit={handleSubmit(handleLogin)}
+        data-testid="login-page"
+      >
+        <Row>
+          <Helmet>
+            <title>Login to Spotify</title>
+            <meta
+              name="description"
+              content="Login to Spotify"
+            />
+          </Helmet>
+          <Suggest>To continue, log in to Zing Mp3.</Suggest>
+          <FormGroup controlId="loginForm.email">
+            <FormLabel sizeLabel="small">Email address</FormLabel>
+            <FormInput
+              type="text"
+              isInvalid={isEmailInvalid}
+              {...register('email')}
+              onBlur={(e) => setValue('email', e.target.value.trim())}
+              placeholder="Email address"
+            />
+            <FormFeedback type="invalid" role="alert">
+              {errors?.email?.message}
+            </FormFeedback>
+          </FormGroup>
+          <FormGroup controlId="loginForm.password">
+            <FormLabel sizeLabel="small">Password</FormLabel>
+            <FormInput
+              type="password"
+              isInvalid={isPasswordInvalid}
+              {...register('password')}
+              onBlur={(e) => setValue('password', e.target.value.trim())}
+              placeholder="Password"
+            />
+            <FormFeedback type="invalid" role="alert">
+              {errors?.password?.message}
+            </FormFeedback>
+          </FormGroup>
+          <Forgot to="/forgot">Forgot your password?</Forgot>
+          <Direct>
+            <LoginButton size="big" variant="primary">
+              <ButtonLabel>
+                {isLoading ? <Loader aria-label="Loading" size="big" /> : 'Log in'}{' '}
+                
+              </ButtonLabel>
+            </LoginButton>
+          </Direct>
+          <LoginGoogle/>
+          <LogoutGoogle/>
+          <NewAccount>
+            <Ask>Don't have an account?</Ask>
+            <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
+          </NewAccount>
+        </Row>
+      </LoginForm>
+    </Body>
+  </Wrapper>
   );
 }
 

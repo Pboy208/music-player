@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { GoogleLogin } from 'react-google-login';
 import { refreshTokenSetup } from '../../utils/refreshToken';
 
-const clientId = '668669778738-m6iolmcpcj84d2ulsgnnjifkbo7qpesl.apps.googleusercontent.com';
+const clientId = '893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com';
 
 function LoginGoogle() {
     const onSuccess = (res) => {
@@ -16,17 +16,13 @@ function LoginGoogle() {
         <Wrapper>
             <GoogleLogin 
                 clientId={clientId}
-                // render={renderProps => (
-                //     // eslint-disable-next-line react/button-has-type
-                //     <button onClick={renderProps.onCLick} disabled={renderProps.disabled}>
-                //         This is google acc
-                //     </button>
-                // )}
-                buttonText="Login"
+                buttonText="Login with Google"
                 onSuccess={onSuccess}
                 onFailure={onFailure}
-                cookiePolicy="single_host_origin"
-                isSignedIn
+                // eslint-disable-next-line react/jsx-curly-brace-presence
+                cookiePolicy={'single_host_origin'}
+                // eslint-disable-next-line react/jsx-boolean-value
+                isSignedIn={true}
             />
         </Wrapper>
     );
