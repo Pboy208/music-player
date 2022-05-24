@@ -130,7 +130,7 @@ function Login() {
             </LoginButton>
           </Direct>
           <LoginGoogle/>
-          <LogoutGoogle/>
+          {/* <LogoutGoogle/> */}
           <NewAccount>
             <Ask>Don't have an account?</Ask>
             <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
