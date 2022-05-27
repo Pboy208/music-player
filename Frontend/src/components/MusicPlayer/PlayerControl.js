@@ -12,6 +12,7 @@ import {
   FaUndoAlt,
 } from 'react-icons/fa';
 import { timeFormatter } from 'utils/formatter';
+import { Slider as ProgressBar } from '@ahaui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -84,13 +85,13 @@ function PlayerControl({
     return () => clearInterval(interval);
   }, [isPlayback, moveNext, playerRef]);
 
-  const handleProgressChange = (e) => {
+  const handleProgressChange = (value) => {
+    console.log(value);
     setState({
       type: 'SET_PROGRESS',
-      progress: e.target.value,
+      progress: value,
     });
-    playerRef.current.currentTime =
-      (e.target.value / 100) * playerRef.current.duration;
+    playerRef.current.currentTime = (value / 100) * playerRef.current.duration;
   };
 
   return (
@@ -116,12 +117,11 @@ function PlayerControl({
       <ProgressBarWrapper>
         <Time>{timeFormatter(currentTime)}</Time>
         <ProgressBar
-          type="range"
+          min={0}
+          max={100}
           value={progress}
-          step="1"
-          min="0"
-          max="100"
           onChange={handleProgressChange}
+          variant="primary"
         />
         <Time>{timeFormatter(song.timePlays / 1000)}</Time>
       </ProgressBarWrapper>
@@ -169,25 +169,25 @@ const ProgressBarWrapper = styled.div`
   gap: 10px;
 `;
 
-const ProgressBar = styled.input`
-  width: 80%;
-  height: 6px;
-  -webkit-appearance: none;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  cursor: pointer;
+// const ProgressBar = styled.input`
+//   width: 80%;
+//   height: 6px;
+//   -webkit-appearance: none;
+//   -webkit-transition: 0.2s;
+//   transition: opacity 0.2s;
+//   background: #d3d3d3;
+//   outline: none;
+//   opacity: 0.7;
+//   cursor: pointer;
 
-  &::-webkit-slider-thumb {
-    width: 12px;
-    height: 6px;
-    -webkit-appearance: none;
-    background-color: grey;
-    appearance: none;
-    cursor: pointer;
-  }
-`;
+//   &::-webkit-slider-thumb {
+//     width: 12px;
+//     height: 6px;
+//     -webkit-appearance: none;
+//     background-color: grey;
+//     appearance: none;
+//     cursor: pointer;
+//   }
+// `;
 
 export default PlayerControl;
