@@ -1,9 +1,15 @@
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdLogout } from 'react-icons/md';
+import {logout} from "store/authSlice";
 
 function Header() {
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  }
 
   return (
     <Wrapper>
@@ -13,7 +19,7 @@ function Header() {
         <UserDropdown>
           <UserAvatar src={user.avatar} />
           <Dropdown>
-            <DropdownItem>Logout</DropdownItem>
+            <DropdownItem onClick={logoutHandler}>Logout</DropdownItem>
           </Dropdown>
         </UserDropdown>
       </ActionsWrapper>

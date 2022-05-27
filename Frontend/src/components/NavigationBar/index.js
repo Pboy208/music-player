@@ -1,21 +1,33 @@
 import styled from 'styled-components';
 import { NavLink as Link } from 'react-router-dom';
-import { BsFillFileEarmarkPersonFill } from 'react-icons/bs';
-import { Icon, Button, Loader } from '@ahaui/react';
+import {
+  BsFillFileEarmarkPersonFill,
+  BsFillFileEarmarkMusicFill,
+  BsBarChartLineFill,
+  BsNewspaper,
+} from 'react-icons/bs';
 
 function NavigationBar() {
   return (
     <Wrapper>
       <Logo> Music Player</Logo>
       <Navigators>
-        <NavLink to="/personal">
+        <NavLink to="/personal" className="u-flex u-alignItemsCenter u-text500">
           <BsFillFileEarmarkPersonFill />
-          <Icon name="flash" className='u-textP'/>
           Personal
         </NavLink>
-        <NavLink to="/explore">Explore</NavLink>
-        <NavLink to="/chart">Chart</NavLink>
-        <NavLink to="/release">Recently released</NavLink>
+        <NavLink to="/explore" className="u-flex u-alignItemsCenter u-text500">
+          <BsFillFileEarmarkMusicFill />
+          Explore
+        </NavLink>
+        <NavLink to="/chart" className="u-flex u-alignItemsCenter u-text500">
+          <BsBarChartLineFill />
+          Chart
+        </NavLink>
+        <NavLink to="/release" className="u-flex u-alignItemsCenter u-text500">
+          <BsNewspaper />
+          New release
+        </NavLink>
       </Navigators>
       <Playlists />
       <AddPlayListButton>Add new playlist</AddPlayListButton>
@@ -68,6 +80,12 @@ const NavLink = styled(Link)`
   padding: 14px 20px;
   text-decoration: none;
   color: var(--text-color);
+  gap: 12px;
+
+  &:hover {
+    text-decoration: none;
+    background-color: gray;
+  }
 `;
 
 export default NavigationBar;

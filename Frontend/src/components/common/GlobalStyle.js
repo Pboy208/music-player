@@ -27,6 +27,14 @@ const GlobalStyle = createGlobalStyle`
     --text-color: ${({ theme }) => themes[theme].text};
   }
 
+  a{
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   body {
     background: ${({ theme }) => themes[theme].body};
     color: ${({ theme }) => themes[theme].text};
