@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import authMessage from 'constants/authMessages';
 
 const validationSchema = Yup.object().shape({
-  userName: Yup.string()
+  name: Yup.string()
     .required(authMessage.USER_NAME_REQUIRED)
     .min(5, authMessage.USER_NAME_LENGTH_SHORT)
     .max(20, authMessage.USER_NAME_LENGTH_EXCEED),
