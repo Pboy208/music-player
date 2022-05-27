@@ -22,11 +22,13 @@ function Header() {
       <SearchBar placeholder="Search..." sizeControl="small" />
       <ActionsWrapper>
         <ThemeToggler onClick={toggleTheme}>
-          <MdColorLens style={{ fontSize: 40 }} />
+          <MdColorLens
+            style={{ fontSize: 50, position: 'relative', top: -5, left: -5 }}
+          />
         </ThemeToggler>
         <Dropdown>
           <CustomizedDropdown
-            icon={<UserAvatar src={user.avatar} />}
+            icon={<UserAvatar size="medium" src={user.avatar} />}
             childrenList={[{ ui: 'Logout', handler: logoutHandler }]}
           />
         </Dropdown>
