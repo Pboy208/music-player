@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdLogout } from 'react-icons/md';
-import {logout} from "store/authSlice";
+import { MdLogout, MdColorLens } from 'react-icons/md';
+import { logout } from 'store/authSlice';
+import CustomizedDropdown from 'components/common/CustomizedDropdown';
 
 function Header() {
   const user = useSelector((state) => state.auth.user);
@@ -9,19 +10,25 @@ function Header() {
 
   const logoutHandler = () => {
     dispatch(logout());
-  }
+  };
+
+  const toggleTheme = () => {
+    console.log('theme toggled');
+  };
 
   return (
     <Wrapper>
       <SearchBar>SearchBar</SearchBar>
       <ActionsWrapper>
-        <ToggleThemeButton>Theme</ToggleThemeButton>
-        <UserDropdown>
-          <UserAvatar src={user.avatar} />
-          <Dropdown>
-            <DropdownItem onClick={logoutHandler}>Logout</DropdownItem>
-          </Dropdown>
-        </UserDropdown>
+        <ThemeToggler onClick={toggleTheme}>
+          <MdColorLens style={{ fontSize: 40 }} />
+        </ThemeToggler>
+        <Dropdown>
+          <CustomizedDropdown
+            icon={<UserAvatar src={user.avatar} />}
+            childrenList={[{ ui: 'Logout', handler: logoutHandler }]}
+          />
+        </Dropdown>
       </ActionsWrapper>
     </Wrapper>
   );
@@ -47,25 +54,22 @@ const ActionsWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const ToggleThemeButton = styled.div`
-  width: 40px;
-  color: black;
-  background-color: #fff;
-`;
-
-const UserDropdown = styled.div`
+const Dropdown = styled.div`
   width: 40px;
   color: black;
   background-color: #fff;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
+`;
 
-  &:hover {
-    & > ul {
-      display: unset;
-    }
-  }
+const ThemeToggler = styled.div`
+  width: 40px;
+  color: black;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
 `;
 
 const UserAvatar = styled.img`
@@ -75,18 +79,4 @@ const UserAvatar = styled.img`
   object-fit: cover;
 `;
 
-const Dropdown = styled.ul`
-  position: absolute;
-  top: 40px;
-  left: -60px;
-  display: none;
-`;
-
-const DropdownItem = styled.li`
-  text-decoration: none;
-  list-style: none;
-  width: 100px;
-  height: 40px;
-  background-color: white;
-`;
 export default Header;
