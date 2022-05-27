@@ -22,8 +22,8 @@ function Header() {
 }
 
 const Wrapper = styled.div`
-  flex: 1 999999 40px;
-  min-height: 40px;
+  flex: 1 999999 60px;
+  min-height: 60px;
   border-bottom: 1px solid white;
   display: flex;
   justify-content: space-between;

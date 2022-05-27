@@ -1,12 +1,18 @@
 import styled from 'styled-components';
 import { NavLink as Link } from 'react-router-dom';
+import { BsFillFileEarmarkPersonFill } from 'react-icons/bs';
+import { Icon, Button, Loader } from '@ahaui/react';
 
 function NavigationBar() {
   return (
     <Wrapper>
       <Logo> Music Player</Logo>
       <Navigators>
-        <NavLink to="/personal">Personal</NavLink>
+        <NavLink to="/personal">
+          <BsFillFileEarmarkPersonFill />
+          <Icon name="flash" className='u-textP'/>
+          Personal
+        </NavLink>
         <NavLink to="/explore">Explore</NavLink>
         <NavLink to="/chart">Chart</NavLink>
         <NavLink to="/release">Recently released</NavLink>
@@ -27,7 +33,7 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.div`
-  flex: 1 999999 40px;
+  flex: 1 999999 60px;
   padding: var(--small-space);
   font-size: 28px;
   display: flex;

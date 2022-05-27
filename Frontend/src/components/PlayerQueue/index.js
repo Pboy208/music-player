@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-  flex: 1 999999 40px;
+  flex: 1 999999 60px;
   padding: var(--small-space);
   border-bottom: 1px solid white;
   display: flex;

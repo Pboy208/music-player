@@ -57,8 +57,8 @@ function MusicPlayer() {
 }
 
 const Wrapper = styled.div`
-  height: max(8vh, 60px);
-  width: 98%;
+  height: max(10vh, 60px);
+  width: 100%;
   padding: 0 1%;
   background-color: black;
   border-top: 1px solid white;

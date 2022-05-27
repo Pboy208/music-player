@@ -1,3 +1,4 @@
+import '@ahaui/css/dist/index.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
