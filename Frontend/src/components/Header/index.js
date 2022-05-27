@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdLogout, MdColorLens } from 'react-icons/md';
 import { logout } from 'store/authSlice';
 import CustomizedDropdown from 'components/common/CustomizedDropdown';
+import { SearchBox } from '@ahaui/react';
 
 function Header() {
   const user = useSelector((state) => state.auth.user);
@@ -18,7 +19,7 @@ function Header() {
 
   return (
     <Wrapper>
-      <SearchBar>SearchBar</SearchBar>
+      <SearchBar placeholder="Search..." sizeControl="small" />
       <ActionsWrapper>
         <ThemeToggler onClick={toggleTheme}>
           <MdColorLens style={{ fontSize: 40 }} />
@@ -43,9 +44,8 @@ const Wrapper = styled.div`
   padding: var(--small-space) var(--big-space);
 `;
 
-const SearchBar = styled.div`
+const SearchBar = styled(SearchBox)`
   width: 40%;
-  border: 1px solid white;
 `;
 
 const ActionsWrapper = styled.div`
