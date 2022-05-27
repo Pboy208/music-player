@@ -1,9 +1,41 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdLogout, MdColorLens } from 'react-icons/md';
+import {
+  MdBrightnessMedium,
+  MdOutlineLogout,
+  MdSettings,
+} from 'react-icons/md';
+import { RiVipCrownFill } from 'react-icons/ri';
 import { logout } from 'store/authSlice';
 import CustomizedDropdown from 'components/common/CustomizedDropdown';
 import { SearchBox } from '@ahaui/react';
+
+function LogoutUI() {
+  return (
+    <>
+      <MdOutlineLogout style={{ fontSize: 24 }} />
+      Logout
+    </>
+  );
+}
+
+function PurchaseVIPUI() {
+  return (
+    <>
+      <RiVipCrownFill style={{ fontSize: 24 }} />
+      Purchase VIP
+    </>
+  );
+}
+
+function SettingUI() {
+  return (
+    <>
+      <MdSettings style={{ fontSize: 24 }} />
+      Setting
+    </>
+  );
+}
 
 function Header() {
   const user = useSelector((state) => state.auth.user);
@@ -17,19 +49,29 @@ function Header() {
     console.log('theme toggled');
   };
 
+  const purchaseVIPHandler = () => {
+    console.log('purchase vip clicked');
+  };
+
+  const settingHandler = () => {
+    console.log('setting clicked');
+  };
+
   return (
     <Wrapper>
       <SearchBar placeholder="Search..." sizeControl="small" />
       <ActionsWrapper>
         <ThemeToggler onClick={toggleTheme}>
-          <MdColorLens
-            style={{ fontSize: 50, position: 'relative', top: -5, left: -5 }}
-          />
+          <MdBrightnessMedium style={{ fontSize: 40, position: 'relative' }} />
         </ThemeToggler>
         <Dropdown>
           <CustomizedDropdown
             icon={<UserAvatar size="medium" src={user.avatar} />}
-            childrenList={[{ ui: 'Logout', handler: logoutHandler }]}
+            childrenList={[
+              { ui: SettingUI(), handler: settingHandler },
+              { ui: PurchaseVIPUI(), handler: purchaseVIPHandler },
+              { ui: LogoutUI(), handler: logoutHandler },
+            ]}
           />
         </Dropdown>
       </ActionsWrapper>

@@ -10,7 +10,7 @@ function CustomizedDropdown({ icon, childrenList = [] }) {
       <Dropdown.Container className="u-paddingVerticalExtraSmall">
         {childrenList.map((child, index) => (
           // eslint-disable-next-line react/no-array-index-key
-          <Dropdown.Item key={index} onClick={child.handler}>
+          <Dropdown.Item key={index} onClick={child.handler} className="u-flex" style={{gap:8, paddingLeft:24, paddingBottom:8}}>
             {child.ui}
           </Dropdown.Item>
         ))}
