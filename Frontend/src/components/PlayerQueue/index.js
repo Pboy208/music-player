@@ -12,15 +12,16 @@ function PlayerQueue() {
 const Wrapper = styled.div`
   flex: 1 999999 230px;
   max-width: 230px;
-  border-left: 1px solid white;
+  border-left: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
+  background-color: var(--background-color);
 `;
 
 const Header = styled.div`
-  flex: 1 999999 40px;
+  flex: 1 999999 60px;
   padding: var(--small-space);
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
 `;

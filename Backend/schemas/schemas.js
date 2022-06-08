@@ -32,9 +32,9 @@ module.exports = {
     {
       email: { type: 'string', format: 'email' },
       avatar: { type: 'string',},
-      username: {type: 'string', }
+      name: {type: 'string', }
     },
-    ['avatar', 'email','username'],
+    ['avatar', 'email','name'],
   ),
   signUp: generateSchema(
     {

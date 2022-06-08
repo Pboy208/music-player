@@ -5,9 +5,11 @@ import * as authApi from 'api/authAPIs';
 export const login = createAsyncThunk('auth/login', (loginInfo) =>
   authApi.login(loginInfo),
 );
-export const googleLogin = createAsyncThunk('auth/google/login', (loginInfo) =>
+
+export const googleLogin = createAsyncThunk('auth/googleLogin', (loginInfo) =>
   authApi.googleLogin(loginInfo),
 );
+
 export const register = createAsyncThunk('auth/register', (registerInfo) =>
   authApi.register(registerInfo),
 );
@@ -63,6 +65,11 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
+      localStorage.setItem('token', action.payload.data);
+      state.isLoggedIn = true;
+      state.user = getUserFromToken(action.payload.data);
+    },
+    [googleLogin.fulfilled]: (state, action) => {
       localStorage.setItem('token', action.payload.data);
       state.isLoggedIn = true;
       state.user = getUserFromToken(action.payload.data);
