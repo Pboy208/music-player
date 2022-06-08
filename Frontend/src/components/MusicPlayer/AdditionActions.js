@@ -21,6 +21,16 @@ function AdditionActions({ volume, prevVolume, setVolume }) {
             height: 16,
             width: 120,
             margin: 0,
+            cursor: 'pointer',
+          }}
+          handleStyle={{
+            display: 'none',
+          }}
+          trackStyle={{
+            height: 6,
+          }}
+          railStyle={{
+            height: 6,
           }}
         />
       </Volume>
@@ -32,7 +42,8 @@ const Wrapper = styled.div`
   flex: 10 1;
   border-left: 1px solid white;
   display: flex;
-  justify-content: center;
+  padding-right: 2px;
+  justify-content: flex-end;
   align-items: center;
 `;
 
@@ -41,7 +52,7 @@ const Volume = styled.div`
   width: 120px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 `;
 
 const VolumeButton = styled.div`
@@ -52,24 +63,5 @@ const VolumeButton = styled.div`
     font-size: 24px;
   }
 `;
-
-// const VolumeSlider = styled.input`
-//   -webkit-appearance: none;
-//   -webkit-transition: 0.2s;
-//   transition: opacity 0.2s;
-//   background: #d3d3d3;
-//   outline: none;
-//   opacity: 0.7;
-//   cursor: pointer;
-
-//   &::-webkit-slider-thumb {
-//     width: 12px;
-//     height: 6px;
-//     -webkit-appearance: none;
-//     background-color: grey;
-//     appearance: none;
-//     cursor: pointer;
-//   }
-// `;
 
 export default AdditionActions;

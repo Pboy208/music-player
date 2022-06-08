@@ -8,7 +8,7 @@ import {
 import { RiVipCrownFill } from 'react-icons/ri';
 import { logout } from 'store/authSlice';
 import CustomizedDropdown from 'components/common/CustomizedDropdown';
-import { SearchBox } from '@ahaui/react';
+import { SearchBox, Button, Icon } from '@ahaui/react';
 
 function LogoutUI() {
   return (
@@ -37,7 +37,7 @@ function SettingUI() {
   );
 }
 
-function Header() {
+function Header({ setIsMenuOpen, isMenuOpen }) {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -59,10 +59,27 @@ function Header() {
 
   return (
     <Wrapper>
-      <SearchBar placeholder="Search..." sizeControl="small" />
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          gap: 30,
+        }}
+      >
+        <MenuButton onClick={() => setIsMenuOpen((prev) => !prev)}>
+          <Icon
+            size="small"
+            name="menu"
+            style={{
+              color: isMenuOpen ? 'var(--color-primary)' : 'var(--text-color)',
+            }}
+          />
+        </MenuButton>
+        <SearchBar placeholder="Search..." sizeControl="small" />
+      </div>
       <ActionsWrapper>
         <ThemeToggler onClick={toggleTheme}>
-          <MdBrightnessMedium style={{ fontSize: 40, position: 'relative' }} />
+          <MdBrightnessMedium style={{ fontSize: 36, position: 'relative' }} />
         </ThemeToggler>
         <Dropdown>
           <CustomizedDropdown
@@ -81,15 +98,23 @@ function Header() {
 
 const Wrapper = styled.div`
   flex: 1 999999 60px;
+  max-height: 60px;
   min-height: 60px;
-  border-bottom: 1px solid white;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color);
   padding: var(--small-space) var(--big-space);
 `;
 
 const SearchBar = styled(SearchBox)`
   width: 40%;
+`;
+
+const MenuButton = styled.div`
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
 `;
 
 const ActionsWrapper = styled.div`
@@ -99,7 +124,7 @@ const ActionsWrapper = styled.div`
 `;
 
 const Dropdown = styled.div`
-  width: 40px;
+  width: 36px;
   color: black;
   background-color: #fff;
   border-radius: 50%;
@@ -108,7 +133,7 @@ const Dropdown = styled.div`
 `;
 
 const ThemeToggler = styled.div`
-  width: 40px;
+  width: 36px;
   color: black;
   background-color: #fff;
   border-radius: 50%;
@@ -117,8 +142,8 @@ const ThemeToggler = styled.div`
 `;
 
 const UserAvatar = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
 `;

@@ -30,7 +30,7 @@ function MusicPlayer() {
     getNextSong,
     getPrevSong,
   } = useGetSong();
-  console.log('isPlayback', isPlayback);
+
   const setVolume = (newVolume) =>
     setState({ type: 'SET_VOLUME', volume: newVolume });
 
@@ -60,8 +60,8 @@ const Wrapper = styled.div`
   height: max(10vh, 60px);
   width: 100%;
   padding: 0 1%;
-  background-color: black;
-  border-top: 1px solid white;
+  background-color: var(--background-color);
+  border-top: 1px solid var(--border-color);
   display: flex;
   gap: 20px;
 `;

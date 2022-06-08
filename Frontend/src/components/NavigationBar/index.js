@@ -4,28 +4,56 @@ import {
   BsFillFileEarmarkPersonFill,
   BsFillFileEarmarkMusicFill,
   BsBarChartLineFill,
-  BsNewspaper,
+  BsBookmarkHeartFill,
 } from 'react-icons/bs';
+import { IoIosPaper } from 'react-icons/io';
+import { SiMusicbrainz } from 'react-icons/si';
 
 function NavigationBar() {
   return (
     <Wrapper>
-      <Logo> Music Player</Logo>
+      <Logo className="u-selectNone u-cursorPointer u-textPrimary">
+        <SiMusicbrainz
+          style={{
+            marginRight: 8,
+          }}
+        />
+        mp3
+      </Logo>
       <Navigators>
-        <NavLink to="/personal" className="u-flex u-alignItemsCenter u-text500">
+        <NavLink
+          to="/personal"
+          className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
+        >
           <BsFillFileEarmarkPersonFill />
           Personal
         </NavLink>
-        <NavLink to="/explore" className="u-flex u-alignItemsCenter u-text500">
+        <NavLink
+          to="/favorite"
+          className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
+        >
+          <BsBookmarkHeartFill />
+          Favorite
+        </NavLink>
+        <NavLink
+          to="/explore"
+          className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
+        >
           <BsFillFileEarmarkMusicFill />
           Explore
         </NavLink>
-        <NavLink to="/chart" className="u-flex u-alignItemsCenter u-text500">
+        <NavLink
+          to="/chart"
+          className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
+        >
           <BsBarChartLineFill />
           Chart
         </NavLink>
-        <NavLink to="/release" className="u-flex u-alignItemsCenter u-text500">
-          <BsNewspaper />
+        <NavLink
+          to="/release"
+          className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
+        >
+          <IoIosPaper />
           New release
         </NavLink>
       </Navigators>
@@ -36,9 +64,10 @@ function NavigationBar() {
 }
 
 const Wrapper = styled.div`
-  flex: 1 999999 230px;
-  max-width: 230px;
-  border-right: 1px solid white;
+  flex: 1 999999 200px;
+  min-width: 200px;
+  max-width: 200px;
+  border-right: 1px solid #dfe1e6;
   display: flex;
   flex-direction: column;
   background-color: var(--background-color);
@@ -49,13 +78,13 @@ const Logo = styled.div`
   padding: var(--small-space);
   font-size: 28px;
   display: flex;
-  justify-content: center;
+  padding-left: 18px;
+  /* justify-content: center; */
   align-items: center;
 `;
 
 const Navigators = styled.div`
   flex: 1 999999 480px;
-  border: 1px solid white;
   padding-bottom: var(--small-space);
   display: flex;
   flex-direction: column;
@@ -77,14 +106,14 @@ const AddPlayListButton = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  padding: 14px 20px;
+  padding: 14px 24px;
   text-decoration: none;
   color: var(--text-color);
   gap: 12px;
 
   &:hover {
     text-decoration: none;
-    background-color: gray;
+    background-color: var(--background-color-hover);
   }
 `;
 

@@ -17,13 +17,17 @@ const song = {
 
 function SongItem() {
   return (
-    <Wrapper>
-      <Info flex="10">
+    <tr
+      style={{
+        height: 60,
+      }}
+    >
+      <td>
         <SongInfo song={song} size="medium" />
-      </Info>
-      <Info flex="10">{song.name}</Info>
-      <Info flex="2">{timeFormatter(song.timePlays / 1000)}</Info>
-    </Wrapper>
+      </td>
+      <td>{song.name}</td>
+      <td>{timeFormatter(song.timePlays / 1000)}</td>
+    </tr>
   );
 }
 
