@@ -93,6 +93,7 @@ const PlayerControl = React.memo(
       setState({
         type: 'SET_PROGRESS',
         progress: value,
+        currentTime: (value / 100) * playerRef.current.duration,
       });
       playerRef.current.currentTime =
         (value / 100) * playerRef.current.duration;

@@ -62,6 +62,7 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
       <div
         style={{
           display: 'flex',
+          alignItems: 'center',
           width: '100%',
           gap: 30,
         }}
@@ -109,6 +110,7 @@ const Wrapper = styled.div`
 
 const SearchBar = styled(SearchBox)`
   width: 40%;
+  margin: 0;
 `;
 
 const MenuButton = styled.div`
@@ -119,12 +121,15 @@ const MenuButton = styled.div`
 
 const ActionsWrapper = styled.div`
   width: 100px;
+  height: 32px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 16px;
 `;
 
 const Dropdown = styled.div`
-  width: 36px;
+  width: 32px;
+  height: 32px;
   color: black;
   background-color: #fff;
   border-radius: 50%;
@@ -133,7 +138,8 @@ const Dropdown = styled.div`
 `;
 
 const ThemeToggler = styled.div`
-  width: 36px;
+  width: 32px;
+  height: 32px;
   color: black;
   background-color: #fff;
   border-radius: 50%;
@@ -142,8 +148,8 @@ const ThemeToggler = styled.div`
 `;
 
 const UserAvatar = styled.img`
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
 `;
