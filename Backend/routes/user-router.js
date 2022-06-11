@@ -5,6 +5,8 @@ const checkAuth = require("../middleware/check-auth");
 
 router.get("/users", userController.getUsers);
 router.get("/:userId", userController.getUserById);
+router.get("/profile/:userId",userController.getProfile);
+router.post("/profile",userController.updateProfile);
 //router.use(checkAuth);
 // router.get("/:name", userController.searchByName);
 
