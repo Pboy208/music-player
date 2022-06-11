@@ -19,6 +19,15 @@ function LogoutUI() {
   );
 }
 
+function ToggleThemeUI() {
+  return (
+    <>
+      <MdBrightnessMedium style={{ fontSize: 24 }} />
+      Change theme
+    </>
+  );
+}
+
 function PurchaseVIPUI() {
   return (
     <>
@@ -45,7 +54,7 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
     dispatch(logout());
   };
 
-  const toggleTheme = () => {
+  const toggleThemeHandler = () => {
     console.log('theme toggled');
   };
 
@@ -79,14 +88,12 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
         <SearchBar placeholder="Search..." sizeControl="small" />
       </div>
       <ActionsWrapper>
-        <ThemeToggler onClick={toggleTheme}>
-          <MdBrightnessMedium style={{ fontSize: 36, position: 'relative' }} />
-        </ThemeToggler>
         <Dropdown>
           <CustomizedDropdown
             icon={<UserAvatar size="medium" src={user.avatar} />}
             childrenList={[
               { ui: SettingUI(), handler: settingHandler },
+              { ui: ToggleThemeUI(), handler: toggleThemeHandler },
               { ui: PurchaseVIPUI(), handler: purchaseVIPHandler },
               { ui: LogoutUI(), handler: logoutHandler },
             ]}
