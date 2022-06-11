@@ -13,6 +13,16 @@ module.exports = {
   getUserById: async (req, res, next) => {
     const user = await User.getUserById(req.params.userId);
     return res.status(200).send({ message: "GET_USER_ID_SUCCESS", user})
+  },
+  getProfile: async (req, res, next) => {
+    const params = req.params;
+    const user = await User.getProfile(params.userId);
+    return res.status(200).send({ message: "GET_PROFILE_USER_ID_SUCCESS", data: user[0][0]})
+  },
+  updateProfile: async (req, res, next) => {
+    const body = req.body;
+    const user = await User.updateProfile(body.userId,body.avatar,body.name,body.phoneNumber);
+    return res.status(200).send({ message: "UPDATE_PROFILE_SUCCESS"})
   }
 
 };

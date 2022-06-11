@@ -20,4 +20,20 @@ module.exports = class Song{
         const [resultSet] = await database.execute(`CALL Proc_Get_Top100Song(${type})`);
         return resultSet;
     });
+    static addNewSong = tryCatchBlock(async (songUrl,imageUrl,lyric,title,author,createdAt)=>{
+        const [resultSet] = await database.execute(`CALL Proc_SaveSong('${songUrl}','${imageUrl}','${lyric}','${title}','${author}','${createdAt}')`);
+        return resultSet;
+    })
+    static deleteSong = tryCatchBlock(async (songId)=>{
+        const [resultSet] = await database.execute(`CALL Proc_DeleteSong('${songId}')`);
+        return resultSet;
+    })
+    static getFavoriteSong = tryCatchBlock(async (userId)=>{
+        const [resultSet] = await database.execute(`CALL Proc_GetFavoriteSong('${userId}')`);
+        return resultSet;
+    })
+    static addFavoriteSong = tryCatchBlock(async (userId,songId)=>{
+        const [resultSet] = await database.execute(`CALL Proc_SaveFavoriteSong('${userId}','${songId}')`);
+        return resultSet;
+    })
 }

@@ -51,5 +51,37 @@ module.exports = {
       return res
         .status(200)
         .send({ message: "GET_TOP_100_SUCCESS", data: songList[0] });
-  }),
+    }),
+    addNewSong: tryCatchBlock(null, async (req, res, next) => {
+      const body = req.body;
+      const song = await Song.addNewSong(body.songUrl,body.imageUrl,body.lyric,body.title,body.author,body.createdAt);
+      return res.status(200).send({message: "ADD_NEW_SONG_SUCCESS",data:{
+        songId: song[0][0].songId
+      }})
+    }),
+    deleteSong: tryCatchBlock(null, async (req, res, next) => {
+      const params = req.params;
+      const song = await Song.deleteSong(params.songId);
+      return res.status(200).send({message: "DELETE_SONG_SUCCESS",data:{
+        songName: song[0][0].songName
+      }})
+    }),
+    getFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
+      const params = req.params;
+      const result = await Song.getFavoriteSong(params.userId);
+      return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data:{
+        songList: result[0]
+      }})
+    }),
+    addFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
+      const body = req.body;
+      const result = await Song.addFavoriteSong(body.userId,body.songId);
+      let status = 200;
+      let message = "SAVE_FAVORITE_SONG_SUCCESS"
+      if(result[0][0].result === 0){
+        status= 404;
+        message = "SAVE_FAVORITE_SONG_FAIL";
+      }
+      return res.status(status).send({message})
+    })
   };
