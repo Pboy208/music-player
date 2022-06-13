@@ -23,13 +23,13 @@ function FileUploader({ title, handler, file }) {
 
     // TODO: Change cloudinary account if needed
     fetch(
-      'https://api.cloudinary.com/v1_1/thecodingpanda/upload', 
+      'https://api.cloudinary.com/v1_1/thecodingpanda/upload',
       requestOptions,
     )
       .then((response) => response.json())
       .then((result) => console.log(result.url))
       .catch((error) => console.log('error', error));
-    
+
     handler(newFile);
   };
 
@@ -72,63 +72,78 @@ export default function SongAdding({ close }) {
   const [songTitle, setSongTitle] = useState('');
 
   return (
-    <div
-      className="u-flex u-border u-flexColumn u-roundedLarge u-justifyContentCenter u-alignItemsCenter u-positionRelative u-marginVerticalExtraLarge"
-      style={{
-        width: 600,
-        height: 500,
-        gap: 24,
-      }}
-    >
+    <>
       <div
-        onClick={close}
+        className="u-positionFixed u-positionTop u-positionBottom .u-positionLeft u-positionRight u-backgroundLighter	"
         style={{
-          position: 'absolute',
-          width: 32,
-          height: 32,
-          top: 4,
-          right: 4,
-          cursor: 'pointer',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 3,
+          opacity: 0.8,
+        }}
+      />
+      <div
+        className="u-flex u-border u-flexColumn u-roundedLarge u-justifyContentCenter u-alignItemsCenter u-positionRelative u-marginVerticalExtraLarge u-positionFixed u-backgroundWhite"
+        style={{
+          width: 600,
+          height: 500,
+          gap: 24,
+          zIndex: 4,
+          left: 0,
+          right: 0,
+          margin: '0 auto',
         }}
       >
-        <Icon name="closeCircleOutline" size="medium" />
-      </div>
-      <div className="u-text400">
-        <Icon className="u-marginRightExtraSmall" size="medium" name="bot" />
-        UPLOAD YOUR SONG HERE
-      </div>
-      <Form.Group controlId="exampleForm.Input1">
-        <Form.Input
-          type="text"
-          placeholder="Song title"
-          value={songTitle}
-          onChange={(e) => {
-            const a = setSongTitle(e.target.value);
-            console.log('return of setting', a);
+        <div
+          onClick={close}
+          style={{
+            position: 'absolute',
+            width: 32,
+            height: 32,
+            top: 4,
+            right: 4,
+            cursor: 'pointer',
           }}
-        />
-      </Form.Group>
-      <div
-        className="u-flex  u-alignItemsCenter u-justifyContentCenter"
-        style={{
-          gap: 16,
-        }}
-      >
-        <FileUploader title="Your song" handler={setSong} file={song} />
-        <FileUploader
-          title="Song lyric"
-          handler={setSongLyric}
-          file={songLyric}
-        />
-        <FileUploader
-          title="Song image"
-          handler={setSongImage}
-          file={songImage}
-        />
+        >
+          <Icon name="closeCircleOutline" size="medium" />
+        </div>
+        <div className="u-text400">
+          <Icon className="u-marginRightExtraSmall" size="medium" name="bot" />
+          UPLOAD YOUR SONG HERE
+        </div>
+        <Form.Group controlId="exampleForm.Input1">
+          <Form.Input
+            type="text"
+            placeholder="Song title"
+            value={songTitle}
+            onChange={(e) => {
+              const a = setSongTitle(e.target.value);
+              console.log('return of setting', a);
+            }}
+          />
+        </Form.Group>
+        <div
+          className="u-flex  u-alignItemsCenter u-justifyContentCenter"
+          style={{
+            gap: 16,
+          }}
+        >
+          <FileUploader title="Your song" handler={setSong} file={song} />
+          <FileUploader
+            title="Song lyric"
+            handler={setSongLyric}
+            file={songLyric}
+          />
+          <FileUploader
+            title="Song image"
+            handler={setSongImage}
+            file={songImage}
+          />
+        </div>
+        <Button variant="primary">
+          <Button.Label>Submit</Button.Label>
+        </Button>
       </div>
-      <Button variant="primary">
-        <Button.Label>Submit</Button.Label>
-      </Button>
-    </div>
+    </>
   );
 }
