@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
-import { BsFillPlayCircleFill } from 'react-icons/bs';
 
 const song = {
   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
@@ -16,13 +15,12 @@ const song = {
     'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
 };
 
-function AlbumCardItem() {
+function SongCardItem() {
   return (
-    <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size2of10 xl:u-size1of6">
+    <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size1of5">
       <Card onClick={null}>
         <Media>
           <Img src={song.urlImage} size="medium" alt=''/>
-          <div className='play'><BsFillPlayCircleFill/></div>
         </Media>
         <Content>
           <SongName>{song.name}</SongName>
@@ -56,20 +54,6 @@ const Media = styled.div`
     content: "";
     display: block;
     padding-bottom: 100%;
-  }
-  &:hover .play{display:block}
-  .play{
-    position: absolute;
-    display: none;
-    z-index:100;
-    transition: 500ms;
-    font-size: 50px;
-    top: 50%;
-    left: 50%;
-    margin: -25px 0 0 -25px;
-    &:hover {
-      filter: invert(1);
-    }
   }
 `;
 const Img = styled.img`
@@ -105,15 +89,5 @@ const SongArtist = styled.a`
     color: inherit;
   }
 `;
-const PlayBtn = styled.button`
-  position : absolute;
-  display:none;
-  top:20%; 
-  width:40px;
-  margin:0 auto; left:0px;
-  right:0px;
-  z-index:100;
-  &:hover {display:block;}
-`;
 
-export default AlbumCardItem;
+export default SongCardItem;

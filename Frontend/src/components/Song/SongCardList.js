@@ -11,22 +11,12 @@ function SongCardList() {
       <SongCardItem/>
       <SongCardItem/>
       <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   width: 100%;
-`;
-
-const Title = styled.th`
-  width: ${(props) => props.width};
 `;
 
 export default SongCardList;
