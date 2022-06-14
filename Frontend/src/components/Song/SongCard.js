@@ -43,11 +43,11 @@ const Card = styled.div`
   flex-direction: column;
   padding: 5px;
   box-shadow: 0px 0px 7px #c3c1c1;
+  border-radius: inherit;
   &:hover {
-    background-color: gray;
     cursor: pointer;
   }
-  border-radius: inherit;
+  &:hover .play{display:block}
 `;
 
 const Media = styled.div`
@@ -57,12 +57,11 @@ const Media = styled.div`
     display: block;
     padding-bottom: 100%;
   }
-  &:hover .play{display:block}
   .play{
     position: absolute;
     display: none;
     z-index:100;
-    transition: 500ms;
+    transition: 300ms;
     font-size: 50px;
     top: 50%;
     left: 50%;

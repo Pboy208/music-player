@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import SongList from 'components/Song/SongList';
+import SongListChart from 'components/Song/SongChart';
 import { Tab, Dropdown, Button, Icon, Form } from '@ahaui/react';
 
 function Chart() {
@@ -33,7 +33,7 @@ function Chart() {
         </Dropdown>
       </Header>
       
-      <SongList />
+      <SongListChart />
     </Wrapper>
   );
 }
