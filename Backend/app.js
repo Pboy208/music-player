@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth-router");
 const userRoute = require("./routes/user-router");
 const songRoute = require("./routes/song-router");
 const postRoute = require("./routes/post-router");
+const albumRoute = require("./routes/album-router");
 
 const app = express();
 app.use(express.json());
@@ -45,6 +46,7 @@ app.use("/auth", authRoute);
 app.use("/user", userRoute);
 app.use("/song",songRoute);
 app.use("/post",postRoute);
+app.use("/album",albumRoute);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 

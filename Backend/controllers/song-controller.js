@@ -39,7 +39,7 @@ module.exports = {
         .send({ message: "GET_ASSETS_URL_SUCCESS", data: song[0] });
     }),
     getTop100: tryCatchBlock(null, async (req, res, next) => {
-      const songList = await Song.getTop100(req.query.categoryType);
+      const songList = await Song.getTop100();
       if(songList){
         songList[0].forEach(song =>{
           song.urlImage = getImageURLFromID('66f5692b-4709-2091-4dc1-f32a102323e6');
@@ -83,5 +83,9 @@ module.exports = {
         message = "SAVE_FAVORITE_SONG_FAIL";
       }
       return res.status(status).send({message})
-    })
+    }),
+    getNewSong: tryCatchBlock(null, async (req, res, next) => {
+      const result = await Song.getNewSong();
+      return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data: result[0]})
+    }),
   };
