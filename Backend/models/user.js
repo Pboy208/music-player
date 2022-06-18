@@ -30,8 +30,8 @@ module.exports = class User {
     const [resultSet] = await database.execute(`CALL Proc_GetProfileUser('${id}')`);
     return resultSet;
   })
-  static updateProfile = tryCatchBlock(async (userId,avatar,name,phoneNumber) => {
-    const [resultSet] = await database.execute(`CALL Proc_UpdateUserProfile('${userId}','${avatar}','${name}','${phoneNumber}')`);
+  static updateProfile = tryCatchBlock(async (userId,avatar,bio) => {
+    const [resultSet] = await database.execute(`CALL Proc_UpdateUserProfile('${userId}','${avatar}','${bio}')`);
     return resultSet;
   })
   static isEmailExist = tryCatchBlock(async (email) => {
