@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
     if (!userIDIsExist)
       return next(new HttpError("AUTHORIZATION_FAIL_USERID_NOT_EXIST", 404));
     
-    req.userData = { userID: decodedToken.userID };
+    req.userData = { userId: decodedToken.userID };
     next();
   } catch (error) {
     console.log("AUTHORIZATION FAILED:::", error);

@@ -3,7 +3,7 @@ import { Avatar, Separator, Icon, Button } from '@ahaui/react';
 import Comments from '../Comments';
 import { User } from '../dummyData';
 
-export default function Post({ post, userID }) {
+export default function Post({ post, userId}) {
   const [user, setUser] = React.useState(User);
   const [isCommenting, setIsCommenting] = useState(false);
   return (

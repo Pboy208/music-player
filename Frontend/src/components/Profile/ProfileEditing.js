@@ -1,8 +1,8 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useRef } from 'react';
-import { Icon, Form, Button } from '@ahaui/react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import Modal from 'components/common/Modal';
+import { useState, useRef } from 'react';
+import { Form, Icon } from '@ahaui/react';
 
 function FileUploader({ title, handler, file }) {
   const fileHolder = useRef();
@@ -66,50 +66,29 @@ function FileUploader({ title, handler, file }) {
   );
 }
 
-export default function SongAdding({ close }) {
-  const [song, setSong] = useState(null);
-  const [songLyric, setSongLyric] = useState(null);
-  const [songImage, setSongImage] = useState(null);
-  const [songTitle, setSongTitle] = useState('');
+export default function ProfileEditing({ close }) {
+  const [name, setName] = useState('fake name');
+  const [bio, setBio] = useState('fake bio');
+  const [avatar, setAvatar] = useState(null);
 
   return (
     <Modal close={close}>
-      <div className="u-text400">
-        <Icon className="u-marginRightExtraSmall" size="medium" name="bot" />
-        UPLOAD YOUR SONG HERE
-      </div>
       <Form.Group controlId="exampleForm.Input1">
         <Form.Input
           type="text"
-          placeholder="Song title"
-          value={songTitle}
-          onChange={(e) => {
-            const a = setSongTitle(e.target.value);
-            console.log('return of setting', a);
-          }}
+          placeholder="User name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Form.Input
+          as="textarea"
+          rows={3}
+          placeholder="User bio"
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
         />
       </Form.Group>
-      <div
-        className="u-flex  u-alignItemsCenter u-justifyContentCenter"
-        style={{
-          gap: 16,
-        }}
-      >
-        <FileUploader title="Your song" handler={setSong} file={song} />
-        <FileUploader
-          title="Song lyric"
-          handler={setSongLyric}
-          file={songLyric}
-        />
-        <FileUploader
-          title="Song image"
-          handler={setSongImage}
-          file={songImage}
-        />
-      </div>
-      <Button variant="primary">
-        <Button.Label>Submit</Button.Label>
-      </Button>
+      {/* <FileUploader title="Your song" handler={setSong} file={song} /> */}
     </Modal>
   );
 }
