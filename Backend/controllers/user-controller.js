@@ -21,7 +21,7 @@ module.exports = {
   },
   updateProfile: async (req, res, next) => {
     const body = req.body;
-    const user = await User.updateProfile(body.userId,body.avatar,body.name,body.phoneNumber);
+    const user = await User.updateProfile(body.userId,body.avatar,body.bio);
     return res.status(200).send({ message: "UPDATE_PROFILE_SUCCESS"})
   }
 

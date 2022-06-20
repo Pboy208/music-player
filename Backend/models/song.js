@@ -16,8 +16,8 @@ module.exports = class Song{
         const [resultSet] = await database.execute(`SELECT idImageStorage,idMusicStorage from Song where songID = '${id}'`);
         return resultSet;
     });
-    static getTop100 = tryCatchBlock(async (type) => {
-        const [resultSet] = await database.execute(`CALL Proc_Get_Top100Song(${type})`);
+    static getTop100 = tryCatchBlock(async () => {
+        const [resultSet] = await database.execute(`CALL Proc_Get_Top100Song()`);
         return resultSet;
     });
     static addNewSong = tryCatchBlock(async (songUrl,imageUrl,lyric,title,author,createdAt)=>{
@@ -34,6 +34,10 @@ module.exports = class Song{
     })
     static addFavoriteSong = tryCatchBlock(async (userId,songId)=>{
         const [resultSet] = await database.execute(`CALL Proc_SaveFavoriteSong('${userId}','${songId}')`);
+        return resultSet;
+    })
+    static getNewSong = tryCatchBlock(async ()=>{
+        const [resultSet] = await database.execute(`CALL Proc_GetNewSongs()`);
         return resultSet;
     })
 }
