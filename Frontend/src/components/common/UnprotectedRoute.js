@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 function UnprotectedRoute({ component: Component }) {
-  // const { isLoggedIn } = useSelector((state) => state.auth);
-  // return isLoggedIn ? <Navigate to="/home" /> : <Component />;
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  return isLoggedIn ? <Navigate to="/home" /> : <Component />;
 
-  return <Component />;
+  // for testing without authentication
+  // return <Component />;
 }
 
 export default UnprotectedRoute;

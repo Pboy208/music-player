@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 import styled from 'styled-components';
 import { FiVolume2, FiVolumeX } from 'react-icons/fi';
+import { Slider as VolumeSlider } from '@ahaui/react';
 
 function AdditionActions({ volume, prevVolume, setVolume }) {
   const toggleMuting = () => setVolume(volume === 0 ? prevVolume : 0);
@@ -12,12 +13,25 @@ function AdditionActions({ volume, prevVolume, setVolume }) {
           {volume == 0 ? <FiVolumeX /> : <FiVolume2 />}
         </VolumeButton>
         <VolumeSlider
-          type="range"
-          step="1"
-          min="0"
-          max="100"
+          min={0}
+          max={100}
           value={volume}
-          onChange={(e) => setVolume(e.target.value)}
+          onChange={(value) => setVolume(value)}
+          style={{
+            height: 16,
+            width: 120,
+            margin: 0,
+            cursor: 'pointer',
+          }}
+          handleStyle={{
+            display: 'none',
+          }}
+          trackStyle={{
+            height: 6,
+          }}
+          railStyle={{
+            height: 6,
+          }}
         />
       </Volume>
     </Wrapper>
@@ -28,15 +42,17 @@ const Wrapper = styled.div`
   flex: 10 1;
   border-left: 1px solid white;
   display: flex;
+  padding-right: 2px;
   justify-content: flex-end;
   align-items: center;
 `;
 
 const Volume = styled.div`
   height: 24px;
+  width: 120px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 `;
 
 const VolumeButton = styled.div`
@@ -45,25 +61,6 @@ const VolumeButton = styled.div`
 
   & svg {
     font-size: 24px;
-  }
-`;
-
-const VolumeSlider = styled.input`
-  -webkit-appearance: none;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  cursor: pointer;
-
-  &::-webkit-slider-thumb {
-    width: 12px;
-    height: 6px;
-    -webkit-appearance: none;
-    background-color: grey;
-    appearance: none;
-    cursor: pointer;
   }
 `;
 

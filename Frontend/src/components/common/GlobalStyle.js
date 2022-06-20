@@ -4,8 +4,8 @@ const themes = {
   light: {
     body: '#FFF',
     background: 'white',
-    text: '#363537',
-    borderColor: '#363537',
+    text: '#172B4D',
+    borderColor: '#dfe1e6',
   },
   dark: {
     body: '#171717',
@@ -23,12 +23,27 @@ const GlobalStyle = createGlobalStyle`
     --big-space: 30px;
     --medium-space: 20px;
     --small-space: 10px;
+    --border-color: ${({ theme }) => themes[theme].borderColor};
     --background-color: ${({ theme }) => themes[theme].background};
     --text-color: ${({ theme }) => themes[theme].text};
+    --color-primary: #375DE7;
+    --background-color-hover: #c1c7d0;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  a{
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+      color: var(--color-primary);
+      font-weight: 500;
+    }
   }
 
   body {
-    background: ${({ theme }) => themes[theme].body};
+    background-color: ${({ theme }) => themes[theme].background};
     color: ${({ theme }) => themes[theme].text};
     border-color: ${({ theme }) => themes[theme].borderColor} !important;
   }
@@ -44,7 +59,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .active {
-    background-color: gray;
+    background-color: #c1c7d0;
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .BubbleChat-container{
+    max-width: 100%;
   }
 `;
 

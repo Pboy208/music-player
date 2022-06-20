@@ -4,15 +4,32 @@ import SongItem from './SongItem';
 function SongList() {
   return (
     <Wrapper>
-      <TitlesWrapper>
-        <Title flex="10">Song</Title>
-        <Title flex="10">Album</Title>
-        <Title flex="2">Time</Title>
-      </TitlesWrapper>
-      <SongItem />
-      <SongItem />
-      <SongItem />
-      <SongItem />
+      <table
+        className="Table Table--hoverable u-backgroundWhite u-textDark u-text200"
+        style={{
+          width: '100%',
+        }}
+      >
+        <thead>
+          <tr>
+            <Title scope="col" width="45%">
+              Song
+            </Title>
+            <Title scope="col" width="45%">
+              Album
+            </Title>
+            <Title scope="col" width="10%">
+              Time
+            </Title>
+          </tr>
+        </thead>
+        <tbody>
+          <SongItem />
+          <SongItem />
+          <SongItem />
+          <SongItem />
+        </tbody>
+      </table>
     </Wrapper>
   );
 }
@@ -20,19 +37,13 @@ function SongList() {
 const Wrapper = styled.div`
   width: 100%;
   min-height: 70vh;
-  border: 1px solid blue;
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
 `;
 
-const TitlesWrapper = styled.div`
-  width: 100%;
-  height: 40px;
-  display: flex;
-`;
-
-const Title = styled.p`
-  flex: ${(props) => props.flex};
+const Title = styled.th`
+  width: ${(props) => props.width};
 `;
 
 export default SongList;
