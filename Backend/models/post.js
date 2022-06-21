@@ -4,7 +4,8 @@ const HttpError = require("../models/http-error");
 
 
 module.exports = class Post{
-    static addNewPost = tryCatchBlock(async (userId,songUrl,imageUrl,lyric,title,author,createdAt,content) => {
+    static addNewPost = tryCatchBlock(async (userId, songUrl, imageUrl, lyric, title, author, createdAt, content) => {
+        console.log(userId, songUrl, imageUrl, lyric, title, author, createdAt, content);
         const [resultSet] = await database.execute(`CALL Proc_SavePost('${userId}','${songUrl}','${imageUrl}','${lyric}','${title}','${author}','${createdAt}','${content}')`);
         return resultSet;
     });

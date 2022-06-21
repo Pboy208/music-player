@@ -30,7 +30,7 @@ const createRequest = async ({
     },
     body: body ? JSON.stringify(body) : null,
   };
-
+  console.log(requestConfig, requestUrl);
   const response = await fetch(requestUrl, requestConfig);
   const payload = await response.json();
   if (!response.ok) {

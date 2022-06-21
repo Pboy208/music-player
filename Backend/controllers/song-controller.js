@@ -75,7 +75,7 @@ module.exports = {
     }),
     addFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
       const body = req.body;
-      const result = await Song.addFavoriteSong(body.userId,body.songId);
+      const result = await Song.addFavoriteSong(req.userData.userId,body.songId);
       let status = 200;
       let message = "SAVE_FAVORITE_SONG_SUCCESS"
       if(result[0][0].result === 0){
