@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const songController = require("../controllers/song-controller.js");
+const checkAuth = require("../middleware/check-auth");
 
+router.use(checkAuth);
 
 router.get('/GetImage',songController.getImageBySongID);
 router.get('/GetMusic',songController.getMusicBySongID);
