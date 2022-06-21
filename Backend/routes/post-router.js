@@ -7,4 +7,6 @@ router.use(checkAuth);
 
 router.post('/',postController.addNewPost);
 router.post('/comment',postController.addComment);
+router.get('/:userId/posts',postController.getPosts)
+
 module.exports = router;
