@@ -9,6 +9,9 @@ import { RiVipCrownFill } from 'react-icons/ri';
 import { logout } from 'store/authSlice';
 import CustomizedDropdown from 'components/common/CustomizedDropdown';
 import { SearchBox, Button, Icon } from '@ahaui/react';
+import { useEffect, useState } from 'react';
+import * as songAPIs from 'api/songAPIs';
+import SearchBoxDropdown from './SearchBoxDropdown';
 
 function LogoutUI() {
   return (
@@ -47,6 +50,20 @@ function SettingUI() {
 }
 
 function Header({ setIsMenuOpen, isMenuOpen }) {
+  const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    const searchValueDebounce = setTimeout(() => {
+      // songAPIs.search(searchValue).then((res) => {
+      //   console.log(res);
+      // });
+    }, 500);
+
+    return () => {
+      clearTimeout(searchValueDebounce);
+    };
+  }, [searchValue]);
+
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -64,6 +81,10 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
 
   const settingHandler = () => {
     console.log('setting clicked');
+  };
+
+  const searchChangeHandler = (e) => {
+    setSearchValue(e.target.value);
   };
 
   return (
@@ -85,7 +106,19 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
             }}
           />
         </MenuButton>
-        <SearchBar placeholder="Search..." sizeControl="small" />
+        <div
+          className="u-positionRelative"
+          style={{
+            width: '100%',
+          }}
+        >
+          <SearchBar
+            placeholder="Search..."
+            sizeControl="small"
+            onChange={searchChangeHandler}
+          />
+          {/* <SearchBoxDropdown /> */}
+        </div>
       </div>
       <ActionsWrapper>
         <Dropdown>

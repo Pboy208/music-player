@@ -3,6 +3,8 @@
 import React, { useState, useRef } from 'react';
 import { Icon, Form, Button } from '@ahaui/react';
 import Modal from 'components/common/Modal';
+import { useSelector } from 'react-redux';
+import { addPost } from 'api/postAPIs';
 
 function FileUploader({ title, handler, file }) {
   const fileHolder = useRef();
@@ -28,10 +30,8 @@ function FileUploader({ title, handler, file }) {
       requestOptions,
     )
       .then((response) => response.json())
-      .then((result) => console.log(result.url))
+      .then((result) => handler(result.url))
       .catch((error) => console.log('error', error));
-
-    handler(newFile);
   };
 
   const openFileUploader = () => fileHolder.current.click();
@@ -46,31 +46,54 @@ function FileUploader({ title, handler, file }) {
           display: 'none',
         }}
       />
-      {!file && (
-        <div
-          className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-roundedLarge u-cursorPointer u-userSelectNone"
-          onClick={openFileUploader}
-          style={{
-            width: 120,
-            height: 120,
-            border: '1px solid var(--border-color)',
-            backgroundColor: 'var(--border-color)',
-          }}
-        >
-          <Icon size="medium" name="helpCircleOutline" />
-          {title}
-        </div>
-      )}
-      {file && <div>uploaded</div>}
+      <div
+        className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-roundedLarge u-cursorPointer u-userSelectNone"
+        onClick={openFileUploader}
+        style={{
+          width: 120,
+          height: 120,
+          border: '1px solid var(--border-color)',
+          backgroundColor: 'var(--border-color)',
+        }}
+      >
+        {!file && (
+          <>
+            <Icon size="medium" name="helpCircleOutline" />
+            {title}
+          </>
+        )}
+        {file && (
+          <>
+            <span>{title}</span>
+            <span>uploaded</span>
+          </>
+        )}
+      </div>
     </>
   );
 }
 
 export default function SongAdding({ close }) {
+  const { userID } = useSelector((state) => state.auth.user);
   const [song, setSong] = useState(null);
   const [songLyric, setSongLyric] = useState(null);
   const [songImage, setSongImage] = useState(null);
   const [songTitle, setSongTitle] = useState('');
+
+  const submitHandler = () => {
+    const newPost = {
+      songUrl: song,
+      imageUrl: songImage,
+      lyric: songLyric,
+      title: songTitle,
+      author: userID,
+      createdAt: new Date(),
+    };
+    addPost(newPost).then((res) => {
+      console.log('postId:::', res);
+    });
+    // should get PostID from backend
+  };
 
   return (
     <Modal close={close}>
@@ -107,7 +130,7 @@ export default function SongAdding({ close }) {
           file={songImage}
         />
       </div>
-      <Button variant="primary">
+      <Button variant="primary" onClick={submitHandler}>
         <Button.Label>Submit</Button.Label>
       </Button>
     </Modal>
