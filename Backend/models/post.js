@@ -13,4 +13,8 @@ module.exports = class Post{
         const [resultSet] = await database.execute(`CALL Proc_SaveComment('${comment}','${postId}','${author}','${createdAt}')`);
         return resultSet;
     });
+    static getPosts = tryCatchBlock(async (userId) => {
+        const [resultSet] = await database.execute(`CALL Proc_GetPost('${userId}')`);
+        return resultSet;
+    });
 }

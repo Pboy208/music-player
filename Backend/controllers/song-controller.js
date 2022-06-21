@@ -68,7 +68,7 @@ module.exports = {
     }),
     getFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
       const params = req.params;
-      const result = await Song.getFavoriteSong(params.userId);
+      const result = await Song.getFavoriteSong(req.userData.userId);
       return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data:{
         songList: result[0]
       }})
@@ -88,4 +88,9 @@ module.exports = {
       const result = await Song.getNewSong();
       return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data: result[0]})
     }),
+    search: tryCatchBlock(null, async (req, res, next) => {
+      const body = req.body;
+      const result = await Song.search(body.query,body.scrollOffset);
+      return res.status(200).send({message: "SEARCH_SONG_SUCCESS",data: result[0]})
+    })
   };
