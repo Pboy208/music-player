@@ -31,8 +31,8 @@ module.exports = {
           .send({ message});
       }),
       getPosts: tryCatchBlock(null, async (req, res, next) => {
-        const body = req.body;
-        const result = await Post.getPosts(body.userId);
+        const params = req.params;
+        const result = await Post.getPosts(params.userId);
         let status = 200;
         let message = "GET_POSTS_SUCCESS"
         return res
