@@ -6,7 +6,7 @@ const checkAuth = require("../middleware/check-auth");
 router.use(checkAuth);
 
 router.get('/GetImage',songController.getImageBySongID);
-router.get('/GetMusic',songController.getMusicBySongID);
+router.get('/:songId',songController.getMusicBySongID);
 router.get('/GetAssets',songController.getAssetsBySongID);
 router.get('/chart',songController.getTop100);
 router.get('/explore/song',songController.getNewSong);

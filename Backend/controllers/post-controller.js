@@ -8,7 +8,6 @@ require("dotenv").config();
 
 module.exports = {
   addNewPost: tryCatchBlock(null, async (req, res, next) => {
-      console.log(req.body)
       const post = await Post.addNewPost(req.userData.userId,req.body.songUrl,req.body.imageUrl,req.body.lyric,req.body.title
         ,req.body.author,req.body.createdAt,req.body.content);
       return res

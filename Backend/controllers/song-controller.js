@@ -17,14 +17,16 @@ module.exports = {
         .send({ message: "GET_IMAGE_URL_SUCCESS", data: song[0] });
     }),
     getMusicBySongID: tryCatchBlock(null, async (req, res, next) => {
-        const song = await Song.getMusicBySongID(req.query.songId);
+        const song = await Song.getMusicBySongID(req.params.songId);
         if(song[0]){
-          song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].id_music_storage;
+          song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].idMusicStorage;
           delete song[0].id_music_storage;
         }
         return res
           .status(200)
-          .send({ message: "GET_MUSIC_URL_SUCCESS", data: song[0] });
+          .send({ message: "GET_MUSIC_URL_SUCCESS", data: {
+            songUrl : song[0].urlMusic
+          } });
     }),
     getAssetsBySongID: tryCatchBlock(null, async (req, res, next) => {
       const song = await Song.getAssetsBySongID(req.query.songId);
