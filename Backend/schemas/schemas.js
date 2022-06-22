@@ -23,10 +23,9 @@ module.exports = {
   signIn: generateSchema(
     {
       email: { type: 'string', format: 'email' },
-      password: { type: 'string', minLength: 5, maxLength: 40 },
-      type: {type: 'string', minLength: 5, maxLength: 40 }
+      password: { type: 'string', minLength: 5, maxLength: 40 }
     },
-    ['password', 'email','type'],
+    ['password', 'email'],
   ),
   googleSignIn: generateSchema(
     {
