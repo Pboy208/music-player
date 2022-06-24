@@ -89,9 +89,10 @@ export default function SongAdding({ close }) {
       author: userID,
       createdAt: new Date(),
     };
-    addPost(newPost).then((res) => {
-      console.log('postId:::', res);
-    });
+    // addPost(newPost).then((res) => {
+    //   console.log('postId:::', res);
+    // });
+    console.log(JSON.stringify(songTitle));
     // should get PostID from backend
   };
 
@@ -103,7 +104,9 @@ export default function SongAdding({ close }) {
       </div>
       <Form.Group controlId="exampleForm.Input1">
         <Form.Input
-          type="text"
+          // type="text"
+          as="textarea"
+          rows={3}
           placeholder="Song title"
           value={songTitle}
           onChange={(e) => {
