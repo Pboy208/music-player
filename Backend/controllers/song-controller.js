@@ -7,7 +7,7 @@ require("dotenv").config();
 
 module.exports = {
     getImageBySongID: tryCatchBlock(null, async (req, res, next) => {
-      const song = await Song.getImageBySongID(req.query.songId);
+      const song = await Song.getImageBySongID(req.params.songId);
       if(song[0]){
         song[0].urlImage = process.env.IMAGE_STORAGE_URL + song[0].id_image_storage;
         delete song[0].id_image_storage;
@@ -29,7 +29,7 @@ module.exports = {
           } });
     }),
     getAssetsBySongID: tryCatchBlock(null, async (req, res, next) => {
-      const song = await Song.getAssetsBySongID(req.query.songId);
+      const song = await Song.getAssetsBySongID(req.params.songId);
       if(song[0]){
         song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].id_music_storage;
         song[0].urlImage = process.env.IMAGE_STORAGE_URL + song[0].id_image_storage;
