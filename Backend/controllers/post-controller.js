@@ -8,7 +8,6 @@ require("dotenv").config();
 
 module.exports = {
   addNewPost: tryCatchBlock(null, async (req, res, next) => {
-      console.log(req.body)
       const post = await Post.addNewPost(req.userData.userId,req.body.songUrl,req.body.imageUrl,req.body.lyric,req.body.title
         ,req.body.author,req.body.createdAt,req.body.content);
       return res
@@ -26,9 +25,17 @@ module.exports = {
             status = 404;
             message = "SAVE_COMMENT_FAIL";
         }
-        console.log(result[0][0])
         return res
           .status(status)
           .send({ message});
-      })
+      }),
+      getPosts: tryCatchBlock(null, async (req, res, next) => {
+        const params = req.params;
+        const result = await Post.getPosts(params.userId);
+        let status = 200;
+        let message = "GET_POSTS_SUCCESS"
+        return res
+          .status(status)
+          .send({ message, data : result[0]});
+      }), 
   };

@@ -40,4 +40,8 @@ module.exports = class Song{
         const [resultSet] = await database.execute(`CALL Proc_GetNewSongs()`);
         return resultSet;
     })
+    static search = tryCatchBlock(async (query,scrollOffset) =>{
+        const [resultSet] = await database.execute(`CALL Proc_SearchSongScroll('${query}',${scrollOffset})`);
+        return resultSet;
+    })
 }

@@ -17,14 +17,16 @@ module.exports = {
         .send({ message: "GET_IMAGE_URL_SUCCESS", data: song[0] });
     }),
     getMusicBySongID: tryCatchBlock(null, async (req, res, next) => {
-        const song = await Song.getMusicBySongID(req.query.songId);
+        const song = await Song.getMusicBySongID(req.params.songId);
         if(song[0]){
-          song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].id_music_storage;
+          song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].idMusicStorage;
           delete song[0].id_music_storage;
         }
         return res
           .status(200)
-          .send({ message: "GET_MUSIC_URL_SUCCESS", data: song[0] });
+          .send({ message: "GET_MUSIC_URL_SUCCESS", data: {
+            songUrl : song[0].urlMusic
+          } });
     }),
     getAssetsBySongID: tryCatchBlock(null, async (req, res, next) => {
       const song = await Song.getAssetsBySongID(req.query.songId);
@@ -68,7 +70,7 @@ module.exports = {
     }),
     getFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
       const params = req.params;
-      const result = await Song.getFavoriteSong(params.userId);
+      const result = await Song.getFavoriteSong(req.userData.userId);
       return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data:{
         songList: result[0]
       }})
@@ -88,4 +90,9 @@ module.exports = {
       const result = await Song.getNewSong();
       return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data: result[0]})
     }),
+    search: tryCatchBlock(null, async (req, res, next) => {
+      const body = req.body;
+      const result = await Song.search(body.query,body.scrollOffset);
+      return res.status(200).send({message: "SEARCH_SONG_SUCCESS",data: result[0]})
+    })
   };

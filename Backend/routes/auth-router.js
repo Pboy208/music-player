@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/auth-controller");
-
 /**
  * @swagger
  * /auth/sign-up:
@@ -55,7 +54,7 @@ router.post("/renew-token", authController.renewToken);
 
 
 
-// router.use(checkAuth);
+
 
 //change password
 // router.put("");
