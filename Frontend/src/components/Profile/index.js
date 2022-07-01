@@ -6,11 +6,13 @@ import { User, Posts } from './dummyData';
 import Post from './Post';
 // eslint-disable-next-line import/no-named-as-default
 import SongAdding from './SongAdding';
+import ProfileEditing from './ProfileEditing';
 
-function Profile({ userID }) {
+function Profile({ userId }) {
   const [user, setUser] = useState(User);
   const [posts, setPosts] = useState(Posts);
   const [isPosting, setIsPosting] = useState(false);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
 
   const fileChangeHandler = (e) => {
     console.log(e.target.file);
@@ -24,7 +26,7 @@ function Profile({ userID }) {
         backgroundColor: 'white',
       }}
     >
-      <div className="u-flex">
+      <div className="u-flex u-positionRelative">
         <div className="u-marginRightLarge">
           <Avatar
             src={user.avatar}
@@ -45,6 +47,12 @@ function Profile({ userID }) {
             Formula Bar.
           </div>
         </div>
+        <div
+          className="u-positionAbsolute u-positionTop u-positionRight u-cursorPointer"
+          onClick={() => setIsEditingProfile(true)}
+        >
+          <Icon size="small" name="edit" />
+        </div>
       </div>
       <Separator />
       {!isPosting && (
@@ -55,7 +63,10 @@ function Profile({ userID }) {
           <Button.Label>Upload song</Button.Label>
         </Button>
       )}
-      {isPosting && <SongAdding close={()=>setIsPosting(false)} />}
+      {isPosting && <SongAdding close={() => setIsPosting(false)} />}
+      {isEditingProfile && (
+        <ProfileEditing close={() => setIsEditingProfile(false)} />
+      )}
       <Separator />
       <Post />
       <Post />

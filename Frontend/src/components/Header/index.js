@@ -9,12 +9,24 @@ import { RiVipCrownFill } from 'react-icons/ri';
 import { logout } from 'store/authSlice';
 import CustomizedDropdown from 'components/common/CustomizedDropdown';
 import { SearchBox, Button, Icon } from '@ahaui/react';
+import { useEffect, useState } from 'react';
+import * as songAPIs from 'api/songAPIs';
+import SearchBoxDropdown from './SearchBoxDropdown';
 
 function LogoutUI() {
   return (
     <>
       <MdOutlineLogout style={{ fontSize: 24 }} />
       Logout
+    </>
+  );
+}
+
+function ToggleThemeUI() {
+  return (
+    <>
+      <MdBrightnessMedium style={{ fontSize: 24 }} />
+      Change theme
     </>
   );
 }
@@ -38,6 +50,20 @@ function SettingUI() {
 }
 
 function Header({ setIsMenuOpen, isMenuOpen }) {
+  const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    const searchValueDebounce = setTimeout(() => {
+      // songAPIs.search(searchValue).then((res) => {
+      //   console.log(res);
+      // });
+    }, 500);
+
+    return () => {
+      clearTimeout(searchValueDebounce);
+    };
+  }, [searchValue]);
+
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -45,7 +71,7 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
     dispatch(logout());
   };
 
-  const toggleTheme = () => {
+  const toggleThemeHandler = () => {
     console.log('theme toggled');
   };
 
@@ -57,11 +83,16 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
     console.log('setting clicked');
   };
 
+  const searchChangeHandler = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <Wrapper>
       <div
         style={{
           display: 'flex',
+          alignItems: 'center',
           width: '100%',
           gap: 30,
         }}
@@ -75,17 +106,27 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
             }}
           />
         </MenuButton>
-        <SearchBar placeholder="Search..." sizeControl="small" />
+        <div
+          className="u-positionRelative"
+          style={{
+            width: '100%',
+          }}
+        >
+          <SearchBar
+            placeholder="Search..."
+            sizeControl="small"
+            onChange={searchChangeHandler}
+          />
+          {/* <SearchBoxDropdown /> */}
+        </div>
       </div>
       <ActionsWrapper>
-        <ThemeToggler onClick={toggleTheme}>
-          <MdBrightnessMedium style={{ fontSize: 36, position: 'relative' }} />
-        </ThemeToggler>
         <Dropdown>
           <CustomizedDropdown
             icon={<UserAvatar size="medium" src={user.avatar} />}
             childrenList={[
               { ui: SettingUI(), handler: settingHandler },
+              { ui: ToggleThemeUI(), handler: toggleThemeHandler },
               { ui: PurchaseVIPUI(), handler: purchaseVIPHandler },
               { ui: LogoutUI(), handler: logoutHandler },
             ]}
@@ -109,6 +150,7 @@ const Wrapper = styled.div`
 
 const SearchBar = styled(SearchBox)`
   width: 40%;
+  margin: 0;
 `;
 
 const MenuButton = styled.div`
@@ -119,12 +161,15 @@ const MenuButton = styled.div`
 
 const ActionsWrapper = styled.div`
   width: 100px;
+  height: 32px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 16px;
 `;
 
 const Dropdown = styled.div`
-  width: 36px;
+  width: 32px;
+  height: 32px;
   color: black;
   background-color: #fff;
   border-radius: 50%;
@@ -133,7 +178,8 @@ const Dropdown = styled.div`
 `;
 
 const ThemeToggler = styled.div`
-  width: 36px;
+  width: 32px;
+  height: 32px;
   color: black;
   background-color: #fff;
   border-radius: 50%;
@@ -142,8 +188,8 @@ const ThemeToggler = styled.div`
 `;
 
 const UserAvatar = styled.img`
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
 `;

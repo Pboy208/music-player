@@ -2,6 +2,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useRef } from 'react';
 import { Icon, Form, Button } from '@ahaui/react';
+import Modal from 'components/common/Modal';
+import { useSelector } from 'react-redux';
+import { addPost } from 'api/postAPIs';
 
 function FileUploader({ title, handler, file }) {
   const fileHolder = useRef();
@@ -23,14 +26,12 @@ function FileUploader({ title, handler, file }) {
 
     // TODO: Change cloudinary account if needed
     fetch(
-      'https://api.cloudinary.com/v1_1/thecodingpanda/upload', 
+      'https://api.cloudinary.com/v1_1/thecodingpanda/upload',
       requestOptions,
     )
       .then((response) => response.json())
-      .then((result) => console.log(result.url))
+      .then((result) => handler(result.url))
       .catch((error) => console.log('error', error));
-    
-    handler(newFile);
   };
 
   const openFileUploader = () => fileHolder.current.click();
@@ -45,61 +46,67 @@ function FileUploader({ title, handler, file }) {
           display: 'none',
         }}
       />
-      {!file && (
-        <div
-          className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-roundedLarge u-cursorPointer u-userSelectNone"
-          onClick={openFileUploader}
-          style={{
-            width: 120,
-            height: 120,
-            border: '1px solid var(--border-color)',
-            backgroundColor: 'var(--border-color)',
-          }}
-        >
-          <Icon size="medium" name="helpCircleOutline" />
-          {title}
-        </div>
-      )}
-      {file && <div>uploaded</div>}
+      <div
+        className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-roundedLarge u-cursorPointer u-userSelectNone"
+        onClick={openFileUploader}
+        style={{
+          width: 120,
+          height: 120,
+          border: '1px solid var(--border-color)',
+          backgroundColor: 'var(--border-color)',
+        }}
+      >
+        {!file && (
+          <>
+            <Icon size="medium" name="helpCircleOutline" />
+            {title}
+          </>
+        )}
+        {file && (
+          <>
+            <span>{title}</span>
+            <span>uploaded</span>
+          </>
+        )}
+      </div>
     </>
   );
 }
 
 export default function SongAdding({ close }) {
+  const { userID } = useSelector((state) => state.auth.user);
   const [song, setSong] = useState(null);
   const [songLyric, setSongLyric] = useState(null);
   const [songImage, setSongImage] = useState(null);
   const [songTitle, setSongTitle] = useState('');
 
+  const submitHandler = () => {
+    const newPost = {
+      songUrl: song,
+      imageUrl: songImage,
+      lyric: songLyric,
+      title: songTitle,
+      author: userID,
+      createdAt: new Date(),
+    };
+    // addPost(newPost).then((res) => {
+    //   console.log('postId:::', res);
+    // });
+    console.log(JSON.stringify(songTitle));
+    // should get PostID from backend
+  };
+
   return (
-    <div
-      className="u-flex u-border u-flexColumn u-roundedLarge u-justifyContentCenter u-alignItemsCenter u-positionRelative u-marginVerticalExtraLarge"
-      style={{
-        width: 600,
-        height: 500,
-        gap: 24,
-      }}
-    >
-      <div
-        onClick={close}
-        style={{
-          position: 'absolute',
-          width: 32,
-          height: 32,
-          top: 4,
-          right: 4,
-          cursor: 'pointer',
-        }}
-      >
-        <Icon name="closeCircleOutline" size="medium" />
-      </div>
+    <Modal close={close}>
       <div className="u-text400">
         <Icon className="u-marginRightExtraSmall" size="medium" name="bot" />
         UPLOAD YOUR SONG HERE
       </div>
       <Form.Group controlId="exampleForm.Input1">
         <Form.Input
-          type="text"
+          // type="text"
+          as="textarea"
+          rows={3}
           placeholder="Song title"
           value={songTitle}
           onChange={(e) => {
@@ -126,9 +133,9 @@ export default function SongAdding({ close }) {
           file={songImage}
         />
       </div>
-      <Button variant="primary">
+      <Button variant="primary" onClick={submitHandler}>
         <Button.Label>Submit</Button.Label>
       </Button>
-    </div>
+    </Modal>
   );
 }

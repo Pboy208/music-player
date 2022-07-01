@@ -7,7 +7,7 @@ require("dotenv").config();
 
 module.exports = {
     getImageBySongID: tryCatchBlock(null, async (req, res, next) => {
-      const song = await Song.getImageBySongID(req.query.songId);
+      const song = await Song.getImageBySongID(req.params.songId);
       if(song[0]){
         song[0].urlImage = process.env.IMAGE_STORAGE_URL + song[0].id_image_storage;
         delete song[0].id_image_storage;
@@ -17,17 +17,19 @@ module.exports = {
         .send({ message: "GET_IMAGE_URL_SUCCESS", data: song[0] });
     }),
     getMusicBySongID: tryCatchBlock(null, async (req, res, next) => {
-        const song = await Song.getMusicBySongID(req.query.songId);
+        const song = await Song.getMusicBySongID(req.params.songId);
         if(song[0]){
-          song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].id_music_storage;
+          song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].idMusicStorage;
           delete song[0].id_music_storage;
         }
         return res
           .status(200)
-          .send({ message: "GET_MUSIC_URL_SUCCESS", data: song[0] });
+          .send({ message: "GET_MUSIC_URL_SUCCESS", data: {
+            songUrl : song[0].urlMusic
+          } });
     }),
     getAssetsBySongID: tryCatchBlock(null, async (req, res, next) => {
-      const song = await Song.getAssetsBySongID(req.query.songId);
+      const song = await Song.getAssetsBySongID(req.params.songId);
       if(song[0]){
         song[0].urlMusic = process.env.MUSIC_STORAGE_URL + song[0].id_music_storage;
         song[0].urlImage = process.env.IMAGE_STORAGE_URL + song[0].id_image_storage;
@@ -39,7 +41,7 @@ module.exports = {
         .send({ message: "GET_ASSETS_URL_SUCCESS", data: song[0] });
     }),
     getTop100: tryCatchBlock(null, async (req, res, next) => {
-      const songList = await Song.getTop100(req.query.categoryType);
+      const songList = await Song.getTop100();
       if(songList){
         songList[0].forEach(song =>{
           song.urlImage = getImageURLFromID('66f5692b-4709-2091-4dc1-f32a102323e6');
@@ -68,14 +70,14 @@ module.exports = {
     }),
     getFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
       const params = req.params;
-      const result = await Song.getFavoriteSong(params.userId);
+      const result = await Song.getFavoriteSong(req.userData.userId);
       return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data:{
         songList: result[0]
       }})
     }),
     addFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
       const body = req.body;
-      const result = await Song.addFavoriteSong(body.userId,body.songId);
+      const result = await Song.addFavoriteSong(req.userData.userId,body.songId);
       let status = 200;
       let message = "SAVE_FAVORITE_SONG_SUCCESS"
       if(result[0][0].result === 0){
@@ -83,5 +85,14 @@ module.exports = {
         message = "SAVE_FAVORITE_SONG_FAIL";
       }
       return res.status(status).send({message})
+    }),
+    getNewSong: tryCatchBlock(null, async (req, res, next) => {
+      const result = await Song.getNewSong();
+      return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data: result[0]})
+    }),
+    search: tryCatchBlock(null, async (req, res, next) => {
+      const body = req.body;
+      const result = await Song.search(body.query,body.scrollOffset);
+      return res.status(200).send({message: "SEARCH_SONG_SUCCESS",data: result[0]})
     })
   };
