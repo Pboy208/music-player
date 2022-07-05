@@ -38,6 +38,12 @@ module.exports = class User {
     const [resultSet] = await database.execute(`SELECT * from User WHERE email LIKE '${email}'`);
     return resultSet.length === 0 ? false : true;
   });
+  static getUserIDByEmail = tryCatchBlock(async (email) => {
+    const [resultSet] = await database.execute(
+      `SELECT userID from User WHERE email LIKE '${email}'`
+    );
+    return resultSet.length === 1 ? resultSet[0].userID : null;
+  });
   signIn = tryCatchBlock(async () => {
     const [resultSet] = await database.execute(
       `SELECT * FROM User WHERE email LIKE '${this.email}' AND password LIKE '${this.password}'`
@@ -46,7 +52,11 @@ module.exports = class User {
       ? null
       : { userID: resultSet[0].userID, avatar: resultSet[0].avatar, name: resultSet[0].name};
   });
-
+  changePassword = tryCatchBlock(async () => {
+    return await database.execute(
+      `UPDATE User SET password = '${this.password}' WHERE userID = '${this.userID}'`
+    );
+  });
   signUp = tryCatchBlock(async () => {
     await database.execute(
       `INSERT INTO User(userID,email,password,name,createdDate,phoneNumber,isVip) 
