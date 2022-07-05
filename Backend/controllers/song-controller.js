@@ -42,12 +42,13 @@ module.exports = {
     }),
     getTop100: tryCatchBlock(null, async (req, res, next) => {
       const songList = await Song.getTop100();
+      console.log(songList);
       if(songList){
         songList[0].forEach(song =>{
-          song.urlImage = getImageURLFromID('66f5692b-4709-2091-4dc1-f32a102323e6');
-          song.urlMusic = getMusicURLFromID('6fb6c197-6413-7508-38c7-21b180c0988f');
-          delete song.id_image_storage;
-          delete song.id_music_storage;
+          song.urlImage = getImageURLFromID(song.idImageStorage);
+          song.urlMusic = getMusicURLFromID(song.idMusicStorage);
+          delete song.idImageStorage;
+          delete song.idMusicStorage;
         })
       }
       return res
