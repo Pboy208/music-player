@@ -6,7 +6,7 @@ const songSlice = createSlice({
     isLoading: false,
     byIds: {},
     ids: [],
-    currentlyPlaying: null,
+    currentlyPlaying: null, // song is playing for now
     playingQueue: [],
     recentlyPlayed: [],
   },
@@ -19,6 +19,12 @@ const songSlice = createSlice({
       state.ids = [];
       state.isLoading = false;
     },
+    addSongToQueue: (state, action) => {
+      
+    }
+    nextSong: (state, action) => {
+      
+    }
   },
 });
 

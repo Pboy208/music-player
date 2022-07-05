@@ -3,7 +3,7 @@ import { useCallback, useReducer, useState } from 'react';
 const songList = [
   {
     urlMusic:
-      'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/6fb6c197-6413-7508-38c7-21b180c0988f.mp3',
+      'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/1926e050-16c9-3039-fec1-8e252c39bb73',
     timePlays: 181000,
     urlImage:
       'https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/50/1398/35822/70126/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg?itok=CvqVGEFU',
@@ -20,7 +20,7 @@ const songList = [
     urlImage:
       'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
     urlMusic:
-      'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
+      'https://res.cloudinary.com/mp320212/video/upload/Music/19305c7c-15bd-1841-df99-4d3edfe18939',
   },
   {
     song_id: '589e28de-7fff-3486-3589-479bce9b28fc',
@@ -50,7 +50,7 @@ const songList = [
 
 const initialSong = {
   urlMusic:
-    'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/6fb6c197-6413-7508-38c7-21b180c0988f.mp3',
+    'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/1926e050-16c9-3039-fec1-8e252c39bb73',
   timePlays: 181000,
   urlImage:
     'https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/50/1398/35822/70126/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg?itok=CvqVGEFU',

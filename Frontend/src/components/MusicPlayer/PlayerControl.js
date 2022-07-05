@@ -41,7 +41,6 @@ const PlayerControl = React.memo(
     isPlayback,
   }) => {
     const playerRef = useRef();
-
     const [state, setState] = useReducer(reducer, {
       isPlaying: false,
       progress: 0,
@@ -152,7 +151,7 @@ const PlayerControl = React.memo(
             }}
           />
           <Time className="u-userSelectNone">
-            {timeFormatter(song.timePlays / 1000)}
+            {timeFormatter(playerRef.current?.duration)}
           </Time>
         </ProgressBarWrapper>
       </Wrapper>
