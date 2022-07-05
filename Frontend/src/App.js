@@ -6,6 +6,8 @@ import Favorite from 'screens/Favorite';
 import ProtectedRoute from 'components/common/ProtectedRoute';
 import UnprotectedRoute from 'components/common/UnprotectedRoute';
 import Profile from 'components/Profile';
+import Chart from 'screens/Chart';
+import Explore from 'screens/Explore';
 
 function Mock() {
   return <div>Mock</div>;
@@ -45,12 +47,12 @@ function App() {
         <Route
           path="/explore"
           exact
-          element={<ProtectedRoute component={Mock} />}
+          element={<ProtectedRoute component={Explore} />}
         />
         <Route
           path="/chart"
           exact
-          element={<ProtectedRoute component={Mock} />}
+          element={<ProtectedRoute component={Chart} />}
         />
         <Route
           path="/release"
