@@ -21,7 +21,7 @@ const songSlice = createSlice({
     },
     addSongToQueue: (state, action) => {
       
-    }
+    },
     nextSong: (state, action) => {
       
     }
