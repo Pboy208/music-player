@@ -3,7 +3,7 @@ const router = express.Router();
 const songController = require("../controllers/song-controller.js");
 const checkAuth = require("../middleware/check-auth");
 
-//router.use(checkAuth);
+router.use(checkAuth);
 router.get('/GetImage',songController.getImageBySongID);
 router.get('/chart',songController.getTop100);
 router.get('/GetAssets',songController.getAssetsBySongID);
