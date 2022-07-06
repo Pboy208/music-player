@@ -15,6 +15,7 @@ router.get('/favoriteSong/:userId',songController.getFavoriteSong);
 router.delete('/:songId',songController.deleteSong);
 router.post('/',songController.addNewSong);
 router.post('/favoriteSong',songController.addFavoriteSong);
+router.post('/search',songController.search);
 
 
 module.exports = router;
