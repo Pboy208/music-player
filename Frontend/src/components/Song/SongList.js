@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import SongItem from './SongItem';
 
-function SongList() {
+function SongList({ songList }) {
+  console.log(songList);
   return (
     <Wrapper>
       <table
@@ -21,14 +22,17 @@ function SongList() {
             <Title scope="col" width="10%">
               Time
             </Title>
-            <Title scope="col" width="5%"/>
+            <Title scope="col" width="5%" />
           </tr>
         </thead>
         <tbody>
+          {songList.map((song) => (
+            <SongItem key={song.songId} song={song} />
+          ))}
+          {/* <SongItem />
           <SongItem />
           <SongItem />
-          <SongItem />
-          <SongItem />
+          <SongItem /> */}
         </tbody>
       </table>
     </Wrapper>
