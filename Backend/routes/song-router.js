@@ -12,7 +12,7 @@ router.get('/:songId', songController.getAssetsBySongID);
 
 router.get('/explore/song',songController.getNewSong);
 router.get('/explore/artist',songController.exploreArtist)
-router.get('/favoriteSong/:userId',songController.getFavoriteSong);
+router.get('/favoriteSong',songController.getFavoriteSong);
 router.delete('/:songId',songController.deleteSong);
 router.post('/',songController.addNewSong);
 router.post('/favoriteSong',songController.addFavoriteSong);

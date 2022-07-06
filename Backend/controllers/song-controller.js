@@ -55,7 +55,6 @@ module.exports = {
       }})
     }),
     getFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
-      const params = req.params;
       const result = await Song.getFavoriteSong(req.userData.userId);
       return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data:{
         songList: result[0]

@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SongList from 'components/Song/SongList';
 import { Tab } from '@ahaui/react';
+import { getFavoriteSong } from 'api/songAPIs';
 
 function Personal() {
   const [currentTab, setCurrentTab] = useState('liked');
+  const [songList, setSongList] = useState(null);
+
+  useEffect(() => {
+    const fetchSongList = () => {
+      getFavoriteSong().then((result) => setSongList(result.data));
+    };
+
+    fetchSongList();
+  }, []);
+
+  if (!songList) return null;
 
   return (
     <Wrapper className="card aligned-center">
@@ -12,7 +24,7 @@ function Personal() {
         <Tab.Item eventKey="liked">Liked</Tab.Item>
         <Tab.Item eventKey="album">Album</Tab.Item>
       </Tab>
-      <SongList />
+      <SongList songList={songList} />
     </Wrapper>
   );
 }

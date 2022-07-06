@@ -27,3 +27,5 @@ export const search = async (query, scrollOffset = 0) =>
 export const postSong = (newSong) => post('/song', { body: newSong });
 
 export const getSongById = (songId) => get(`/song/${songId}`);
+
+export const getFavoriteSong = () => get('/song/favoriteSong');
