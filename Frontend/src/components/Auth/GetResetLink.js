@@ -104,6 +104,7 @@ function GetResetLink() {
                 {errors?.email?.message}
               </FormFeedback>
             </FormGroup>
+            <Login to="/login">Already have an account, lets login?</Login>
             <Direct>
               <ResetButton size="big" variant="primary">
                 <ButtonLabel>
@@ -246,7 +247,7 @@ const FormInput = styled(Form.Input)`
   border-radius: 4px;
   box-shadow: inset 0 0 0 1px var(--essential-subdued, #878787);
 `;
-const Forgot = styled(Link)`
+const Login = styled(Link)`
   color: inherit;
   align-items: center;
   text-decoration: none;
