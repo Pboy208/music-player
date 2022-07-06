@@ -29,7 +29,7 @@ module.exports = {
       song[0][0].liked = !!song[0][0].liked;
       return res
         .status(200)
-        .send({ message: "GET_ASSETS_URL_SUCCESS", data: song[0] });
+        .send({ message: "GET_ASSETS_URL_SUCCESS", data: song[0][0] });
     }),
     getTop100: tryCatchBlock(null, async (req, res, next) => {
       const songList = await Song.getTop100();
@@ -53,9 +53,7 @@ module.exports = {
     }),
     getFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
       const result = await Song.getFavoriteSong(req.userData.userId);
-      return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data:{
-        songList: result[0]
-      }})
+      return res.status(200).send({ message: 'GET_FAVORITE_SONG_SUCCESS', data: result[0] });
     }),
     addFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
       const body = req.body;
@@ -83,6 +81,7 @@ module.exports = {
     }),
     toggleLikeSong: tryCatchBlock(null, async (req, res, next) => {
       let params = req.params;
+      console.log(params);
       const result = await Song.toggleLikeSong(req.userData.userId,params.songId);
       return res.status(200).send({message: "TOGGLE_LIKE_SONG_SUCCESS"})
     })

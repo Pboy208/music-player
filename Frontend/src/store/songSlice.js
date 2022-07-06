@@ -103,6 +103,9 @@ const songSlice = createSlice({
       state.playingQueue = state.playingQueue.filter(
         (song) => song.songId !== newSong.songId,
       );
+      state.recentlyPlayed = state.recentlyPlayed.filter(
+        (song) => song.songId !== newSong.songId,
+      );
       state.recentlyPlayed = [state.currentlyPlaying, ...state.recentlyPlayed];
       state.currentlyPlaying = newSong;
     },

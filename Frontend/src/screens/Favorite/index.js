@@ -10,7 +10,10 @@ function Personal() {
 
   useEffect(() => {
     const fetchSongList = () => {
-      getFavoriteSong().then((result) => setSongList(result.data));
+      getFavoriteSong().then((result) => {
+        console.log(result);
+        setSongList(result.data.map((song) => ({ ...song, liked: true })));
+      });
     };
 
     fetchSongList();
