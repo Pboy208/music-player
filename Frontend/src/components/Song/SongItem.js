@@ -5,10 +5,9 @@ import styled from 'styled-components';
 import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
 import { useDispatch } from 'react-redux';
-import { playSongNow } from 'store/songSlice';
 import { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
-import { toggleLikeSong } from 'api/songAPIs';
+import { playSongNow,toggleLike } from 'store/songSlice';
 
 function SongItem({ song }) {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ function SongItem({ song }) {
   const unLikeHandler = (e) => {
     e.stopPropagation();
     setIsLiked(false);
-    toggleLikeSong(song.songId);
+    dispatch(toggleLike(song.songId));
   };
 
   if (!isLiked) return null;
