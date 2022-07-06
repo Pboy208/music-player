@@ -8,7 +8,7 @@ router.get('/GetImage',songController.getImageBySongID);
 router.get('/chart',songController.getTop100);
 router.get('/GetAssets',songController.getAssetsBySongID);
 router.get('/search',songController.search);
-router.get('/:songId',songController.getMusicBySongID);
+router.get('/:songId', songController.getAssetsBySongID);
 
 router.get('/explore/song',songController.getNewSong);
 router.get('/explore/artist',songController.exploreArtist)
