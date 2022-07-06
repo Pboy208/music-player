@@ -8,11 +8,12 @@ import { Form, Button, Loader } from '@ahaui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import validationSchema from 'utils/schemas/loginSchema';
+import validationSchema from 'utils/schemas/forgotPasswordSchema';
 import { login, googleLogin } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
 import { FcGoogle } from 'react-icons/fc';
 import { GoogleLogin } from 'react-google-login';
+import { resetPassword } from 'api/authAPIs';
 
 function ForgotPassword() {
   const {
@@ -30,8 +31,12 @@ function ForgotPassword() {
   const navigate = useNavigate();
   const isEmailInvalid = !!errors.email;
 
-  const handleReset = (email) => {
-    // TO DO
+  const handleReset = async (email) => {
+    console.log('reset trigger');
+    const result = await resetPassword(email);
+    if (!result) console.log('reset password fail');
+
+    console.log('PLease check your email');
   };
 
   const handleGoogleLogin = (loginInfo) => {
