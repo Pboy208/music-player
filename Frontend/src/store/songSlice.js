@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { search } from 'api/postAPIs';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getFavoriteSong, toggleLikeSong } from 'api/songAPIs';
 
 const songList = [
   {
@@ -48,7 +49,13 @@ const initialSong = {
   liked: true,
 };
 
-// export const searchSong = createAsyncThunk('song/search', query => search(query));
+export const getLikedList = createAsyncThunk('song/getLikedList', () =>
+  getFavoriteSong(),
+);
+
+export const toggleLike = createAsyncThunk('song/toggleLikeSong', (songId) =>
+  toggleLikeSong(songId),
+);
 
 const songSlice = createSlice({
   name: 'song',
@@ -59,6 +66,7 @@ const songSlice = createSlice({
     currentlyPlaying: initialSong, // song is playing for now
     playingQueue: songList,
     recentlyPlayed: [],
+    likedList: null,
   },
   reducers: {
     setIsLoading: (state, action) => {
@@ -110,8 +118,40 @@ const songSlice = createSlice({
       state.currentlyPlaying = newSong;
     },
   },
+  extraReducers: {
+    [getLikedList.fulfilled]: (state, action) => {
+      state.likedList = action.payload.data.map((song) => ({
+        ...song,
+        liked: true,
+      }));
+    },
+    [toggleLike.fulfilled]: (state, action) => {
+      const songId = action.payload.data;
+      if (state.currentlyPlaying.songId === songId) {
+        const { liked } = state.currentlyPlaying;
+        if (liked) {
+          state.likedList = state.likedList.filter(
+            (song) => song.songId !== songId,
+          );
+        } else {
+          state.likedList = [state.currentlyPlaying, ...state.likedList];
+        }
+        state.currentlyPlaying.liked = !liked;
+      } else {
+        state.likedList = state.likedList.filter(
+          (song) => song.songId !== songId,
+        );
+      }
+    },
+  },
 });
 
 export default songSlice.reducer;
-export const { resetSongState, playSongNow, nextSongAction, prevSongAction } =
-  songSlice.actions;
+export const {
+  resetSongState,
+  playSongNow,
+  nextSongAction,
+  prevSongAction,
+  likeSong,
+  dislikeSong,
+} = songSlice.actions;

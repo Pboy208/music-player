@@ -3,17 +3,17 @@ import styled from 'styled-components';
 import SongList from 'components/Song/SongList';
 import { Tab } from '@ahaui/react';
 import { getFavoriteSong } from 'api/songAPIs';
+import { getLikedList } from 'store/songSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Personal() {
   const [currentTab, setCurrentTab] = useState('liked');
-  const [songList, setSongList] = useState(null);
+  const { likedList: songList } = useSelector((state) => state.song);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchSongList = () => {
-      getFavoriteSong().then((result) => {
-        console.log(result);
-        setSongList(result.data.map((song) => ({ ...song, liked: true })));
-      });
+      dispatch(getLikedList());
     };
 
     fetchSongList();

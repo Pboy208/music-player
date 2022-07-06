@@ -5,22 +5,22 @@ import styled from 'styled-components';
 import { FiVolume2, FiVolumeX } from 'react-icons/fi';
 import { Slider as VolumeSlider } from '@ahaui/react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { toggleLikeSong } from 'api/songAPIs';
 import { useLayoutEffect, useState } from 'react';
+import { toggleLike } from 'store/songSlice';
+import { useDispatch } from 'react-redux';
 
 function AdditionActions({ volume, prevVolume, setVolume, song }) {
   const toggleMuting = () => setVolume(volume === 0 ? prevVolume : 0);
   const [isLiked, setIsLiked] = useState(song.liked);
+  const dispatch = useDispatch();
   console.log('first', isLiked, song.liked);
-
   useLayoutEffect(() => {
     setIsLiked(song.liked);
   }, [song]);
 
   const toggleLikeHandler = () => {
-    console.log('triggered', song.songId, song);
-    toggleLikeSong(song.songId);
     setIsLiked((prev) => !prev);
+    dispatch(toggleLike(song.songId));
   };
 
   return (
