@@ -51,6 +51,7 @@ function MusicPlayer() {
         prevVolume={prevVolume}
         volume={volume}
         setVolume={setVolume}
+        liked={song.liked}
       />
     </Wrapper>
   );

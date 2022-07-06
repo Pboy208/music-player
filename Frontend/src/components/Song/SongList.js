@@ -15,12 +15,13 @@ function SongList() {
             <Title scope="col" width="45%">
               Song
             </Title>
-            <Title scope="col" width="45%">
+            <Title scope="col" width="40%">
               Album
             </Title>
             <Title scope="col" width="10%">
               Time
             </Title>
+            <Title scope="col" width="5%"/>
           </tr>
         </thead>
         <tbody>

@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   FaPlayCircle,
@@ -48,6 +48,15 @@ const PlayerControl = React.memo(
     });
     const { isPlaying, progress, currentTime } = state;
 
+    const [duration, setDuration] = useState(0);
+
+    const audio = new Audio(song.urlMusic);
+    audio.onloadedmetadata = (e) => {
+      if (audio.readyState > 0) {
+        setDuration(audio.duration);
+      }
+    };
+
     const togglePlaying = () =>
       setState({ type: 'SET_PLAYING', isPlaying: !isPlaying });
 
@@ -67,7 +76,7 @@ const PlayerControl = React.memo(
       if (!isPlaying) return;
 
       const interval = setInterval(() => {
-        const { duration, currentTime: songCurrentTime } = playerRef.current;
+        const { currentTime: songCurrentTime } = playerRef.current;
         // khi het nhac thi move tiep
         if (songCurrentTime / duration === 1) {
           if (isPlayback) {
@@ -150,9 +159,7 @@ const PlayerControl = React.memo(
               height: 6,
             }}
           />
-          <Time className="u-userSelectNone">
-            {timeFormatter(playerRef.current?.duration)}
-          </Time>
+          <Time className="u-userSelectNone">{timeFormatter(duration)}</Time>
         </ProgressBarWrapper>
       </Wrapper>
     );
