@@ -1,5 +1,5 @@
 module.exports = (resetPwLink) => {
-    return `<html lang="en">
+  return `<html lang="en">
     <head>
         <title>Title</title>
         <!-- Required meta tags -->
@@ -69,7 +69,6 @@ module.exports = (resetPwLink) => {
                         text-align: center
                         "
                     >
-                        <img src="cid:logo" alt="" style="margin-left: 0px" width="53" height="50"/>
                         <span
                             class="logo__text"
                             style="
@@ -81,7 +80,7 @@ module.exports = (resetPwLink) => {
                                 margin-left: 10px;
                             "
                         >
-                            Tinpet
+                            Muzi
                         </span>
                     </div>
                 </td>
@@ -164,7 +163,7 @@ module.exports = (resetPwLink) => {
                                     margin-left: 10px;
                                 "
                             >
-                                2021 GROUP 5, INC
+                                2022 GROUP 8, INC
                             </span>
                         </div>
                     </td>

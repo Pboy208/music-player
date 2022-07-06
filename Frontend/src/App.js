@@ -6,9 +6,11 @@ import Favorite from 'screens/Favorite';
 import ProtectedRoute from 'components/common/ProtectedRoute';
 import UnprotectedRoute from 'components/common/UnprotectedRoute';
 import Profile from 'components/Profile';
-import ForgotPassword from 'components/Auth/ForgotPassword';
+import GetResetLink from 'components/Auth/GetResetLink';
 import Chart from 'screens/Chart';
 import Explore from 'screens/Explore';
+import ResetPassword from 'components/Auth/ResetPassword';
+import { ToastContainer } from '@ahaui/react';
 
 function Mock() {
   return <div>Mock</div>;
@@ -17,6 +19,7 @@ function Mock() {
 function App() {
   return (
     <>
+      <ToastContainer />
       <GlobalStyle theme="light" />
       <Routes>
         <Route path="/" exact element={<Navigate to="/home" />} />
@@ -33,7 +36,11 @@ function App() {
         <Route
           path="/forgot"
           exact
-          element={<UnprotectedRoute component={ForgotPassword} />}
+          element={<UnprotectedRoute component={GetResetLink} />}
+        />
+        <Route
+          path="/reset-password/:resetToken"
+          element={<UnprotectedRoute component={ResetPassword} />}
         />
         <Route
           path="/home"

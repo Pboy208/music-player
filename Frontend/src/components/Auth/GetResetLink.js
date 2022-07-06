@@ -8,13 +8,14 @@ import { Form, Button, Loader } from '@ahaui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import validationSchema from 'utils/schemas/loginSchema';
+import validationSchema from 'utils/schemas/forgotPasswordSchema';
 import { login, googleLogin } from 'store/authSlice';
 import * as Toast from 'components/common/Toast';
 import { FcGoogle } from 'react-icons/fc';
 import { GoogleLogin } from 'react-google-login';
+import { getResetLink } from 'api/authAPIs';
 
-function ForgotPassword() {
+function GetResetLink() {
   const {
     setValue,
     register,
@@ -25,13 +26,24 @@ function ForgotPassword() {
     resolver: yupResolver(validationSchema),
   });
 
-  const { isLoading } = useSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = React.useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isEmailInvalid = !!errors.email;
 
   const handleReset = (email) => {
-    // TO DO
+    setIsLoading(true);
+    getResetLink(email)
+      .then((resolve) => {
+        setIsLoading(false);
+        Toast.success('PLease check your email');
+      })
+      .catch(() => {
+        setIsLoading(false);
+        Toast.error(
+          'Reset password fail, account with this email may not exist',
+        );
+      });
   };
 
   const handleGoogleLogin = (loginInfo) => {
@@ -334,4 +346,4 @@ const SignIn = styled.div`
     border: 1px solid black;
   }
 `;
-export default ForgotPassword;
+export default GetResetLink;

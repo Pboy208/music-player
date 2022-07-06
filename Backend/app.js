@@ -62,5 +62,5 @@ app.use((error, req, res, next) => {
 //     res.render('error');
 //   });
 
-const server = app.listen(process.env.LISTENING_PORT || 3000);
+const server = app.listen(process.env.LISTENING_PORT || 8888);
 
