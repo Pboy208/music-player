@@ -4,15 +4,17 @@ import { Avatar } from '@ahaui/react';
 import { getSongById } from 'api/songAPIs';
 import { playSongNow } from 'store/songSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
   const isArtistItem = !!type;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onClickHandler = async () => {
     resetSearch();
     if (isArtistItem) {
-      console.log('route to artist page');
+      navigate(`/personal/${id}`);
     } else {
       const { data } = await getSongById(id);
       dispatch(playSongNow(data));
@@ -48,7 +50,7 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
 
 function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
   if (result.length === 0) return null;
-
+  console.log(result);
   return (
     <div
       className="u-flex u-flexColumn u-positionAbsolute u-border"
@@ -67,7 +69,7 @@ function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
             lastItemRef={isLastItem ? lastItemRef : null}
             key={item.id}
             id={item.id}
-            avatar={item.avatar}
+            avatar={item.image}
             name={item.name}
             type={item.type}
             resetSearch={resetSearch}

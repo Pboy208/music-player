@@ -11,6 +11,7 @@ const songList = [
       'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
     urlMusic:
       'https://res.cloudinary.com/mp320212/video/upload/Music/19305c7c-15bd-1841-df99-4d3edfe18939',
+    liked: false,
   },
   {
     songId: '589e28de-7fff-3486-3589-479bce9b28fc',
@@ -21,6 +22,7 @@ const songList = [
       'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
     urlMusic:
       'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/6fb6c197-6413-7508-38c7-21b180c0988f.mp3',
+    liked: false,
   },
   {
     songId: '15faf519-3919-45f4-e8a9-deaf32c96293',
@@ -31,6 +33,7 @@ const songList = [
       'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
     urlMusic:
       'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
+    liked: true,
   },
 ];
 
@@ -42,6 +45,7 @@ const initialSong = {
     'https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/50/1398/35822/70126/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg?itok=CvqVGEFU',
   name: "I'm Yours",
   author: 'Tro Ly Beo',
+  liked: true,
 };
 
 // export const searchSong = createAsyncThunk('song/search', query => search(query));
