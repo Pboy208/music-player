@@ -4,18 +4,19 @@ import { Avatar } from '@ahaui/react';
 import { getSongById } from 'api/songAPIs';
 import { playSongNow } from 'store/songSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
   const isArtistItem = !!type;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onClickHandler = async () => {
     resetSearch();
     if (isArtistItem) {
-      console.log('route to artist page');
+      navigate(`/personal/${id}`);
     } else {
       const { data } = await getSongById(id);
-      console.log('fetched song', data);
       dispatch(playSongNow(data));
     }
   };
