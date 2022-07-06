@@ -17,6 +17,7 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
       navigate(`/personal/${id}`);
     } else {
       const { data } = await getSongById(id);
+      console.log("fetched", data);
       dispatch(playSongNow(data));
     }
   };

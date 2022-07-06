@@ -1,11 +1,27 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable eqeqeq */
 import styled from 'styled-components';
 import { FiVolume2, FiVolumeX } from 'react-icons/fi';
 import { Slider as VolumeSlider } from '@ahaui/react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { toggleLikeSong } from 'api/songAPIs';
+import { useLayoutEffect, useState } from 'react';
 
-function AdditionActions({ volume, prevVolume, setVolume, liked }) {
+function AdditionActions({ volume, prevVolume, setVolume, song }) {
   const toggleMuting = () => setVolume(volume === 0 ? prevVolume : 0);
+  const [isLiked, setIsLiked] = useState(song.liked);
+  console.log('first', isLiked, song.liked);
+
+  useLayoutEffect(() => {
+    setIsLiked(song.liked);
+  }, [song]);
+
+  const toggleLikeHandler = () => {
+    console.log('triggered', song.songId, song);
+    toggleLikeSong(song.songId);
+    setIsLiked((prev) => !prev);
+  };
 
   return (
     <Wrapper>
@@ -14,8 +30,9 @@ function AdditionActions({ volume, prevVolume, setVolume, liked }) {
           height: 28,
           cursor: 'pointer',
         }}
+        onClick={toggleLikeHandler}
       >
-        {liked ? (
+        {isLiked ? (
           <FaHeart style={{ fontSize: 28, color: 'red' }} />
         ) : (
           <FaRegHeart style={{ fontSize: 28 }} />

@@ -8,23 +8,12 @@ import { useDispatch } from 'react-redux';
 import { playSongNow } from 'store/songSlice';
 import { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
+import { toggleLikeSong } from 'api/songAPIs';
 
-const songDefault = {
-  songId: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
-  name: 'Mây Hồng Đưa Lối',
-  author: 'Phuonw',
-  authorId: '27341263-7cbf-193d-781d-bb3758d4bac0',
-  urlImage:
-    'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
-  urlMusic:
-    'https://res.cloudinary.com/mp320212/video/upload/Music/19305c7c-15bd-1841-df99-4d3edfe18939',
-  liked: true,
-};
-
-function SongItem({ song = songDefault }) {
+function SongItem({ song }) {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState(0);
-  const [isLiked, setIsLiked] = useState(song.liked);
+  const [isLiked, setIsLiked] = useState(true);
 
   const audio = new Audio(song.urlMusic);
   audio.onloadedmetadata = (e) => {
@@ -36,6 +25,7 @@ function SongItem({ song = songDefault }) {
   const unLikeHandler = (e) => {
     e.stopPropagation();
     setIsLiked(false);
+    toggleLikeSong(song.songId);
   };
 
   if (!isLiked) return null;
