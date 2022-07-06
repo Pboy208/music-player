@@ -6,6 +6,7 @@ import Favorite from 'screens/Favorite';
 import ProtectedRoute from 'components/common/ProtectedRoute';
 import UnprotectedRoute from 'components/common/UnprotectedRoute';
 import Profile from 'components/Profile';
+import ForgotPassword from 'components/Auth/ForgotPassword';
 import Chart from 'screens/Chart';
 import Explore from 'screens/Explore';
 
@@ -28,6 +29,11 @@ function App() {
           path="/register"
           exact
           element={<UnprotectedRoute component={Register} />}
+        />
+        <Route
+          path="/forgot"
+          exact
+          element={<UnprotectedRoute component={ForgotPassword} />}
         />
         <Route
           path="/home"

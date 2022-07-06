@@ -1,6 +1,24 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Avatar } from '@ahaui/react';
+import { getSongById } from 'api/songAPIs';
+import { playSongNow } from 'store/songSlice';
+import { useDispatch } from 'react-redux';
 
-function DropdownItem({ avatar, name, type }) {
+function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
+  const isArtistItem = !!type;
+  const dispatch = useDispatch();
+
+  const onClickHandler = async () => {
+    resetSearch();
+    if (isArtistItem) {
+      console.log('route to artist page');
+    } else {
+      const { data } = await getSongById(id);
+      dispatch(playSongNow(data));
+    }
+  };
+
   return (
     <div
       className="u-flex u-alignItemsCenter u-borderBottom u-backgroundGray u-shadowMedium"
@@ -10,6 +28,8 @@ function DropdownItem({ avatar, name, type }) {
         gap: 12,
         paddingLeft: 12,
       }}
+      ref={lastItemRef || null}
+      onClick={onClickHandler}
     >
       <div>
         <Avatar
@@ -20,19 +40,15 @@ function DropdownItem({ avatar, name, type }) {
       </div>
       <div className="u-flex u-flexColumn">
         <span className="u-text400">{name}</span>
-        <span className="u-text100">{type}</span>
+        <span className="u-text100">{isArtistItem ? 'Artist' : 'Song'}</span>
       </div>
     </div>
   );
 }
 
-const defaultResults = [
-  { avatar: '', name: 'name', type: 'Artist' },
-  { avatar: '', name: 'name', type: 'Artist' },
-  { avatar: '', name: 'name', type: 'Artist' },
-];
+function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
+  if (result.length === 0) return null;
 
-function SearchBoxDropdown(results) {
   return (
     <div
       className="u-flex u-flexColumn u-positionAbsolute u-border"
@@ -44,14 +60,20 @@ function SearchBoxDropdown(results) {
         overflow: 'auto',
       }}
     >
-      {defaultResults.map((result) => (
-        <DropdownItem
-          key={result.avatar + result.name}
-          avatar={result.avatar}
-          name={result.name}
-          type={result.type}
-        />
-      ))}
+      {result.map((item, index) => {
+        const isLastItem = index === result.length - 1;
+        return (
+          <DropdownItem
+            lastItemRef={isLastItem ? lastItemRef : null}
+            key={item.id}
+            id={item.id}
+            avatar={item.avatar}
+            name={item.name}
+            type={item.type}
+            resetSearch={resetSearch}
+          />
+        );
+      })}
     </div>
   );
 }

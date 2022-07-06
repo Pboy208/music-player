@@ -11,6 +11,7 @@ import CustomizedDropdown from 'components/common/CustomizedDropdown';
 import { SearchBox, Button, Icon } from '@ahaui/react';
 import { useEffect, useState } from 'react';
 import * as songAPIs from 'api/songAPIs';
+import useSearch from 'hooks/useSearch';
 import SearchBoxDropdown from './SearchBoxDropdown';
 
 function LogoutUI() {
@@ -51,18 +52,7 @@ function SettingUI() {
 
 function Header({ setIsMenuOpen, isMenuOpen }) {
   const [searchValue, setSearchValue] = useState('');
-
-  useEffect(() => {
-    const searchValueDebounce = setTimeout(() => {
-      // songAPIs.search(searchValue).then((res) => {
-      //   console.log(res);
-      // });
-    }, 500);
-
-    return () => {
-      clearTimeout(searchValueDebounce);
-    };
-  }, [searchValue]);
+  const { result, lastItemRef } = useSearch(searchValue);
 
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -115,9 +105,16 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
           <SearchBar
             placeholder="Search..."
             sizeControl="small"
+            value={searchValue}
             onChange={searchChangeHandler}
           />
-          {/* <SearchBoxDropdown /> */}
+          {!!searchValue && (
+            <SearchBoxDropdown
+              result={result}
+              lastItemRef={lastItemRef}
+              resetSearch={()=>setSearchValue('')}
+            />
+          )}
         </div>
       </div>
       <ActionsWrapper>
