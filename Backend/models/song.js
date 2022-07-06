@@ -17,7 +17,7 @@ module.exports = class Song {
   });
   static getAssetsBySongID = tryCatchBlock(async (id) => {
     const [resultSet] = await database.execute(
-      `SELECT idImageStorage,idMusicStorage, Song.name as name, Artist.name as author, Song.artistID as authorId from Song join Artist on (Song.artistID = Artist.artistID) where songID = '${id}'`,
+      `SELECT idImageStorage,idMusicStorage, Song.name as name, User.name as author, Song.artistID as authorId from Song join User on (Song.artistID = User.userID) where songID = '${id}'`,
     );
     return resultSet;
   });
