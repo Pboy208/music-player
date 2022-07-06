@@ -4,11 +4,12 @@ const songController = require("../controllers/song-controller.js");
 const checkAuth = require("../middleware/check-auth");
 
 router.use(checkAuth);
-
-router.get('/:songId/image',songController.getImageBySongID);
-router.get('/:songId/music',songController.getMusicBySongID);
-router.get('/:songId',songController.getAssetsBySongID);
+router.get('/GetImage',songController.getImageBySongID);
 router.get('/chart',songController.getTop100);
+router.get('/GetAssets',songController.getAssetsBySongID);
+router.get('/search',songController.search);
+router.get('/:songId',songController.getMusicBySongID);
+
 router.get('/explore/song',songController.getNewSong);
 router.get('/favoriteSong/:userId',songController.getFavoriteSong);
 router.delete('/:songId',songController.deleteSong);

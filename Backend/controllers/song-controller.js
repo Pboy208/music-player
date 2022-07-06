@@ -47,18 +47,18 @@ module.exports = {
       urlMusic:
         'https://res.cloudinary.com/mp320212/video/upload/Music/19305c7c-15bd-1841-df99-4d3edfe18939',
     };
-    // return res.status(200).send({ message: 'GET_ASSETS_URL_SUCCESS', data: song[0] });
-        return res.status(200).send({ message: 'GET_ASSETS_URL_SUCCESS', data: tmp });
-
+    return res.status(200).send({ message: 'GET_ASSETS_URL_SUCCESS', data: song[0] });
+    // return res.status(200).send({ message: 'GET_ASSETS_URL_SUCCESS', data: tmp });
   }),
   getTop100: tryCatchBlock(null, async (req, res, next) => {
     const songList = await Song.getTop100();
+    console.log(songList);
     if (songList) {
       songList[0].forEach((song) => {
-        song.urlImage = getImageURLFromID('66f5692b-4709-2091-4dc1-f32a102323e6');
-        song.urlMusic = getMusicURLFromID('6fb6c197-6413-7508-38c7-21b180c0988f');
-        delete song.id_image_storage;
-        delete song.id_music_storage;
+        song.urlImage = getImageURLFromID(song.idImageStorage);
+        song.urlMusic = getMusicURLFromID(song.idMusicStorage);
+        delete song.idImageStorage;
+        delete song.idMusicStorage;
       });
     }
     return res.status(200).send({ message: 'GET_TOP_100_SUCCESS', data: songList[0] });
