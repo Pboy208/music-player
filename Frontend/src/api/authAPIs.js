@@ -12,9 +12,15 @@ export const register = (registerInfo) =>
     body: registerInfo,
   });
 
+export const getResetLink = (email) =>
+  post('/auth/reset-password', { body: email });
+
 export const googleLogin = (googleLoginInfo) =>
   post('/auth/google/sign-in', {
     body: {
       ...googleLoginInfo,
     },
   });
+
+export const resetPassword = (resetToken, password) =>
+  post(`/auth/reset-password/${resetToken}`, { body: { password } });

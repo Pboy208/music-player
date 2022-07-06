@@ -103,11 +103,6 @@ module.exports = {
           cid: 'forget-password-illus',
         },
         {
-          filename: 'logo.jpg',
-          path: __dirname + '/../public/assets/images/logo.png',
-          cid: 'logo',
-        },
-        {
           filename: 'copyright.jpg',
           path: __dirname + '/../public/assets/images/copyright.png',
           cid: 'copyright',
