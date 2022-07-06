@@ -83,6 +83,6 @@ module.exports = {
       let params = req.params;
       console.log(params);
       const result = await Song.toggleLikeSong(req.userData.userId,params.songId);
-      return res.status(200).send({message: "TOGGLE_LIKE_SONG_SUCCESS"})
+      return res.status(200).send({ message: 'TOGGLE_LIKE_SONG_SUCCESS', data: params.songId });
     })
   };

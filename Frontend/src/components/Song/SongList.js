@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import SongItem from './SongItem';
 
 function SongList({ songList }) {
-  console.log(songList);
   return (
     <Wrapper>
       <table
@@ -29,10 +28,6 @@ function SongList({ songList }) {
           {songList.map((song) => (
             <SongItem key={song.songId} song={song} />
           ))}
-          {/* <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem /> */}
         </tbody>
       </table>
     </Wrapper>
