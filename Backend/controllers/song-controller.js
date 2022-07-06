@@ -29,7 +29,7 @@ module.exports = {
           } });
     }),
     getAssetsBySongID: tryCatchBlock(null, async (req, res, next) => {
-      const song = await Song.getAssetsBySongID(req.query.songId);
+      const song = await Song.getAssetsBySongID(req.params.songId);
       return res
         .status(200)
         .send({ message: "GET_ASSETS_URL_SUCCESS", data: song[0] });

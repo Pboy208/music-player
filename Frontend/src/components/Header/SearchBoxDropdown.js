@@ -15,6 +15,7 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
       console.log('route to artist page');
     } else {
       const { data } = await getSongById(id);
+      console.log('fetched song', data);
       dispatch(playSongNow(data));
     }
   };
@@ -48,7 +49,7 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
 
 function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
   if (result.length === 0) return null;
-
+  console.log(result);
   return (
     <div
       className="u-flex u-flexColumn u-positionAbsolute u-border"
@@ -67,7 +68,7 @@ function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
             lastItemRef={isLastItem ? lastItemRef : null}
             key={item.id}
             id={item.id}
-            avatar={item.avatar}
+            avatar={item.image}
             name={item.name}
             type={item.type}
             resetSearch={resetSearch}
