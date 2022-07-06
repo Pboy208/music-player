@@ -8,10 +8,6 @@ require('dotenv').config();
 module.exports = {
     getImageBySongID: tryCatchBlock(null, async (req, res, next) => {
       const song = await Song.getImageBySongID(req.params.songId);
-      if(song[0]){
-        song[0].urlImage = process.env.IMAGE_STORAGE_URL + song[0].id_image_storage;
-        delete song[0].id_image_storage;
-      }
       return res
         .status(200)
         .send({ message: "GET_IMAGE_URL_SUCCESS", data: song[0] });
@@ -29,7 +25,8 @@ module.exports = {
           } });
     }),
     getAssetsBySongID: tryCatchBlock(null, async (req, res, next) => {
-      const song = await Song.getAssetsBySongID(req.params.songId);
+      const song = await Song.getAssetsBySongID(req.userData.userId,req.params.songId);
+      song[0][0].liked = !!song[0][0].liked;
       return res
         .status(200)
         .send({ message: "GET_ASSETS_URL_SUCCESS", data: song[0] });
@@ -55,7 +52,6 @@ module.exports = {
       }})
     }),
     getFavoriteSong: tryCatchBlock(null, async (req, res, next) => {
-      const params = req.params;
       const result = await Song.getFavoriteSong(req.userData.userId);
       return res.status(200).send({message: "GET_FAVORITE_SONG_SUCCESS",data:{
         songList: result[0]
@@ -84,5 +80,10 @@ module.exports = {
     exploreArtist: tryCatchBlock(null, async (req, res, next) => {
       const result = await Song.exploreArtist();
       return res.status(200).send({message: "EXPLORE_ARTIST_SUCCESS",data: result[0]})
+    }),
+    toggleLikeSong: tryCatchBlock(null, async (req, res, next) => {
+      let params = req.params;
+      const result = await Song.toggleLikeSong(req.userData.userId,params.songId);
+      return res.status(200).send({message: "TOGGLE_LIKE_SONG_SUCCESS"})
     })
   };

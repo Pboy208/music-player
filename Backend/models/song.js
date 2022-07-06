@@ -11,9 +11,9 @@ module.exports = class Song {
     const [resultSet] = await database.execute(`SELECT urlMusic from Song where songID = '${id}'`);
     return resultSet;
   });
-  static getAssetsBySongID = tryCatchBlock(async (id) => {
+  static getAssetsBySongID = tryCatchBlock(async (userId,songId) => {
     const [resultSet] = await database.execute(
-      `SELECT idImageStorage,idMusicStorage, Song.name as name, User.name as author, Song.artistID as authorId from Song join User on (Song.artistID = User.userID) where songID = '${id}'`,
+      `CALL Proc_GetAssets('${songId}','${userId}')`,
     );
     return resultSet;
   });
@@ -32,6 +32,7 @@ module.exports = class Song {
     return resultSet;
   });
   static getFavoriteSong = tryCatchBlock(async (userId) => {
+    console.log(userId);
     const [resultSet] = await database.execute(`CALL Proc_GetFavoriteSong('${userId}')`);
     return resultSet;
   });
@@ -53,6 +54,10 @@ module.exports = class Song {
   });
   static exploreArtist = tryCatchBlock(async () => {
     const [resultSet] = await database.execute(`CALL Proc_GetArtistSong()`);
+    return resultSet;
+  });
+  static toggleLikeSong = tryCatchBlock(async (userId,songId) => {
+    const [resultSet] = await database.execute(`CALL Proc_ToggleLikeSong('${userId}','${songId}')`);
     return resultSet;
   });
 };
