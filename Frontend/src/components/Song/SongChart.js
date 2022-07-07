@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import styled from 'styled-components';
 import SongItemChart from './SongItemChart';
 
-function SongChart() {
+function SongListChart({ songChart }) {
   return (
     <Wrapper>
       <table
@@ -27,23 +28,9 @@ function SongChart() {
           </tr>
         </thead>
         <tbody>
-          <SongItemChart />
-          <SongItemChart />
-          <SongItemChart />
-          <SongItemChart />
-          {/* {peopleShow.map((val, index) => {
-            return( 
-            <tr key={val.ID}>
-            <td>{index + 1}</td>    
-            <td>{val.nationality}</td>
-            <td>{val.username}</td>
-            <td>{val.money}  $  <i class="far fa-caret-up"></i></td>
-            <td>{val.lastbid}</td>
-            <td>{val.newbid} $</td>
-            </tr>
-            );
-          })} */}
-
+          {songChart.map((song) => (
+            <SongItemChart key={song.songID} song={song} />
+          ))}
         </tbody>
       </table>
     </Wrapper>
@@ -62,4 +49,4 @@ const Title = styled.th`
   width: ${(props) => props.width};
 `;
 
-export default SongChart;
+export default SongListChart;

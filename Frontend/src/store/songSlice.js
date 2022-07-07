@@ -1,6 +1,6 @@
 import { search } from 'api/postAPIs';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFavoriteSong, toggleLikeSong } from 'api/songAPIs';
+import { getFavoriteSong, getSongChart, toggleLikeSong } from 'api/songAPIs';
 
 const songList = [
   {
@@ -53,6 +53,10 @@ export const getLikedList = createAsyncThunk('song/getLikedList', () =>
   getFavoriteSong(),
 );
 
+export const getChart = createAsyncThunk('song/chart', () =>
+  getSongChart(),
+);
+
 export const toggleLike = createAsyncThunk('song/toggleLikeSong', (songId) =>
   toggleLikeSong(songId),
 );
@@ -67,6 +71,7 @@ const songSlice = createSlice({
     playingQueue: songList,
     recentlyPlayed: [],
     likedList: null,
+    chartList: []
   },
   reducers: {
     setIsLoading: (state, action) => {
@@ -123,6 +128,11 @@ const songSlice = createSlice({
       state.likedList = action.payload.data.map((song) => ({
         ...song,
         liked: true,
+      }));
+    },
+    [getChart.fulfilled]: (state, action) => {
+      state.chartList = action.payload.data.map((song) => ({
+        ...song
       }));
     },
     [toggleLike.fulfilled]: (state, action) => {
