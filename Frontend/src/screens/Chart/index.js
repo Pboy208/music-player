@@ -23,6 +23,7 @@ function Chart() {
     <Wrapper className="card aligned-center">
       <Header>
         <h1>Chart</h1>
+      </Header>
         {/* <Dropdown className="u-paddingTopExtraSmall">
           <Dropdown.Button variant="secondary" size="small">
             <Button.Icon>
@@ -44,8 +45,6 @@ function Chart() {
             </Dropdown.Item>
           </Dropdown.Container>
         </Dropdown> */}
-      </Header>
-      
       <SongListChart songChart={songChart}/>
     </Wrapper>
   );

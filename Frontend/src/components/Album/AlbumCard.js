@@ -15,7 +15,7 @@ const song = {
     'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
 };
 
-function SongCardItem() {
+function AlbumCardItem() {
   return (
     <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size1of5">
       <Card onClick={null}>
@@ -90,4 +90,4 @@ const SongArtist = styled.a`
   }
 `;
 
-export default SongCardItem;
+export default AlbumCardItem;

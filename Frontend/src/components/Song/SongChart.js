@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SongItemChart from './SongItemChart';
 
 function SongListChart({ songChart }) {
-  const newArray = songChart.slice(0, 20)
+  const newArray = songChart.slice(0, 20);
   return (
     <Wrapper>
       <table

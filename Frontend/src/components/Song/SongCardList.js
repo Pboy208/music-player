@@ -2,15 +2,13 @@
 import styled from 'styled-components';
 import SongCardItem from './SongCard';
 
-function SongCardList() {
+function SongCardList({ exploreSong }) {
+  const newArray = exploreSong.slice(0,12);
   return (
     <Wrapper className='Grid Grid--smallGutter'>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
-      <SongCardItem/>
+      {newArray.map((song) => (
+        <SongCardItem key={song.songID} song={song} />
+      ))}
     </Wrapper>
   );
 }
