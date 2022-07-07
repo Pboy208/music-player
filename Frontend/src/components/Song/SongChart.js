@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SongItemChart from './SongItemChart';
 
 function SongListChart({ songChart }) {
+  const newArray = songChart.slice(0, 20)
   return (
     <Wrapper>
       <table
@@ -16,19 +17,19 @@ function SongListChart({ songChart }) {
             <Title scope="col" width="10%">
               Rank
             </Title>
-            <Title scope="col" width="40%">
+            <Title scope="col" width="80%">
               Song
             </Title>
-            <Title scope="col" width="40%">
+            {/* <Title scope="col" width="40%">
               Album
-            </Title>
+            </Title> */}
             <Title scope="col" width="10%">
               Time
             </Title>
           </tr>
         </thead>
         <tbody>
-          {songChart.map((song) => (
+          {newArray.map((song) => (
             <SongItemChart key={song.songID} song={song} />
           ))}
         </tbody>

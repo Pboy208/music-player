@@ -39,31 +39,54 @@ function SongItemChart({ song }) {
       onClick={() => dispatch(playSongNow(song))}
     >
       <td>
-        {song.rank}
+        <Rank>
+          {(() => {
+          if (song.rank === 1) {
+            return (
+              <First>{song.rank}</First>
+            )
+          } if (song.rank === 2) {
+            return (
+              <Second>{song.rank}</Second>
+            )
+          } if (song.rank === 3) {
+            return (
+              <Third>{song.rank}</Third>
+            )
+          } 
+            return (
+              <span>{song.rank}</span>
+            )
+          })()}
+        </Rank>
       </td>
       <td>
         <SongInfo song={song} size="large" />
       </td>
-      <td>{song.name}</td>
+      {/* <td>{song.name}</td> */}
       <td>{timeFormatter(duration)}</td>
     </tr>
   );
 }
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 60px;
-  border-top: 1px solid white;
+const Rank = styled.div`
+  font-size: 30px;
   display: flex;
+  justify-content: center;
   align-items: center;
-
-  &:hover {
-    background-color: gray;
-  }
+  height: 60px;
 `;
 
-const Info = styled.p`
-  flex: ${(props) => props.flex};
+const First = styled.span`
+  color: red;
+`;
+
+const Second = styled.span`
+  color: blue;
+`;
+
+const Third = styled.span`
+  color: yellow;
 `;
 
 export default SongItemChart;
