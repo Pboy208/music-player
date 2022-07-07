@@ -3,7 +3,7 @@ import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { playSongNow,toggleLike } from 'store/songSlice';
+import { playSongNow, toggleLike } from 'store/songSlice';
 
 // const song = {
 //   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
@@ -35,6 +35,7 @@ function SongItemChart({ song }) {
       className="u-userSelectNone"
       style={{
         height: 60,
+        cursor: 'pointer'
       }}
       onClick={() => dispatch(playSongNow(song))}
     >
@@ -70,7 +71,8 @@ function SongItemChart({ song }) {
 }
 
 const Rank = styled.div`
-  font-size: 30px;
+  font-size: 32px;
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,7 +88,7 @@ const Second = styled.span`
 `;
 
 const Third = styled.span`
-  color: yellow;
+  color: green;
 `;
 
 export default SongItemChart;

@@ -25,37 +25,37 @@ function NavigationBar() {
           to="/personal"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsFillFileEarmarkPersonFill />
+          <BsFillFileEarmarkPersonFill style={{fontSize: "24px"}}/>
           Personal
         </NavLink>
         <NavLink
           to="/favorite"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsBookmarkHeartFill />
+          <BsBookmarkHeartFill style={{fontSize: "24px"}}/>
           Favorite
         </NavLink>
         <NavLink
           to="/explore"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsFillFileEarmarkMusicFill />
+          <BsFillFileEarmarkMusicFill style={{fontSize: "24px"}}/>
           Explore
         </NavLink>
         <NavLink
           to="/chart"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsBarChartLineFill />
+          <BsBarChartLineFill style={{fontSize: "24px"}}/>
           Chart
         </NavLink>
-        <NavLink
+        {/* <NavLink
           to="/release"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <IoIosPaper />
+          <IoIosPaper style={{fontSize: "24px"}}/>
           New release
-        </NavLink>
+        </NavLink> */}
       </Navigators>
       <Playlists />
       <AddPlayListButton>Add new playlist</AddPlayListButton>
@@ -109,6 +109,7 @@ const NavLink = styled(Link)`
   padding: 14px 24px;
   text-decoration: none;
   color: var(--text-color);
+  font-size: 16px;
   gap: 12px;
 
   &:hover {

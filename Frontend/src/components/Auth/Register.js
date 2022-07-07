@@ -50,11 +50,8 @@ function Register() {
     <Wrapper>
       <Header>
         <Logo to="/home">
-          <Img
-            src="https://i.pinimg.com/originals/93/46/53/934653214719cf630e0f5cf9c746b364.png"
-            alt="logo"
-          />
-          <Name>Spotify</Name>
+          <Img src="/assets/img/Muzi-logo.png" alt="logo" />
+          <Name>Muzi</Name>
         </Logo>
       </Header>
       <Body>
@@ -64,8 +61,8 @@ function Register() {
         >
           <Row>
             <Helmet>
-              <title>Register for Spotify</title>
-              <meta name="description" content="Member of spotify?" />
+              <title>Register for Muzi</title>
+              <meta name="description" content="Member of Muzi?" />
             </Helmet>
 
             <Suggest>Sign up for free to start listening.</Suggest>
@@ -168,7 +165,7 @@ function Register() {
 
             <FormGroup controlId="registerForm.confirmShare">
               <FormCheckBox
-                label={`Share my registration data with Spotify's content providers for marketing purposes.`}
+                label={`Share my registration data with Muzi's content providers for marketing purposes.`}
               />
             </FormGroup> */}
 
@@ -204,7 +201,8 @@ const Header = styled.div`
   padding: 10px;
   width: 100%;
   @media (min-width: 768px) {
-    padding: 30px 0;
+    padding-top: 30px;
+    padding-bottom: 18px;
   }
 `;
 const Logo = styled(Link)`
@@ -214,14 +212,19 @@ const Logo = styled(Link)`
   justify-content: center;
 `;
 const Img = styled.img`
-  height: 110%;
-  margin-right: 5px;
+  height: 150%;
+  margin: -10px 10px 0px 0px;
+  @media (max-width: 768px) {
+    height: 100%;
+    margin: 0px 10px 0px 0px;
+  }
+  border-radius: 50%;
 `;
 const Name = styled.h1`
   font-weight: 600;
   font-size: 30px;
   margin-top: 5px;
-  color: #000000;
+  color: orange;
 `;
 const Footer = styled.div`
   display: flex;
@@ -234,7 +237,7 @@ const Footer = styled.div`
 const Body = styled.div`
   max-width: 450px;
   margin: 0px auto;
-  padding-bottom: 130px;
+  padding-bottom: 30px;
 `;
 const RegisterForm = styled.form`
   max-width: 450px;
@@ -243,7 +246,7 @@ const RegisterForm = styled.form`
 const Row = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 8px;
   font-size: 0.9rem;
   line-height: 1.25rem;
   font-weight: 400;
@@ -260,14 +263,14 @@ const Suggest = styled.h2`
   padding: 10px 0;
 `;
 const FormGroup = styled(Form.Group)`
-  margin-top: 20px;
 `;
 const FormLabel = styled(Form.Label)`
   box-sizing: border-box;
+  font-weight: 600;
   align-items: center;
   display: flex;
   width: 100%;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
 `;
 const FormInput = styled(Form.Input)`
   border: 0px;
@@ -284,7 +287,6 @@ const FormFeedback = styled(Form.Feedback)`
   line-height: 30px;
   color: white;
   text-align: center;
-  margin: 5px 25%;
   background-color: red;
 `;
 const FormCheckGroup = styled.div`
@@ -306,10 +308,10 @@ const FormCheckBox = styled(Form.Check)`
   line-height: 1.25rem;
 `;
 const RegisterButton = styled(Button)`
-  margin-top: 20px;
+  margin-top: 10px;
   line-height: 1.25rem;
   font-weight: 700;
-  background-color: var(--background-base, #1ed760);
+  background-color: var(--background-base, orange);
   border: none;
   color: var(--text-base, #000000);
   border-radius: 500px;
@@ -319,6 +321,7 @@ const RegisterButton = styled(Button)`
   transition: 100ms;
   &:hover {
     transform: scale(1.05);
+    background-color: var(--background-base, orange);
   }
 `;
 const OldAccount = styled.div`
@@ -329,10 +332,11 @@ const OldAccount = styled.div`
 const Ask = styled.p`
   font-size: 16px;
   font-weight: 400;
+  margin-bottom: 0;
 `;
 const LoginLink = styled(Link)`
   margin-left: 5px;
-  color: rgb(29, 185, 84);
+  color: orange;
   &:hover {
     opacity: 0.6;
   }

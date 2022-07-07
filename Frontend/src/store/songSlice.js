@@ -1,6 +1,6 @@
 import { search } from 'api/postAPIs';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFavoriteSong, getSongChart, toggleLikeSong } from 'api/songAPIs';
+import { getArtistExplore, getFavoriteSong, getSongChart, getSongExplore, toggleLikeSong } from 'api/songAPIs';
 
 const songList = [
   {
@@ -57,6 +57,14 @@ export const getChart = createAsyncThunk('song/chart', () =>
   getSongChart(),
 );
 
+export const getExploreSong = createAsyncThunk('song/explore/song', () =>
+  getSongExplore(),
+);
+
+export const getArtistSong = createAsyncThunk('song/explore/artist', () =>
+  getArtistExplore(),
+);
+
 export const toggleLike = createAsyncThunk('song/toggleLikeSong', (songId) =>
   toggleLikeSong(songId),
 );
@@ -71,7 +79,6 @@ const songSlice = createSlice({
     playingQueue: songList,
     recentlyPlayed: [],
     likedList: null,
-    chartList: []
   },
   reducers: {
     setIsLoading: (state, action) => {
@@ -132,6 +139,16 @@ const songSlice = createSlice({
     },
     [getChart.fulfilled]: (state, action) => {
       state.chartList = action.payload.data.map((song) => ({
+        ...song
+      }));
+    },
+    [getExploreSong.fulfilled]: (state, action) => {
+      state.exploreSongList = action.payload.data.map((song) => ({
+        ...song
+      }));
+    },
+    [getArtistExplore.fulfilled]: (state, action) => {
+      state.exploreArtistList = action.payload.data.map((song) => ({
         ...song
       }));
     },

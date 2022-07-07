@@ -21,9 +21,10 @@ function Chart() {
 
   return (
     <Wrapper className="card aligned-center">
-      <Header>
-        <h1>Chart</h1>
-        {/* <Dropdown className="u-paddingTopExtraSmall">
+      <h1>Chart</h1>
+      <h3>Top 20 songs listened</h3>
+      {/* <Header>
+        <Dropdown className="u-paddingTopExtraSmall">
           <Dropdown.Button variant="secondary" size="small">
             <Button.Icon>
               <Icon size="extraSmall" name="arrowDown"/>
@@ -43,9 +44,8 @@ function Chart() {
               <span className="u-marginLeftExtraSmall">Week</span>
             </Dropdown.Item>
           </Dropdown.Container>
-        </Dropdown> */}
-      </Header>
-      
+        </Dropdown>
+      </Header> */}
       <SongListChart songChart={songChart}/>
     </Wrapper>
   );
@@ -56,12 +56,21 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   gap: 20px;
+  h1 {
+    font-weight: 800;
+    margin-bottom: 0;
+  }
+  h3 {
+    margin-bottom: 0;
+  }
 `;
 
-const Header = styled.div`
-  padding-top: 20px;
-  display: inline-flex;
-  gap: 20px;
-`;
+// const Header = styled.div`
+//   display: inline-flex;
+//   gap: 20px;
+//   h1 {
+//     font-weight: 800px;
+//   }
+// `;
 
 export default Chart;
