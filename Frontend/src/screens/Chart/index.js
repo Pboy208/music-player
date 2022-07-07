@@ -1,16 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SongListChart from 'components/Song/SongChart';
 import { Tab, Dropdown, Button, Icon, Form } from '@ahaui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getChart } from 'store/songSlice';
 
 function Chart() {
   // const [currentTab, setCurrentTab] = useState('liked');
+  const { chartList: songChart } = useSelector((state) => state.song);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchSongList = () => {
+      dispatch(getChart());
+    };
+    fetchSongList();
+  }, []);
+
+  if (!songChart) return null;
 
   return (
     <Wrapper className="card aligned-center">
       <Header>
         <h1>Chart</h1>
-        <Dropdown className="u-paddingTopExtraSmall">
+        {/* <Dropdown className="u-paddingTopExtraSmall">
           <Dropdown.Button variant="secondary" size="small">
             <Button.Icon>
               <Icon size="extraSmall" name="arrowDown"/>
@@ -30,10 +43,10 @@ function Chart() {
               <span className="u-marginLeftExtraSmall">Week</span>
             </Dropdown.Item>
           </Dropdown.Container>
-        </Dropdown>
+        </Dropdown> */}
       </Header>
       
-      <SongListChart />
+      <SongListChart songChart={songChart}/>
     </Wrapper>
   );
 }

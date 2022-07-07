@@ -7,7 +7,7 @@ function SongInfo({ song, size }) {
       <Avatar src={song.urlImage} size={size} />
       <Info>
         <Title size={size}>{song.name}</Title>
-        <Artist size={size}>{song.author}</Artist>
+        <Artist size={size}>{song.name_artist}</Artist>
       </Info>
     </Wrapper>
   );
