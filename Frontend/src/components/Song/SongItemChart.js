@@ -35,6 +35,7 @@ function SongItemChart({ song }) {
       className="u-userSelectNone"
       style={{
         height: 60,
+        cursor: 'pointer'
       }}
       onClick={() => dispatch(playSongNow(song))}
     >
@@ -70,7 +71,8 @@ function SongItemChart({ song }) {
 }
 
 const Rank = styled.div`
-  font-size: 30px;
+  font-size: 32px;
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;

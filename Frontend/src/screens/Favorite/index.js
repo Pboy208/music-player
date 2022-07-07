@@ -23,6 +23,7 @@ function Personal() {
 
   return (
     <Wrapper className="card aligned-center">
+      <h1>Favorite</h1>
       <Tab current={currentTab} onSelect={setCurrentTab}>
         <Tab.Item eventKey="liked">Liked</Tab.Item>
         <Tab.Item eventKey="album">Album</Tab.Item>
@@ -37,6 +38,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   gap: 20px;
+  h1 {
+    font-weight: 800;
+    margin-bottom: 0;
+  }
 `;
 
 export default Personal;

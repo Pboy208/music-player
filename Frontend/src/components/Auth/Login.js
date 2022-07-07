@@ -69,8 +69,8 @@ function Login() {
     <Wrapper>
       <Header>
         <Logo to="/home">
-          <Img src="/assets/img/zingmp3.png" alt="logo" />
-          <Name>Zing MP3</Name>
+          <Img src="/assets/img/Muzi-logo.png" alt="logo" />
+          <Name>Muzi</Name>
         </Logo>
       </Header>
       <Body>
@@ -83,7 +83,7 @@ function Login() {
               <title>Login to Spotify</title>
               <meta name="description" content="Login to Spotify" />
             </Helmet>
-            <Suggest>To continue, log in to Zing Mp3.</Suggest>
+            <Suggest>To continue, log in to Muzi.</Suggest>
             <FormGroup controlId="loginForm.email">
               <FormLabel sizeLabel="small">Email address</FormLabel>
               <FormInput
@@ -125,7 +125,7 @@ function Login() {
 
             <NewAccount>
               <Ask>Don't have an account?</Ask>
-              <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
+              <Signup to="/register">SIGN UP FOR MUZI</Signup>
               <GoogleLogin
                 clientId="893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com"
                 render={(renderProps) => (
@@ -157,11 +157,9 @@ const Wrapper = styled.div`
 const Header = styled.div`
   border-bottom: 1px solid rgb(217, 218, 220);
   padding: 10px;
-  margin-bottom: 10px;
   width: 100%;
   @media (min-width: 768px) {
     padding: 25px 0px 10px;
-    margin-bottom: 30px;
   }
 `;
 const Logo = styled(Link)`
@@ -175,20 +173,21 @@ const Logo = styled(Link)`
   justify-content: center;
 `;
 const Img = styled.img`
-  height: 100%;
+  height: 130%;
   margin: -10px 10px 0px 0px;
   @media (max-width: 768px) {
     height: 100%;
     margin: 0px 10px 0px 0px;
   }
   border-radius: 50%;
+  
 `;
 const Name = styled.div`
   font-weight: 600;
   font-size: 30px;
   font-family: "Roboto","segoe ui",Helvetica,Arial,sans-serif;
   margin: 0;
-  color: #000000;
+  color: orange;
 `;
 const Footer = styled.div`
   display: flex;
@@ -219,11 +218,12 @@ const Row = styled.div`
 const Suggest = styled.p`
   box-sizing: border-box;
   text-align: center;
-  font-weight: 900;
   border-bottom: 1px solid rgb(217, 218, 220);
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   font-family: "Roboto","segoe ui",Helvetica,Arial,sans-serif;
-  font-size: 17px;
+  font-size: 27px;
+  line-height: 36px;
+  font-weight: 700;
 `;
 const FormGroup = styled(Form.Group)``;
 const FormLabel = styled(Form.Label)`
@@ -232,6 +232,7 @@ const FormLabel = styled(Form.Label)`
   display: flex;
   width: 100%;
   padding-bottom: 8px;
+  font-weight: 600;
 `;
 const FormFeedback = styled(Form.Feedback)`
   font-size: var(--font-size);
@@ -254,8 +255,12 @@ const Forgot = styled(Link)`
   color: inherit;
   align-items: center;
   text-decoration: none;
+  width: fit-content;
+  transition: 300ms;
+  font-weight: 600;
   &:hover {
-    text-decoration: underline;
+    // text-decoration: underline;
+    transform: scale(1.2);
   }
 `;
 const Direct = styled.div`
@@ -271,12 +276,12 @@ const Direct = styled.div`
 `;
 const LoginButton = styled(Button)`
   width: 100%;
-  @media (min-width: 768px) {
-    width: auto;
-  }
+  // @media (min-width: 768px) {
+  //   width: auto;
+  // }
   border: none;
   letter-spacing: 2px;
-  background-color: var(--background-base, #a845de);
+  background-color: var(--background-base, orange);
   border-radius: 500px;
   padding: 14px 32px;
   cursor: pointer;
@@ -284,6 +289,7 @@ const LoginButton = styled(Button)`
   color: white;
   &:hover {
     transform: scale(1.1);
+    background-color: var(--background-base, orange);
   }
 `;
 const ButtonLabel = styled(Button.Label)`
@@ -304,7 +310,7 @@ const Ask = styled.p`
   line-height: 1.5rem;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 `;
 const Signup = styled(Link)`
   display: inline-flex;
@@ -314,17 +320,17 @@ const Signup = styled(Link)`
   text-transform: uppercase;
   text-decoration: none;
   font-size: 14px;
-  line-height: 20px;
   color: var(--text-subdued, #6a6a6a);
   font-weight: 700;
   border-radius: 500px;
   border: 1px solid #6a6a6a;
   width: 100%;
   padding: 13px;
-
+  transition: 200ms;
   &:hover {
     color: black;
     border: 1px solid black;
+    font-size: 16px;
   }
 `;
 const SignIn= styled.div`

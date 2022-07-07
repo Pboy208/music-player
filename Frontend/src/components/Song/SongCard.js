@@ -27,7 +27,7 @@ function SongCardItem({ song }) {
         </Media>
         <Content>
           <SongName>{song.name}</SongName>
-          <SongArtist>{song.name_artist}</SongArtist>
+          <SongArtist>{song.nameArtist}</SongArtist>
         </Content>
       </Card>
     </Wrapper>
@@ -84,29 +84,25 @@ const Img = styled.img`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1;
+  gap: 1px;
 `;
 
-const SongName = styled.a`
+const SongName = styled.p`
+  padding: 4px;
+  height: 40px;
   color: inherit;
   font-family: sans-serif;
   font-size: 16px;
-  line-height: 1.5;
   font-weight: 600;
-  &:hover {
-    color: inherit;
-    line-height: 1.5;
-    font-weight: 600;
-  }
+  margin-bottom: 5px;
 `;
 
-const SongArtist = styled.a`
+const SongArtist = styled.p`
   color: inherit;
   font-family: sans-serif;
   font-size: 16px;
-  &:hover {
-    color: inherit;
-  }
+  padding: 4px;
+  margin-bottom:0;
 `;
 
 const PlayBtn = styled.button`

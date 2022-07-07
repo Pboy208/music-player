@@ -79,7 +79,6 @@ const songSlice = createSlice({
     playingQueue: songList,
     recentlyPlayed: [],
     likedList: null,
-    chartList: []
   },
   reducers: {
     setIsLoading: (state, action) => {

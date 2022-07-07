@@ -3,34 +3,42 @@ import styled from 'styled-components';
 import { Tab } from '@ahaui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExploreSong, getSongExplore } from 'store/songSlice';
+import { getExploreAlbum } from 'store/albumSlice';
 import SongCardList from 'components/Song/SongCardList';
 import AlbumCardList from 'components/Album/AlbumCardList';
 
 function Explore() {
   const [currentTab, setCurrentTab] = useState('liked');
   const { exploreSongList: exploreSong } = useSelector((state) => state.song);
+  const { exploreAlbumList: exploreAlbum } = useSelector((state) => state.album);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchSongList = () => {
+    const fetchSongExploreList = () => {
       dispatch(getExploreSong());
     };
-    fetchSongList();
+    fetchSongExploreList();
   }, []);
+
+  useEffect(() => {
+    const fetchAlbumExploreList = () => {
+      dispatch(getExploreAlbum());
+    };
+    fetchAlbumExploreList();
+  }, [])
   
   if (!exploreSong) return null;
-  window.localStorage.setItem(key, value);
-  window.localStorage.getItem(key);
+
   return (
     <Wrapper className="card aligned-center">
       <h1>Explorer</h1>
       <NewSong>
         <h3>New release</h3>
-        {/* <SongCardList exploreSong={exploreSong}/> */}
+        <SongCardList exploreSong={exploreSong}/>
       </NewSong>
       <NewAlbum>
         <h3>New album arrived</h3>
-        <AlbumCardList/>
+        <AlbumCardList exploreAlbum={exploreAlbum} />
       </NewAlbum>
       
     </Wrapper>
@@ -44,6 +52,7 @@ const Wrapper = styled.div`
   gap: 20px;
   h1 {
     font-weight: 800;
+    margin-bottom: 0;
   }
 `;
 const NewSong = styled.div`
