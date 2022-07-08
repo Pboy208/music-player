@@ -2,15 +2,9 @@ export const User = {
   userid: 1,
   avatar:
     'https://lh6.googleusercontent.com/proxy/TzFjtW4IYw1Ct9IGlUbmq_GNXCjqGfKucN1irkehgc8kKNyIKLm9HEdcbgeoMlL27I5dGrxpslMZttyw6JKGslKObBJ7K1Su50OL3npuVhy5VDFeCC2laqmZcalwMaBQdXaxqCIpj1fPb8HtFJIzxzM',
-  wallPaper:
-    'https://d19p4plxg0u3gz.cloudfront.net/841de30c-df29-11eb-99f8-9e92dc02dfd5/original.jpeg',
+
   name: 'Corgii',
-  Breed: 'Shiba',
-  Age: 2,
-  Location: 'Hanoi',
-  Gender: 'Male',
-  Favorite: 'Sleeping, Walking, Eating, etc.',
-  Followers: 100,
+  bio: "my name is corgi but my avatar is a shiba inu",
 };
 
 export const Posts = [

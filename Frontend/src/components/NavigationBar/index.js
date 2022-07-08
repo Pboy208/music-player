@@ -8,8 +8,10 @@ import {
 } from 'react-icons/bs';
 import { IoIosPaper } from 'react-icons/io';
 import { SiMusicbrainz } from 'react-icons/si';
+import { useSelector } from 'react-redux';
 
 function NavigationBar() {
+  const {user:{userID}} = useSelector(state => state.auth);
   return (
     <Wrapper>
       <Logo className="u-selectNone u-cursorPointer u-textPrimary">
@@ -22,7 +24,7 @@ function NavigationBar() {
       </Logo>
       <Navigators>
         <NavLink
-          to="/personal"
+          to={`/profile/${userID}`}
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
           <BsFillFileEarmarkPersonFill style={{fontSize: "24px"}}/>
