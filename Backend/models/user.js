@@ -30,8 +30,8 @@ module.exports = class User {
     const [resultSet] = await database.execute(`CALL Proc_GetProfileUser('${id}')`);
     return resultSet;
   })
-  static updateProfile = tryCatchBlock(async (userId,avatar,bio) => {
-    const [resultSet] = await database.execute(`CALL Proc_UpdateUserProfile('${userId}','${avatar}','${bio}')`);
+  static updateProfile = tryCatchBlock(async (userId,avatar,bio,name) => {
+    const [resultSet] = await database.execute(`CALL Proc_UpdateUserProfile('${userId}','${avatar}','${bio}','${name}')`);
     return resultSet;
   })
   static isEmailExist = tryCatchBlock(async (email) => {
@@ -43,6 +43,12 @@ module.exports = class User {
       `SELECT userID from User WHERE email LIKE '${email}'`
     );
     return resultSet.length === 1 ? resultSet[0].userID : null;
+  });
+  static exploreProfileUser = tryCatchBlock(async (userId,targetId) => {
+    const resultSet = await database.execute(
+      `CALL Proc_GetCustomProfile('${userId}','${targetId}');`
+    );
+    return resultSet[0];
   });
   signIn = tryCatchBlock(async () => {
     const [resultSet] = await database.execute(
