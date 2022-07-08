@@ -9,28 +9,8 @@ import { useDispatch } from 'react-redux';
 import Comments from '../Comments';
 import { User } from '../dummyData';
 
-const postDefault = {
-  postId: '1234567',
-  liked: true,
-  content: 'This is the favorite song of Pboy',
-  createdAt: new Date(),
-  numberOfLike: 10,
-  song: {
-    urlImage:
-      'https://res.cloudinary.com/mp320212/image/upload/Image/1f7b1037-2475-4221-b699-4d3edfe18939',
-    urlMusic:
-      'https://res.cloudinary.com/mp320212/video/upload/Music/1f7b1037-2475-4221-b699-4d3edfe18939',
-    name: 'Too Good At Goodbyes',
-    songId: '3c91001d-f1f5-11ec-aa89-0a5de61f8cc6',
-    author: 'undefined',
-    authorId: '73a8563d-fc89-11ec-aa89-0a5de61f8cc6',
-    liked: true,
-  },
-};
-
-export default function Post({ post = postDefault, userId }) {
+export default function Post({ post, userId, targetUser }) {
   const dispatch = useDispatch();
-  const [user, setUser] = React.useState(User);
   const [isCommenting, setIsCommenting] = useState(false);
   return (
     <div
@@ -44,7 +24,7 @@ export default function Post({ post = postDefault, userId }) {
       <div className="u-flex">
         <div className="u-marginRightSmall">
           <Avatar
-            src={user.avatar}
+            src={targetUser.avatar}
             size="large"
             style={{
               objectFit: 'cover',
@@ -52,7 +32,7 @@ export default function Post({ post = postDefault, userId }) {
           />
         </div>
         <div className="u-flexGrow1">
-          <strong className="u-text400">{user.name}</strong>
+          <strong className="u-text400">{targetUser.name}</strong>
           <div className="u-textPrimary">4 hours ago</div>
         </div>
       </div>
