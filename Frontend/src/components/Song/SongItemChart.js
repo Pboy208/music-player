@@ -71,7 +71,7 @@ function SongItemChart({ song }) {
 }
 
 const Rank = styled.div`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -81,10 +81,12 @@ const Rank = styled.div`
 
 const First = styled.span`
   color: red;
+  font-size: 42px;
 `;
 
 const Second = styled.span`
   color: blue;
+  font-size: 35px;
 `;
 
 const Third = styled.span`
