@@ -1,23 +1,30 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState } from 'react';
 import { Avatar, Separator, Icon, Button } from '@ahaui/react';
+import { BsFillPlayCircleFill } from 'react-icons/bs';
+import styled from 'styled-components';
+import { playSongNow } from 'store/songSlice';
+import { useDispatch } from 'react-redux';
 import Comments from '../Comments';
 import { User } from '../dummyData';
 
-export default function Post({ post, userId}) {
-  const [user, setUser] = React.useState(User);
+export default function Post({ post, userId, targetUser }) {
+  const dispatch = useDispatch();
   const [isCommenting, setIsCommenting] = useState(false);
   return (
     <div
-      className="u-flex u-flexColumn u-paddingHorizontalLarge u-paddingTopLarge u-paddingBottomSmall u-marginBottomMedium u-border u-roundedLarge"
+      className="u-backgroundNeutral20	u-flex u-flexColumn u-paddingHorizontalLarge u-paddingTopLarge u-paddingBottomSmall u-marginBottomMedium u-border u-roundedLarge "
       style={{
         gap: 12,
         width: '80%',
+        borderColor: '--color-primary',
       }}
     >
       <div className="u-flex">
         <div className="u-marginRightSmall">
           <Avatar
-            src={user.avatar}
+            src={targetUser.avatar}
             size="large"
             style={{
               objectFit: 'cover',
@@ -25,14 +32,45 @@ export default function Post({ post, userId}) {
           />
         </div>
         <div className="u-flexGrow1">
-          <strong className="u-text400">{user.name}</strong>
+          <strong className="u-text400">{targetUser.name}</strong>
           <div className="u-textPrimary">4 hours ago</div>
         </div>
       </div>
-      <div>body</div>
+      <div>{post.content}</div>
+      <Separator />
+      <MusicWrapper
+        className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-positionRelative"
+        style={{ gap: 16, width: 480, margin: '12px auto' }}
+        onClick={() => dispatch(playSongNow(post.song))}
+      >
+        <audio src={post.song.urlMusic} />
+        <img
+          src={post.song.urlImage}
+          style={{
+            height: 480,
+            width: 480,
+            objectFit: 'cover',
+          }}
+        />
+        <div
+          className="u-positionAbsolute u-backgroundNeutral100 u-flex u-justifyContentCenter u-alignItemsCenter play"
+          style={{
+            width: '100%',
+            height: '100%',
+            opacity: 0.6,
+          }}
+        >
+          <BsFillPlayCircleFill style={{ fontSize: 40 }} />
+        </div>
+      </MusicWrapper>
+      <div className="u-text600" style={{ maxWidth: 520, margin: '0 auto' }}>
+        {post.song.name}
+      </div>
       <Separator />
       <div className="u-flex u-justifyContentBetween u-alignItemsCenter">
-        <div>46 Likes</div>
+        <div>{`${post.numberOfLike} Like${
+          post.numberOfLike === 1 ? null : 's'
+        }`}</div>
         <div
           className="u-flex"
           style={{
@@ -65,3 +103,15 @@ export default function Post({ post, userId}) {
     </div>
   );
 }
+
+const MusicWrapper = styled.div`
+  & .play {
+    display: none;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  &:hover .play {
+    display: flex;
+  }
+`;

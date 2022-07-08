@@ -48,7 +48,7 @@ function App() {
           element={<ProtectedRoute component={Mock} />}
         />
         <Route
-          path="/personal"
+          path="/profile/:userId"
           exact
           element={<ProtectedRoute component={Profile} />}
         />

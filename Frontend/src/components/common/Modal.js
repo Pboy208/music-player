@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Icon } from '@ahaui/react';
 
-export default function Modal({ children, close }) {
+export default function Modal({ children, close , width,height, padding}) {
   return (
     <>
       <div
@@ -17,9 +17,10 @@ export default function Modal({ children, close }) {
       <div
         className="u-flex u-border u-flexColumn u-roundedLarge u-justifyContentCenter u-alignItemsCenter u-positionRelative u-marginVerticalExtraLarge u-positionFixed u-backgroundWhite"
         style={{
-          width: 600,
-          height: 500,
-          gap: 24,
+          width: width || 600,
+          height: height || 500,
+          padding,
+          gap: 12,
           zIndex: 4,
           left: 0,
           right: 0,
