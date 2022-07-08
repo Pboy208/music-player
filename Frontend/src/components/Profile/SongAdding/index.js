@@ -1,20 +1,39 @@
+/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Icon, Form, Button } from '@ahaui/react';
 import Modal from 'components/common/Modal';
 import { useSelector } from 'react-redux';
 import { addPost } from 'api/postAPIs';
+import { ImArrowRight, ImPlay3 } from 'react-icons/im';
+
+const Upload = {
+  SONG: 'Your song',
+  LYRICS: 'Song lyrics',
+  IMAGE: 'Song image',
+};
 
 function FileUploader({ title, handler, file }) {
   const fileHolder = useRef();
+  const songRef = useRef();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (isPlaying) {
+      songRef.current?.play();
+    } else {
+      songRef.current?.pause();
+    }
+  }, [isPlaying]);
 
   const fileChangeHandler = (e) => {
     const newFile = e.target.files[0];
     const formData = new FormData();
     formData.append('file', newFile);
     formData.append('upload_preset', 'iiyjshqb');
-    if (title === 'Your song') {
+    if (title === Upload.SONG) {
       formData.append('resource_type', 'video');
     }
 
@@ -42,13 +61,14 @@ function FileUploader({ title, handler, file }) {
         type="file"
         ref={fileHolder}
         onChange={fileChangeHandler}
+        accept={title === Upload.SONG ? 'audio/*' : 'image/*'}
         style={{
           display: 'none',
         }}
       />
       <div
         className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-roundedLarge u-cursorPointer u-userSelectNone"
-        onClick={openFileUploader}
+        onClick={() => (file ? null : openFileUploader())}
         style={{
           width: 120,
           height: 120,
@@ -62,10 +82,39 @@ function FileUploader({ title, handler, file }) {
             {title}
           </>
         )}
-        {file && (
+        {file && title === Upload.IMAGE && (
+          <img
+            src={file}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        )}
+        {file && title === Upload.SONG && (
           <>
-            <span>{title}</span>
-            <span>uploaded</span>
+            <div
+              className="u-flex u-flexColumn u-justifyContentCenter u-alignItemsCenter"
+              style={{
+                gap: 8,
+              }}
+              onClick={() => setIsPlaying(!isPlaying)}
+            >
+              <ImPlay3
+                style={{
+                  fontSize: 32,
+                }}
+              />
+              <div
+                style={{
+                  textAlign: 'center',
+                }}
+              >
+                Your song is ready
+              </div>
+            </div>
+            <audio src={file} ref={songRef} />
           </>
         )}
       </div>
@@ -76,9 +125,10 @@ function FileUploader({ title, handler, file }) {
 export default function SongAdding({ close }) {
   const { userID } = useSelector((state) => state.auth.user);
   const [song, setSong] = useState(null);
-  const [songLyric, setSongLyric] = useState(null);
   const [songImage, setSongImage] = useState(null);
+  const [songLyric, setSongLyric] = useState('');
   const [songTitle, setSongTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const submitHandler = () => {
     const newPost = {
@@ -87,52 +137,93 @@ export default function SongAdding({ close }) {
       lyric: songLyric,
       title: songTitle,
       author: userID,
+      content,
       createdAt: new Date(),
     };
     // addPost(newPost).then((res) => {
     //   console.log('postId:::', res);
     // });
-    console.log(JSON.stringify(songTitle));
+    console.log(JSON.stringify(newPost));
     // should get PostID from backend
   };
 
   return (
-    <Modal close={close}>
-      <div className="u-text400">
+    <Modal close={close} height={800}>
+      <div
+        className="u-text400"
+        style={{
+          marginBottom: 20,
+        }}
+      >
         <Icon className="u-marginRightExtraSmall" size="medium" name="bot" />
         UPLOAD YOUR SONG HERE
       </div>
-      <Form.Group controlId="exampleForm.Input1">
-        <Form.Input
-          // type="text"
-          as="textarea"
-          rows={3}
-          placeholder="Song title"
-          value={songTitle}
-          onChange={(e) => {
-            const a = setSongTitle(e.target.value);
-            console.log('return of setting', a);
-          }}
-        />
-      </Form.Group>
       <div
-        className="u-flex  u-alignItemsCenter u-justifyContentCenter"
+        className="u-flex"
         style={{
-          gap: 16,
+          gap: 20,
+          marginBottom: 20,
         }}
       >
-        <FileUploader title="Your song" handler={setSong} file={song} />
-        <FileUploader
-          title="Song lyric"
-          handler={setSongLyric}
-          file={songLyric}
-        />
-        <FileUploader
-          title="Song image"
-          handler={setSongImage}
-          file={songImage}
-        />
+        <div
+          className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter"
+          style={{
+            gap: 20,
+          }}
+        >
+          <FileUploader
+            title={Upload.IMAGE}
+            handler={setSongImage}
+            file={songImage}
+          />
+          <Form.Group controlId="exampleForm.Input">
+            <Form.Input
+              type="text"
+              placeholder="Song title"
+              value={songTitle}
+              onChange={(e) => setSongTitle(e.target.value)}
+              style={{
+                width: 200,
+              }}
+            />
+          </Form.Group>
+        </div>
+        <div className="u-flex u-alignItemsCenter">
+          <ImArrowRight style={{ fontSize: 40 }} />
+        </div>
+        <div
+          className="u-flex u-alignItemsCenter u-justifyContentCenter"
+          style={{
+            width: 200,
+          }}
+        >
+          <FileUploader title={Upload.SONG} handler={setSong} file={song} />
+        </div>
       </div>
+      <div className="u-text300">Song lyric</div>
+      <Form.Input
+        as="textarea"
+        rows={5}
+        placeholder="Song lyrics"
+        value={songLyric}
+        onChange={(e) => setSongLyric(e.target.value)}
+        style={{
+          width: '70%',
+          marginBottom: 20,
+        }}
+      />
+      <div className="u-text300">Anything to say about this song?</div>
+      <Form.Input
+        as="textarea"
+        rows={5}
+        placeholder="Your thoughts"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        style={{
+          width: '70%',
+          marginBottom: 24,
+        }}
+      />
       <Button variant="primary" onClick={submitHandler}>
         <Button.Label>Submit</Button.Label>
       </Button>

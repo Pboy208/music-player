@@ -2,19 +2,20 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import Modal from 'components/common/Modal';
 import { useState, useRef } from 'react';
-import { Form, Icon } from '@ahaui/react';
+import { Form, Button, Avatar } from '@ahaui/react';
 
-function FileUploader({ title, handler, file }) {
+export default function ProfileEditing({ user, close }) {
   const fileHolder = useRef();
+
+  const [name, setName] = useState(user.name);
+  const [bio, setBio] = useState(user.bio);
+  const [avatar, setAvatar] = useState(user.avatar);
 
   const fileChangeHandler = (e) => {
     const newFile = e.target.files[0];
     const formData = new FormData();
     formData.append('file', newFile);
     formData.append('upload_preset', 'iiyjshqb');
-    if (title === 'Your song') {
-      formData.append('resource_type', 'video');
-    }
 
     const requestOptions = {
       method: 'POST',
@@ -28,67 +29,72 @@ function FileUploader({ title, handler, file }) {
       requestOptions,
     )
       .then((response) => response.json())
-      .then((result) => console.log(result.url))
+      .then((result) => setAvatar(result.url))
       .catch((error) => console.log('error', error));
-
-    handler(newFile);
   };
+
+  const submitHandler = () => {
+    const userInfo = {
+      name,
+      bio,
+      avatar,
+    }
+    console.log(userInfo)
+  }
 
   const openFileUploader = () => fileHolder.current.click();
 
   return (
-    <>
+    <Modal close={close} width={1000} height={400} padding="40px 60px">
       <input
         type="file"
         ref={fileHolder}
         onChange={fileChangeHandler}
+        accept="image/*"
         style={{
           display: 'none',
         }}
       />
-      {!file && (
-        <div
-          className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-roundedLarge u-cursorPointer u-userSelectNone"
-          onClick={openFileUploader}
-          style={{
-            width: 120,
-            height: 120,
-            border: '1px solid var(--border-color)',
-            backgroundColor: 'var(--border-color)',
-          }}
-        >
-          <Icon size="medium" name="helpCircleOutline" />
-          {title}
+      <div className="u-flex u-positionRelative">
+        <div className="u-marginRightLarge">
+          <Avatar
+            src={avatar}
+            size="huge"
+            style={{
+              objectFit: 'cover',
+              cursor: 'pointer',
+            }}
+            onClick={openFileUploader}
+          />
         </div>
-      )}
-      {file && <div>uploaded</div>}
-    </>
-  );
-}
-
-export default function ProfileEditing({ close }) {
-  const [name, setName] = useState('fake name');
-  const [bio, setBio] = useState('fake bio');
-  const [avatar, setAvatar] = useState(null);
-
-  return (
-    <Modal close={close}>
-      <Form.Group controlId="exampleForm.Input1">
-        <Form.Input
-          type="text"
-          placeholder="User name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Form.Input
-          as="textarea"
-          rows={3}
-          placeholder="User bio"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
-      </Form.Group>
-      {/* <FileUploader title="Your song" handler={setSong} file={song} /> */}
+        <div className="u-flexGrow1">
+          <div className="u-marginBottomExtraSmall">
+            <Form.Input
+              type="text"
+              placeholder="User name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={{
+                width: 600,
+              }}
+            />
+          </div>
+          <Form.Input
+            as="textarea"
+            rows={5}
+            placeholder="Bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            style={{
+              width: 600,
+              marginBottom: 40,
+            }}
+          />
+        </div>
+      </div>
+      <Button variant="primary" onClick={submitHandler}>
+        <Button.Label>Submit</Button.Label>
+      </Button>
     </Modal>
   );
 }

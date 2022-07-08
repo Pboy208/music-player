@@ -65,7 +65,7 @@ function Profile({ userId }) {
       )}
       {isPosting && <SongAdding close={() => setIsPosting(false)} />}
       {isEditingProfile && (
-        <ProfileEditing close={() => setIsEditingProfile(false)} />
+        <ProfileEditing close={() => setIsEditingProfile(false)} user={user} />
       )}
       <Separator />
       <Post />
