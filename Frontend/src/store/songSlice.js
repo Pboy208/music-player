@@ -75,20 +75,31 @@ const songSlice = createSlice({
       });
     },
     nextSongAction: (state, action) => {
-      if (state.playingQueue.length === 0) return;
-
-      const isShuffle = action.payload;
-      const nextIndex = isShuffle
-        ? Math.floor(Math.random() * state.playingQueue.length)
-        : 0;
-      const nextSong = state.playingQueue[nextIndex];
-
       if (state.currentlyPlaying) {
         state.recentlyPlayed = [
           state.currentlyPlaying,
           ...state.recentlyPlayed,
         ];
       }
+
+      if (state.playingQueue.length === 0) {
+        state.currentlyPlaying = null;
+        updateSongState({
+          ...state.storedState,
+          [state.userId]: {
+            currentlyPlaying: state.currentlyPlaying,
+            playingQueue: state.playingQueue,
+            recentlyPlayed: state.recentlyPlayed,
+          },
+        });
+        return;
+      }
+
+      const isShuffle = action.payload;
+      const nextIndex = isShuffle
+        ? Math.floor(Math.random() * state.playingQueue.length)
+        : 0;
+      const nextSong = state.playingQueue[nextIndex];
 
       state.currentlyPlaying = nextSong;
       state.playingQueue = state.playingQueue.filter(
@@ -130,7 +141,7 @@ const songSlice = createSlice({
       if (state.currentlyPlaying) {
         if (state.currentlyPlaying.songId === newSong.songId) return;
       }
-      
+
       state.playingQueue = state.playingQueue.filter(
         (song) => song?.songId !== newSong.songId,
       );

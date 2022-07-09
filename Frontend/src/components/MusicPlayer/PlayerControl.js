@@ -68,6 +68,10 @@ const PlayerControl = React.memo(
     };
 
     useEffect(() => {
+      if (!song) {
+        playerRef.current.currentTime = 0;
+      }
+
       if (song && isFirstTime) {
         setState({ type: 'SET_FIRST_TIME' });
       }
