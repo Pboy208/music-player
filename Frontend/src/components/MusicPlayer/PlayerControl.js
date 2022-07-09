@@ -18,6 +18,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_PLAYING':
       return { ...state, isPlaying: action.isPlaying };
+    case 'SET_FIRST_TIME':
+      return { ...state, isFirstTime: false };
     case 'SET_PROGRESS':
       return {
         ...state,
@@ -45,8 +47,9 @@ const PlayerControl = React.memo(
       isPlaying: false,
       progress: 0,
       currentTime: 0,
+      isFirstTime: true,
     });
-    const { isPlaying, progress, currentTime } = state;
+    const { isPlaying, progress, currentTime, isFirstTime } = state;
 
     const [duration, setDuration] = useState(0);
 
@@ -62,20 +65,28 @@ const PlayerControl = React.memo(
     const togglePlaying = () => {
       if (!song) return;
       setState({ type: 'SET_PLAYING', isPlaying: !isPlaying });
-    }
+    };
+
+    useEffect(() => {
+      if (song && isFirstTime) {
+        setState({ type: 'SET_FIRST_TIME' });
+      }
+      if (song && !isPlaying && !isFirstTime) {
+        setState({ type: 'SET_PLAYING', isPlaying: true });
+      }
+    }, [song]);
 
     useEffect(() => {
       if (!song) return;
-
       if (isPlaying) {
         playerRef.current.play();
       } else {
         playerRef.current.pause();
       }
-    }, [isPlaying, song]);
+    }, [isPlaying]);
 
     useEffect(() => {
-      playerRef.current.volume = volume / 100;
+      playerRef.current.volume = volume / 100 / 20;
     }, [volume]);
 
     useEffect(() => {
