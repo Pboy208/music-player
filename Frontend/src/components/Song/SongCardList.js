@@ -1,4 +1,4 @@
-
+import React from 'react';
 import styled from 'styled-components';
 import SongCardItem from './SongCard';
 
@@ -21,4 +21,4 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-export default SongCardList;
+export default React.memo(SongCardList);

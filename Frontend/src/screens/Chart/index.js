@@ -7,14 +7,35 @@ import { getChart } from 'store/songSlice';
 
 function Chart() {
   // const [currentTab, setCurrentTab] = useState('liked');
-  const { chartList: songChart } = useSelector((state) => state.song);
+  // const { chartList: songChart } = useSelector((state) => state.song);
+  const [ songChart, setSongChart] = useState([]);
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   const fetchSongList = () => {
+  //     dispatch(getChart());
+  //   };
+  //   fetchSongList();
+  // }, []);
+
   useEffect(() => {
-    const fetchSongList = () => {
-      dispatch(getChart());
+    const token = localStorage.getItem("token");
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
     };
-    fetchSongList();
+
+    fetch("http://localhost:8888/song/chart", requestOptions)
+      .then((response) => response.json())
+      .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+      .then((result) => setSongChart(result))
+      .catch((error) => console.log("error", error));
+  
   }, []);
 
   if (!songChart) return null;
