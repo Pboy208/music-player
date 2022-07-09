@@ -60,7 +60,7 @@ function NavigationBar() {
         </NavLink> */}
       </Navigators>
       <Playlists />
-      <AddPlayListButton>Add new playlist</AddPlayListButton>
+      {/* <AddPlayListButton>Add new playlist</AddPlayListButton> */}
     </Wrapper>
   );
 }
@@ -110,7 +110,7 @@ const AddPlayListButton = styled.div`
 const NavLink = styled(Link)`
   padding: 14px 24px;
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--text-navigation-color);
   font-size: 16px;
   gap: 12px;
 

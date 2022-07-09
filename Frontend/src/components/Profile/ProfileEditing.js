@@ -3,8 +3,10 @@
 import Modal from 'components/common/Modal';
 import { useState, useRef } from 'react';
 import { Form, Button, Avatar } from '@ahaui/react';
+import { updateProfile } from 'api/profileAPIs';
+import * as Toast from 'components/common/Toast';
 
-export default function ProfileEditing({ user, close }) {
+export default function ProfileEditing({ user, close, setProfile }) {
   const fileHolder = useRef();
 
   const [name, setName] = useState(user.name);
@@ -15,7 +17,7 @@ export default function ProfileEditing({ user, close }) {
     const newFile = e.target.files[0];
     const formData = new FormData();
     formData.append('file', newFile);
-    formData.append('upload_preset', 'iiyjshqb');
+    formData.append('upload_preset', 'zykutcrp');
 
     const requestOptions = {
       method: 'POST',
@@ -24,10 +26,7 @@ export default function ProfileEditing({ user, close }) {
     };
 
     // TODO: Change cloudinary account if needed
-    fetch(
-      'https://api.cloudinary.com/v1_1/thecodingpanda/upload',
-      requestOptions,
-    )
+    fetch('https://api.cloudinary.com/v1_1/mp320212/upload', requestOptions)
       .then((response) => response.json())
       .then((result) => setAvatar(result.url))
       .catch((error) => console.log('error', error));
@@ -38,9 +37,17 @@ export default function ProfileEditing({ user, close }) {
       name,
       bio,
       avatar,
-    }
-    console.log(userInfo)
-  }
+    };
+    updateProfile(userInfo)
+      .then(() => {
+        setProfile(userInfo);
+        Toast.success('Update profile successfully');
+      })
+      .catch(() => {
+        Toast.error('Update profile failed, please try again later');
+      })
+      .finally(() => close());
+  };
 
   const openFileUploader = () => fileHolder.current.click();
 

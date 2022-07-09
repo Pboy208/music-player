@@ -8,6 +8,7 @@ import Modal from 'components/common/Modal';
 import { useSelector } from 'react-redux';
 import { addPost } from 'api/postAPIs';
 import { ImArrowRight, ImPlay3 } from 'react-icons/im';
+import { FaSmileBeam } from 'react-icons/fa';
 
 const Upload = {
   SONG: 'Your song',
@@ -32,7 +33,7 @@ function FileUploader({ title, handler, file }) {
     const newFile = e.target.files[0];
     const formData = new FormData();
     formData.append('file', newFile);
-    formData.append('upload_preset', 'iiyjshqb');
+    formData.append('upload_preset', 'zykutcrp');
     if (title === Upload.SONG) {
       formData.append('resource_type', 'video');
     }
@@ -44,10 +45,7 @@ function FileUploader({ title, handler, file }) {
     };
 
     // TODO: Change cloudinary account if needed
-    fetch(
-      'https://api.cloudinary.com/v1_1/thecodingpanda/upload',
-      requestOptions,
-    )
+    fetch('https://api.cloudinary.com/v1_1/mp320212/upload', requestOptions)
       .then((response) => response.json())
       .then((result) => handler(result.url))
       .catch((error) => console.log('error', error));
@@ -122,8 +120,8 @@ function FileUploader({ title, handler, file }) {
   );
 }
 
-export default function SongAdding({ close }) {
-  const { userID } = useSelector((state) => state.auth.user);
+export default function SongAdding({ close, addNewPost }) {
+  const { user } = useSelector((state) => state.auth);
   const [song, setSong] = useState(null);
   const [songImage, setSongImage] = useState(null);
   const [songLyric, setSongLyric] = useState('');
@@ -132,19 +130,31 @@ export default function SongAdding({ close }) {
 
   const submitHandler = () => {
     const newPost = {
-      songUrl: song,
-      imageUrl: songImage,
+      urlMusic: song,
+      urlImage: songImage,
       lyric: songLyric,
       title: songTitle,
-      author: userID,
       content,
-      createdAt: new Date(),
     };
-    // addPost(newPost).then((res) => {
-    //   console.log('postId:::', res);
-    // });
-    console.log(JSON.stringify(newPost));
-    // should get PostID from backend
+    addPost(newPost).then((res) => {
+      const newAddedPost = {
+        postId: '123', // TODO
+        liked: false,
+        content,
+        createdAt: new Date(),
+        numberOfLike: 0,
+        song: {
+          urlMusic: song,
+          urlImage: songImage,
+          name: songTitle,
+          songId: '123', // TODO,
+          author: user.name,
+          authorId: user.userID,
+          liked: false,
+        },
+      };
+      console.log('postId:::', res);
+    });
   };
 
   return (
