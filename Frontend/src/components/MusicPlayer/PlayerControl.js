@@ -50,17 +50,23 @@ const PlayerControl = React.memo(
 
     const [duration, setDuration] = useState(0);
 
-    const audio = new Audio(song.urlMusic);
-    audio.onloadedmetadata = (e) => {
-      if (audio.readyState > 0) {
-        setDuration(audio.duration);
-      }
-    };
+    if (song) {
+      const audio = new Audio(song.urlMusic);
+      audio.onloadedmetadata = (e) => {
+        if (audio.readyState > 0) {
+          setDuration(audio.duration);
+        }
+      };
+    }
 
-    const togglePlaying = () =>
+    const togglePlaying = () => {
+      if (!song) return;
       setState({ type: 'SET_PLAYING', isPlaying: !isPlaying });
+    }
 
     useEffect(() => {
+      if (!song) return;
+
       if (isPlaying) {
         playerRef.current.play();
       } else {
@@ -73,7 +79,7 @@ const PlayerControl = React.memo(
     }, [volume]);
 
     useEffect(() => {
-      if (!isPlaying) return;
+      if (!song || !isPlaying) return;
 
       const interval = setInterval(() => {
         const { currentTime: songCurrentTime } = playerRef.current;
@@ -98,6 +104,7 @@ const PlayerControl = React.memo(
     }, [isPlaying, isPlayback, moveNext, playerRef]);
 
     const handleProgressChange = (value) => {
+      if (!song) return;
       setState({
         type: 'SET_PROGRESS',
         progress: value,
@@ -109,7 +116,7 @@ const PlayerControl = React.memo(
 
     return (
       <Wrapper>
-        <audio src={song.urlMusic} ref={playerRef} />
+        <audio src={song?.urlMusic} ref={playerRef} />
         <ActionsWrapper>
           <PlayerAction size="small" onClick={toggleShuffle}>
             <FaRandom
@@ -159,7 +166,9 @@ const PlayerControl = React.memo(
               height: 6,
             }}
           />
-          <Time className="u-userSelectNone">{timeFormatter(duration)}</Time>
+          <Time className="u-userSelectNone">
+            {timeFormatter(song ? duration : 0)}
+          </Time>
         </ProgressBarWrapper>
       </Wrapper>
     );

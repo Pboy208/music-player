@@ -11,12 +11,22 @@ import Chart from 'screens/Chart';
 import Explore from 'screens/Explore';
 import ResetPassword from 'components/Auth/ResetPassword';
 import { ToastContainer } from '@ahaui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLayoutEffect } from 'react';
+import { initializeSongState } from 'store/songSlice';
 
 function Mock() {
   return <div>Mock</div>;
 }
 
 function App() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  useLayoutEffect(() => {
+    if (user?.userID) dispatch(initializeSongState(user.userID));
+  }, [user]);
+
   return (
     <>
       <ToastContainer />

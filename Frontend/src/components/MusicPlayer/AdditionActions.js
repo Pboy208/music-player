@@ -11,14 +11,15 @@ import { useDispatch } from 'react-redux';
 
 function AdditionActions({ volume, prevVolume, setVolume, song }) {
   const toggleMuting = () => setVolume(volume === 0 ? prevVolume : 0);
-  const [isLiked, setIsLiked] = useState(song.liked);
+  const [isLiked, setIsLiked] = useState(song?.liked);
   const dispatch = useDispatch();
-  console.log('first', isLiked, song.liked);
+
   useLayoutEffect(() => {
-    setIsLiked(song.liked);
+    setIsLiked(song?.liked);
   }, [song]);
 
   const toggleLikeHandler = () => {
+    if (!song) return;
     setIsLiked((prev) => !prev);
     dispatch(toggleLike(song.songId));
   };

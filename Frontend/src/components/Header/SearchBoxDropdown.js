@@ -61,6 +61,7 @@ function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
         overflow: 'auto',
+        zIndex: 100,
       }}
     >
       {result.map((item, index) => {

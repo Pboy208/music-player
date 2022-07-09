@@ -13,7 +13,7 @@ function SongItem({ song }) {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState(0);
   const [isLiked, setIsLiked] = useState(true);
-  console.log(song)
+
   const audio = new Audio(song.urlMusic);
   audio.onloadedmetadata = (e) => {
     if (audio.readyState > 0) {

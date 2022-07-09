@@ -46,6 +46,7 @@ const Card = styled.div`
   padding: 5px;
   box-shadow: 0px 0px 7px #c3c1c1;
   border-radius: inherit;
+  z-index: 1;
   &:hover {
     cursor: pointer;
   }

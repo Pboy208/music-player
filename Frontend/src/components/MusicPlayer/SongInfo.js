@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 
 function SongInfo({ song, size }) {
+  if (!song) return (
+    <Wrapper>
+      <SkeletonAvatar size={size} />
+    </Wrapper>
+  );
+
+
   return (
     <Wrapper>
       <Avatar src={song.urlImage} size={size} />
@@ -20,6 +27,17 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+const SkeletonAvatar = styled.div`
+  height: ${(props) => (props.size === 'medium' ? '40px' : '60px')};
+  width: ${(props) => (props.size === 'medium' ? '40px' : '60px')};
+  /* margin: ${(props) => (props.size === 'medium' ? '2px' : '4px')}; */
+  border: 1px solid white;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: grey;
+`;
+
 
 const Avatar = styled.img`
   height: ${(props) => (props.size === 'medium' ? '40px' : '60px')};
