@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
+import { useNavigate, Link } from 'react-router-dom';
 
 function SongInfo({ song, size }) {
   return (
@@ -7,7 +8,7 @@ function SongInfo({ song, size }) {
       <Avatar src={song.urlImage} size={size} />
       <Info>
         <Title size={size}>{song.name}</Title>
-        <Artist size={size}>{song.name_artist}</Artist>
+        <Artist to={`/profile/${song.authorId}`} size={size}>{song.author}</Artist>
       </Info>
     </Wrapper>
   );
@@ -41,7 +42,7 @@ const Title = styled.span`
   font-size: ${(props) => (props.size === 'medium' ? '16px' : '18px')};
 `;
 
-const Artist = styled.span`
+const Artist = styled(Link)`
   font-size: ${(props) => (props.size === 'medium' ? '12px' : '12px')};
 `;
 

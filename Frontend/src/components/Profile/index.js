@@ -49,12 +49,11 @@ function Profile({ userId }) {
   useEffect(() => {
     const fetchProfile = () => {
       getProfile(targetUserId).then(({ data }) => {
-        console.log(data.profile);
         setTargetUser(data.profile);
+        setPostList(data.postList);
       });
     };
     fetchProfile();
-    setPostList(response.postList);
   }, [targetUserId]);
 
   const addPost = (newPost) => {

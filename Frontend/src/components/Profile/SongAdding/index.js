@@ -136,9 +136,9 @@ export default function SongAdding({ close, addNewPost }) {
       title: songTitle,
       content,
     };
-    addPost(newPost).then((res) => {
+    addPost(newPost).then(({data}) => {
       const newAddedPost = {
-        postId: '123', // TODO
+        postId: data.postId,
         liked: false,
         content,
         createdAt: new Date(),
@@ -147,13 +147,14 @@ export default function SongAdding({ close, addNewPost }) {
           urlMusic: song,
           urlImage: songImage,
           name: songTitle,
-          songId: '123', // TODO,
+          songId: data.songId,
           author: user.name,
           authorId: user.userID,
           liked: false,
         },
       };
-      console.log('postId:::', res);
+      addNewPost(newAddedPost);
+      console.log('postId:::', data);
     });
   };
 
