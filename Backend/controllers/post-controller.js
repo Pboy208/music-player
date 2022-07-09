@@ -12,9 +12,9 @@ module.exports = {
         ,req.body.author,req.body.createdAt,req.body.content);
       return res
         .status(200)
-        .send({ message: "SAVE_POST_SUCCESS", data: {
-            postId : post[0][0].postId
-        } });
+        .send({ message: "SAVE_POST_SUCCESS", data: 
+            post[0][0]
+        });
     }),
     addComment: tryCatchBlock(null, async (req, res, next) => {
         const body = req.body;
