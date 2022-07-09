@@ -13,6 +13,7 @@ function Personal() {
 
   useEffect(() => {
     const fetchSongList = () => {
+      console.log("fetching");
       dispatch(getLikedList());
     };
 

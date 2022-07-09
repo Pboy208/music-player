@@ -8,8 +8,16 @@ require("dotenv").config();
 
 module.exports = {
   addNewPost: tryCatchBlock(null, async (req, res, next) => {
-      const post = await Post.addNewPost(req.userData.userId,req.body.songUrl,req.body.imageUrl,req.body.lyric,req.body.title
-        ,req.body.author,req.body.createdAt,req.body.content);
+      const post = await Post.addNewPost(
+        req.userData.userId,
+        req.body.urlMusic,
+        req.body.urlImage,
+        req.body.lyric,
+        req.body.title,
+        req.userData.userId,
+        new Date(),
+        req.body.content,
+      );
       return res
         .status(200)
         .send({ message: "SAVE_POST_SUCCESS", data: {
