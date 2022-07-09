@@ -28,14 +28,14 @@ module.exports = {
   exploreProfileUser: async (req, res, next) => {
     const params = req.params;
     const information = await User.exploreProfileUser(req.userData.userId,params.userId);
-    let profile = information[0];
+    let profile = information[0][0];
     let postList = information[1];
     postList.forEach((song => {
       song.song = {
         urlMusic : song.urlMusic,
         urlImage : song.urlImage,
         songId : song.songID,
-        songName : song.songName,
+        name : song.songName,
         author : song.author,
         authorId : song.authorId,
         liked: !!song.likedFavourite

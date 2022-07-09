@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Separator, Button, Icon } from '@ahaui/react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getProfile } from 'api/profileAPIs';
 import { User, Posts } from './dummyData';
 import Post from './Post';
 // eslint-disable-next-line import/no-named-as-default
@@ -46,9 +47,19 @@ function Profile({ userId }) {
   const [targetUser, setTargetUser] = useState(null);
 
   useEffect(() => {
-    setTargetUser(response.profile);
+    const fetchProfile = () => {
+      getProfile(targetUserId).then(({ data }) => {
+        console.log(data.profile);
+        setTargetUser(data.profile);
+      });
+    };
+    fetchProfile();
     setPostList(response.postList);
   }, [targetUserId]);
+
+  const addPost = (newPost) => {
+    setPostList([newPost,...postList]);
+  }
 
   if (!targetUser || !postList) return null;
 
@@ -76,7 +87,7 @@ function Profile({ userId }) {
           </div>
           <div>{targetUser.bio}</div>
         </div>
-        {user.userId === targetUserId && (
+        {user.userID === targetUserId && (
           <div
             className="u-positionAbsolute u-positionTop u-positionRight u-cursorPointer"
             onClick={() => setIsEditingProfile(true)}
@@ -86,7 +97,7 @@ function Profile({ userId }) {
         )}
       </div>
       <Separator />
-      {!isPosting && user.userId === targetUserId && (
+      {!isPosting && user.userID === targetUserId && (
         <Button onClick={() => setIsPosting(true)}>
           <Button.Icon>
             <Icon size="medium" name="cloudUpload" />
@@ -94,17 +105,25 @@ function Profile({ userId }) {
           <Button.Label>Upload song</Button.Label>
         </Button>
       )}
-      {isPosting && <SongAdding close={() => setIsPosting(false)} />}
+      {isPosting && (
+        <SongAdding close={() => setIsPosting(false)} addNewPost={addPost} />
+      )}
       {isEditingProfile && (
         <ProfileEditing
           close={() => setIsEditingProfile(false)}
           user={targetUser}
+          setProfile={(profile) => setTargetUser(profile)}
         />
       )}
       <Separator />
       <div className="u-flex u-flexColumn u-alignItemsCenter">
         {postList.map((post) => (
-          <Post post={post} userId={user.userId} targetUser={targetUser} />
+          <Post
+            id={post.postId}
+            post={post}
+            userId={user.userId}
+            targetUser={targetUser}
+          />
         ))}
       </div>
     </div>

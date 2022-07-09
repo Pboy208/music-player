@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAlbumExplore} from 'api/albumAPIs';
+import { getAlbumExplore } from 'api/albumAPIs';
 
 export const getExploreAlbum = createAsyncThunk('album/explore/album', () =>
   getAlbumExplore(),
@@ -25,10 +25,10 @@ const albumSlice = createSlice({
   extraReducers: {
     [getExploreAlbum.fulfilled]: (state, action) => {
       state.exploreALbumList = action.payload.data.map((album) => ({
-        ...album
+        ...album,
       }));
     },
-  }
+  },
 });
 
 export default albumSlice.reducer;
