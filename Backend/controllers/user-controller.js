@@ -29,6 +29,7 @@ module.exports = {
     const params = req.params;
     const information = await User.exploreProfileUser(req.userData.userId,params.userId);
     let profile = information[0][0];
+    profile.bio = profile.bio === "null" ? "" : profile.bio;
     let postList = information[1];
     postList.forEach((song => {
       song.song = {
