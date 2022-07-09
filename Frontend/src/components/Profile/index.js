@@ -50,11 +50,11 @@ function Profile({ userId }) {
     const fetchProfile = () => {
       getProfile(targetUserId).then(({ data }) => {
         setTargetUser(data.profile);
-        // setPostList(data.postList);
+        setPostList(data.postList);
       });
     };
     fetchProfile();
-    setPostList(response.postList);
+    // setPostList(response.postList);
   }, [targetUserId]);
 
   const addPost = (newPost) => {

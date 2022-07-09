@@ -47,7 +47,7 @@ function ResetPassword() {
       <Header>
         <Logo to="/explore">
           <Img src="/assets/img/zingmp3.png" alt="logo" />
-          <Name>Zing MP3</Name>
+          <Name>Muzi</Name>
         </Logo>
       </Header>
       <Body>

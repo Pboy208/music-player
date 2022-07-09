@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NavLink as Link } from 'react-router-dom';
+import { NavLink as Link, Link as LogoLink } from 'react-router-dom';
 import {
   BsFillFileEarmarkPersonFill,
   BsFillFileEarmarkMusicFill,
@@ -11,44 +11,44 @@ import { SiMusicbrainz } from 'react-icons/si';
 import { useSelector } from 'react-redux';
 
 function NavigationBar() {
-  const {user:{userID}} = useSelector(state => state.auth);
+  const {
+    user: { userID },
+  } = useSelector((state) => state.auth);
   return (
     <Wrapper>
-      <Logo className="u-selectNone u-cursorPointer u-textPrimary">
-        <SiMusicbrainz
-          style={{
-            marginRight: 8,
-          }}
-        />
-        mp3
+      <Logo
+        to="/explore"
+        className="u-selectNone u-cursorPointer u-textPrimary"
+      >
+        Muzi
       </Logo>
       <Navigators>
         <NavLink
           to={`/profile/${userID}`}
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsFillFileEarmarkPersonFill style={{fontSize: "24px"}}/>
+          <BsFillFileEarmarkPersonFill style={{ fontSize: '24px' }} />
           Personal
         </NavLink>
         <NavLink
           to="/favorite"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsBookmarkHeartFill style={{fontSize: "24px"}}/>
+          <BsBookmarkHeartFill style={{ fontSize: '24px' }} />
           Favorite
         </NavLink>
         <NavLink
           to="/explore"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsFillFileEarmarkMusicFill style={{fontSize: "24px"}}/>
+          <BsFillFileEarmarkMusicFill style={{ fontSize: '24px' }} />
           Explore
         </NavLink>
         <NavLink
           to="/chart"
           className="u-flex u-alignItemsCenter u-text200 u-userSelectNone"
         >
-          <BsBarChartLineFill style={{fontSize: "24px"}}/>
+          <BsBarChartLineFill style={{ fontSize: '24px' }} />
           Chart
         </NavLink>
         {/* <NavLink
@@ -75,14 +75,12 @@ const Wrapper = styled.div`
   background-color: var(--background-color);
 `;
 
-const Logo = styled.div`
+const Logo = styled(LogoLink)`
   flex: 1 999999 60px;
   padding: var(--small-space);
-  font-size: 28px;
+  font-size: 48px;
   display: flex;
-  padding-left: 18px;
-  /* justify-content: center; */
-  align-items: center;
+  justify-content: center;
 `;
 
 const Navigators = styled.div`
