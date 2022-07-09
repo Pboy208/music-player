@@ -74,8 +74,8 @@ function GetResetLink() {
     <Wrapper>
       <Header>
         <Logo to="/home">
-          <Img src="/assets/img/zingmp3.png" alt="logo" />
-          <Name>Zing MP3</Name>
+          <Img src="/assets/img/Muzi-logo.png" alt="logo" />
+          <Name>Muzi</Name>
         </Logo>
       </Header>
       <Body>
@@ -85,8 +85,8 @@ function GetResetLink() {
         >
           <Row>
             <Helmet>
-              <title>Login to Spotify</title>
-              <meta name="description" content="Login to Spotify" />
+              <title>Login to Muzi</title>
+              <meta name="description" content="Login to Muzi" />
             </Helmet>
             <Suggest>
               To reset your password, fill in your account email
@@ -119,7 +119,7 @@ function GetResetLink() {
 
             <NewAccount>
               <Ask>Don't have an account?</Ask>
-              <Signup to="/register">SIGN UP FOR SPOTIFY</Signup>
+              <Signup to="/register">SIGN UP FOR MUZI</Signup>
               <GoogleLogin
                 clientId="893957747003-5cifp6aq2gk3q2jfb2ost1gcjpeu7ecm.apps.googleusercontent.com"
                 render={(renderProps) => (
@@ -171,7 +171,7 @@ const Logo = styled(Link)`
   justify-content: center;
 `;
 const Img = styled.img`
-  height: 100%;
+  height: 130%;
   margin: -10px 10px 0px 0px;
   @media (max-width: 768px) {
     height: 100%;
@@ -217,24 +217,27 @@ const Suggest = styled.p`
   text-align: center;
   font-weight: 900;
   border-bottom: 1px solid rgb(217, 218, 220);
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   font-family: 'Roboto', 'segoe ui', Helvetica, Arial, sans-serif;
-  font-size: 17px;
+  font-size: 20px;
+  margin-bottom: 5px;
 `;
-const FormGroup = styled(Form.Group)``;
+const FormGroup = styled(Form.Group)`
+  margin-bottom: 5px;
+`;
 const FormLabel = styled(Form.Label)`
   box-sizing: border-box;
   align-items: center;
   display: flex;
   width: 100%;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
+  font-weight: 600;
 `;
 const FormFeedback = styled(Form.Feedback)`
   font-size: var(--font-size);
   line-height: 30px;
   color: white;
   text-align: center;
-  margin: 5px 25%;
   background-color: red;
 `;
 const FormInput = styled(Form.Input)`
@@ -251,31 +254,32 @@ const Login = styled(Link)`
   color: inherit;
   align-items: center;
   text-decoration: none;
+  transition: 200ms;
+  width: fit-content;
+  font-weight: 600;
   &:hover {
     text-decoration: underline;
+    transform: scale(1.1);
   }
 `;
 const Direct = styled.div`
   @media (min-width: 768px) {
     display: flex;
     -webkit-box-pack: justify;
-    justify-content: right;
+    justify-content: center;
     -webkit-box-align: end;
     align-items: end;
   }
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   border-bottom: 1px solid rgb(217, 218, 220);
 `;
 const ResetButton = styled(Button)`
-  width: 100%;
-  @media (min-width: 768px) {
-    width: auto;
-  }
+  width: 50%;
   border: none;
   letter-spacing: 2px;
   background-color: var(--background-base, #a845de);
   border-radius: 500px;
-  padding: 14px 32px;
+  padding: 8px 32px;
   cursor: pointer;
   transition: 200ms;
   color: white;
@@ -301,7 +305,7 @@ const Ask = styled.p`
   line-height: 1.5rem;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 `;
 const Signup = styled(Link)`
   display: inline-flex;

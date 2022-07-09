@@ -3,7 +3,7 @@ import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { playSongNow, toggleLike } from 'store/songSlice';
+import { playSongNow } from 'store/songSlice';
 
 // const song = {
 //   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
@@ -22,7 +22,6 @@ import { playSongNow, toggleLike } from 'store/songSlice';
 function SongItemChart({ song }) {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState(0);
-  // const [isLiked, setIsLiked] = useState(true);
 
   const audio = new Audio(song.urlMusic);
   audio.onloadedmetadata = (e) => {
