@@ -50,15 +50,16 @@ function Profile({ userId }) {
     const fetchProfile = () => {
       getProfile(targetUserId).then(({ data }) => {
         setTargetUser(data.profile);
-        setPostList(data.postList);
+        // setPostList(data.postList);
       });
     };
     fetchProfile();
+    setPostList(response.postList);
   }, [targetUserId]);
 
   const addPost = (newPost) => {
-    setPostList([newPost,...postList]);
-  }
+    setPostList([newPost, ...postList]);
+  };
 
   if (!targetUser || !postList) return null;
 
@@ -97,12 +98,15 @@ function Profile({ userId }) {
       </div>
       <Separator />
       {!isPosting && user.userID === targetUserId && (
-        <Button onClick={() => setIsPosting(true)}>
-          <Button.Icon>
-            <Icon size="medium" name="cloudUpload" />
-          </Button.Icon>
-          <Button.Label>Upload song</Button.Label>
-        </Button>
+        <>
+          <Button onClick={() => setIsPosting(true)}>
+            <Button.Icon>
+              <Icon size="medium" name="cloudUpload" />
+            </Button.Icon>
+            <Button.Label>Upload song</Button.Label>
+          </Button>
+          <Separator />
+        </>
       )}
       {isPosting && (
         <SongAdding close={() => setIsPosting(false)} addNewPost={addPost} />
@@ -114,7 +118,6 @@ function Profile({ userId }) {
           setProfile={(profile) => setTargetUser(profile)}
         />
       )}
-      <Separator />
       <div className="u-flex u-flexColumn u-alignItemsCenter">
         {postList.map((post) => (
           <Post

@@ -51,7 +51,7 @@ function GetResetLink() {
       .unwrap()
       .then(() => {
         Toast.success('Login success');
-        navigate('/home');
+        navigate('/explore');
       })
       .catch(console.error);
   };
@@ -73,7 +73,7 @@ function GetResetLink() {
   return (
     <Wrapper>
       <Header>
-        <Logo to="/home">
+        <Logo to="/explore">
           <Img src="/assets/img/zingmp3.png" alt="logo" />
           <Name>Zing MP3</Name>
         </Logo>

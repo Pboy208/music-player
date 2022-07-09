@@ -22,7 +22,7 @@ function App() {
       <ToastContainer />
       <GlobalStyle theme="light" />
       <Routes>
-        <Route path="/" exact element={<Navigate to="/home" />} />
+        <Route path="/" exact element={<Navigate to="/explore" />} />
         <Route
           path="/login"
           exact
@@ -41,11 +41,6 @@ function App() {
         <Route
           path="/reset-password/:resetToken"
           element={<UnprotectedRoute component={ResetPassword} />}
-        />
-        <Route
-          path="/home"
-          exact
-          element={<ProtectedRoute component={Mock} />}
         />
         <Route
           path="/profile/:userId"

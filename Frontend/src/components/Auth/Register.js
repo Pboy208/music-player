@@ -41,7 +41,7 @@ function Register() {
       .unwrap()
       .then(() => {
         Toast.success('Register success');
-        navigate('/home');
+        navigate('/explore');
       })
       .catch(console.error);
   };
@@ -49,7 +49,7 @@ function Register() {
   return (
     <Wrapper>
       <Header>
-        <Logo to="/home">
+        <Logo to="/explore">
           <Img src="/assets/img/Muzi-logo.png" alt="logo" />
           <Name>Muzi</Name>
         </Logo>
