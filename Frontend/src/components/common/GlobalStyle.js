@@ -6,6 +6,8 @@ const themes = {
     background: 'white',
     text: '#172B4D',
     borderColor: '#dfe1e6',
+    textNavigation: '#6b778c',
+    textNavigationHover: '#000',
   },
   dark: {
     body: '#171717',
@@ -28,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
     --text-color: ${({ theme }) => themes[theme].text};
     --color-primary: #375DE7;
     --background-color-hover: #c1c7d0;
+    --text-navigation-color: ${({ theme }) => themes[theme].textNavigation};
     border: none;
     font-family: 'Roboto', sans-serif;
   }
@@ -37,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     &:hover {
       text-decoration: none;
-      color: var(--color-primary);
+      color: ${({ theme }) => themes[theme].textNavigationHover};
       font-weight: 500;
     }
   }
@@ -60,7 +63,7 @@ const GlobalStyle = createGlobalStyle`
 
   .active {
     background-color: #c1c7d0;
-    color: var(--color-primary);
+    color: ${({ theme }) => themes[theme].textNavigationHover};
     font-weight: 500;
   }
 
