@@ -136,7 +136,7 @@ export default function SongAdding({ close, addNewPost }) {
       title: songTitle,
       content,
     };
-    addPost(newPost).then(({data}) => {
+    addPost(newPost).then(({ data }) => {
       const newAddedPost = {
         postId: data.postId,
         liked: false,
@@ -159,21 +159,22 @@ export default function SongAdding({ close, addNewPost }) {
   };
 
   return (
-    <Modal close={close} height={800}>
+    <Modal
+      close={close}
+      width="var(--modal-song-adding-width)"
+      height="var(--modal-song-adding-height)"
+      gap= "var(--modal-song-adding-gap)"
+    >
       <div
-        className="u-text400"
-        style={{
-          marginBottom: 20,
-        }}
+        className="u-text400 u-marginTopMedium"     
       >
         <Icon className="u-marginRightExtraSmall" size="medium" name="bot" />
         UPLOAD YOUR SONG HERE
       </div>
       <div
-        className="u-flex"
+        className="u-flex u-flexWrap u-justifyContentCenter"
         style={{
           gap: 20,
-          marginBottom: 20,
         }}
       >
         <div
@@ -199,7 +200,12 @@ export default function SongAdding({ close, addNewPost }) {
             />
           </Form.Group>
         </div>
-        <div className="u-flex u-alignItemsCenter">
+        <div
+          className="u-flex u-alignItemsCenter"
+          style={{
+            display: 'var(--display-song-adding-icon)',
+          }}
+        >
           <ImArrowRight style={{ fontSize: 40 }} />
         </div>
         <div
@@ -220,7 +226,6 @@ export default function SongAdding({ close, addNewPost }) {
         onChange={(e) => setSongLyric(e.target.value)}
         style={{
           width: '70%',
-          marginBottom: 20,
         }}
       />
       <div className="u-text300">Anything to say about this song?</div>
@@ -232,10 +237,11 @@ export default function SongAdding({ close, addNewPost }) {
         onChange={(e) => setContent(e.target.value)}
         style={{
           width: '70%',
-          marginBottom: 24,
         }}
       />
-      <Button variant="primary" onClick={submitHandler}>
+      <Button variant="primary" onClick={submitHandler} style={{
+        marginBottom:12,
+      }}>
         <Button.Label>Submit</Button.Label>
       </Button>
     </Modal>

@@ -35,11 +35,13 @@ function SongList({ songList }) {
 }
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 80%;
+  max-width: 800px;
   min-height: 70vh;
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 `;
 
 const Title = styled.th`

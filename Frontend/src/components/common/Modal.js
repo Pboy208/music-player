@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Icon } from '@ahaui/react';
 
-export default function Modal({ children, close , width,height, padding}) {
+export default function Modal({ children, close , width,height, padding, gap}) {
   return (
     <>
       <div
@@ -20,10 +20,11 @@ export default function Modal({ children, close , width,height, padding}) {
           width: width || 600,
           height: height || 500,
           padding,
-          gap: 12,
+          gap: gap || 12,
           zIndex: 4,
           left: 0,
           right: 0,
+          top: 'var(--modal-top)',
           margin: '0 auto',
         }}
       >

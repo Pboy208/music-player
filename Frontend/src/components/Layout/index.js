@@ -8,7 +8,7 @@ import Header from 'components/Header';
 function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   return (
-    <Wrapper>
+    <Wrapper className='layout'>
       <Body>
         {isMenuOpen && <NavigationBar />}
         <AppWrapper>
@@ -25,6 +25,8 @@ function Layout({ children }) {
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
+  /* min-width: 600px; */
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -65,7 +65,7 @@ function Profile({ userId }) {
 
   return (
     <div
-      className="u-flex u-flexColumn u-paddingHorizontalExtraLarge u-paddingVerticalLarge "
+      className="u-flex u-flexColumn card"
       style={{
         gap: 24,
         backgroundColor: 'white',

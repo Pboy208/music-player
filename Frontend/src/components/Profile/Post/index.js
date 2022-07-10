@@ -18,7 +18,9 @@ export default function Post({ post, userId, targetUser }) {
       style={{
         gap: 12,
         width: '80%',
+        maxWidth: 800,
         borderColor: '--color-primary',
+        marginBottom: 60,
       }}
     >
       <div className="u-flex">
@@ -40,15 +42,23 @@ export default function Post({ post, userId, targetUser }) {
       <Separator />
       <MusicWrapper
         className="u-flex u-flexColumn u-alignItemsCenter u-justifyContentCenter u-positionRelative"
-        style={{ gap: 16, width: 480, margin: '12px auto' }}
+        style={{
+          gap: 16,
+          width: '60vw',
+          height: '60vw',
+          maxHeight: 400,
+          maxWidth: 400,
+          margin: '12px auto',
+        }}
         onClick={() => dispatch(playSongNow(post.song))}
       >
         <audio src={post.song.urlMusic} />
         <img
           src={post.song.urlImage}
           style={{
-            height: 480,
-            width: 480,
+            width: '100%',
+            height: '100%',
+            maxWidth: 400,
             objectFit: 'cover',
           }}
         />
