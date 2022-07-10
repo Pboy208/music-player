@@ -2,8 +2,21 @@ import { useEffect } from "react";
 import styled from 'styled-components';
 import SongItemChart from './SongItemChart';
 
+function compare( a, b ) {
+  if ( a.rank < b.rank ){
+    return -1;
+  }
+  if ( a.rank > b.rank ){
+    return 1;
+  }
+  return 0;
+}
 function SongListChart({ songChart }) {
+  
+  // const reversed = songChart.reverse();
+  songChart.sort(compare);
   const newArray = songChart.slice(0, 20);
+
   return (
     <Wrapper>
       <table
