@@ -20,7 +20,7 @@ import useClick from 'hooks/useClick';
 
 function SongItemChart({ song }) {
   const [duration, setDuration] = useState(0);
-  const click = useClick(song);
+  const click = useClick({song});
   const audio = new Audio(song.urlMusic);
   audio.onloadedmetadata = (e) => {
     if (audio.readyState > 0) {
