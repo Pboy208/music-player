@@ -63,6 +63,22 @@ const GlobalStyle = createGlobalStyle`
     }
     //-----------------------------------------------------
 
+    // responsive for profile post
+    --post-padding: 32px;
+
+    @media (max-width: 660px) {
+      --post-padding: 12px;
+    }
+    //-----------------------------------------------------
+
+  }
+
+  .BubbleChat-text{
+    padding: 8px;
+  }
+
+  .BubbleChat-time{
+    padding-left: 8px;
   }
 
   a{

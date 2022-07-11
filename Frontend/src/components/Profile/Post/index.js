@@ -14,13 +14,14 @@ export default function Post({ post, userId, targetUser }) {
   const [isCommenting, setIsCommenting] = useState(false);
   return (
     <div
-      className="u-backgroundNeutral20	u-flex u-flexColumn u-paddingHorizontalLarge u-paddingTopLarge u-paddingBottomSmall u-marginBottomMedium u-border u-roundedLarge "
+      className="u-backgroundNeutral20	u-flex u-flexColumn  u-marginBottomMedium u-border u-roundedLarge "
       style={{
         gap: 12,
         width: '80%',
         maxWidth: 800,
-        borderColor: '--color-primary',
+        // borderColor: '--color-primary',
         marginBottom: 60,
+        padding: 'var(--post-padding)',
       }}
     >
       <div className="u-flex">

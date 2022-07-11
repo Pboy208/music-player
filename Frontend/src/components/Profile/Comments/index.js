@@ -12,15 +12,19 @@ export default function Comments() {
         />
         <Form.Group
           style={{
-            width: '90%',
             marginBottom: 0,
             marginLeft: 8,
             marginRight: 8,
+            flex: '1 1',
           }}
         >
           <Form.Input as="textarea" rows={1} placeHolder="Comment here!" />
         </Form.Group>
-        <Button variant="primary_outline" size="small" onlyIcon>
+        <Button
+          variant="primary_outline"
+          size="small"
+          onlyIcon
+        >
           <Button.Icon>
             <Icon size="medium" name="send" />
           </Button.Icon>
