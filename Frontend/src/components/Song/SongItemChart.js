@@ -3,7 +3,7 @@ import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { playSongNow, toggleLike } from 'store/songSlice';
+import { playSongNow } from 'store/songSlice';
 
 // const song = {
 //   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
@@ -22,7 +22,6 @@ import { playSongNow, toggleLike } from 'store/songSlice';
 function SongItemChart({ song }) {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState(0);
-  // const [isLiked, setIsLiked] = useState(true);
 
   const audio = new Audio(song.urlMusic);
   audio.onloadedmetadata = (e) => {
@@ -71,7 +70,7 @@ function SongItemChart({ song }) {
 }
 
 const Rank = styled.div`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -81,10 +80,12 @@ const Rank = styled.div`
 
 const First = styled.span`
   color: red;
+  font-size: 42px;
 `;
 
 const Second = styled.span`
   color: blue;
+  font-size: 35px;
 `;
 
 const Third = styled.span`

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { BsFillPlayCircleFill } from 'react-icons/bs';
 import { playSongNow } from 'store/songSlice';
@@ -18,11 +19,18 @@ import { useDispatch } from 'react-redux';
 
 function SongCardItem({ song }) {
   const dispatch = useDispatch();
+  
   return (
     <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size2of10 xl:u-size1of6" onClick={() => dispatch(playSongNow(song))}>
-      <Card onClick={null}>
+      <Card>
         <Media>
-          <Img src={song.urlImage} size="medium" alt=''/>
+          {(song.urlImage === "" || song.urlImage === undefined) ?
+            (
+              <Img src="/assets/img/no-image.png" size="medium" alt=''/>
+            ):(
+              <Img src={song.urlImage} size="medium" alt=''/>
+            )
+          }
           <div className='play'><BsFillPlayCircleFill/></div>
         </Media>
         <Content>
@@ -117,4 +125,4 @@ const PlayBtn = styled.button`
   &:hover {display:block;}
 `;
 
-export default SongCardItem;
+export default React.memo(SongCardItem);

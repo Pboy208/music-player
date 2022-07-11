@@ -22,16 +22,6 @@ export const getLikedList = createAsyncThunk('song/getLikedList', () =>
   getFavoriteSong(),
 );
 
-export const getChart = createAsyncThunk('song/chart', () => getSongChart());
-
-export const getExploreSong = createAsyncThunk('song/explore/song', () =>
-  getSongExplore(),
-);
-
-export const getArtistSong = createAsyncThunk('song/explore/artist', () =>
-  getArtistExplore(),
-);
-
 export const toggleLike = createAsyncThunk('song/toggleLikeSong', (songId) =>
   toggleLikeSong(songId),
 );
@@ -173,21 +163,6 @@ const songSlice = createSlice({
       state.likedList = action.payload.data.map((song) => ({
         ...song,
         liked: true,
-      }));
-    },
-    [getChart.fulfilled]: (state, action) => {
-      state.chartList = action.payload.data.map((song) => ({
-        ...song,
-      }));
-    },
-    [getExploreSong.fulfilled]: (state, action) => {
-      state.exploreSongList = action.payload.data.map((song) => ({
-        ...song,
-      }));
-    },
-    [getArtistExplore.fulfilled]: (state, action) => {
-      state.exploreArtistList = action.payload.data.map((song) => ({
-        ...song,
       }));
     },
     [toggleLike.fulfilled]: (state, action) => {

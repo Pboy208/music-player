@@ -1,31 +1,45 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Tab } from '@ahaui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getExploreSong, getSongExplore } from 'store/songSlice';
-import { getExploreAlbum } from 'store/albumSlice';
 import SongCardList from 'components/Song/SongCardList';
 import AlbumCardList from 'components/Album/AlbumCardList';
 
 function Explore() {
   const [currentTab, setCurrentTab] = useState('liked');
-  const { exploreSongList: exploreSong } = useSelector((state) => state.song);
-  const { exploreAlbumList: exploreAlbum } = useSelector((state) => state.album);
-  const dispatch = useDispatch();
+  const [ exploreSong, setExploreSong ] = useState([]);
+  const [ exploreAlbum, setExploreAlbum ] = useState([]);
+  const [ exploreArtist, setExploreArtist ] = useState([]);
 
   useEffect(() => {
-    const fetchSongExploreList = () => {
-      dispatch(getExploreSong());
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
     };
-    fetchSongExploreList();
+
+    fetch("http://localhost:8888/song/explore/song", requestOptions)
+      .then((response) => response.json())
+      .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+      .then((result) => setExploreSong(result))
+      .catch((error) => console.log("error", error));
+
+    fetch("http://localhost:8888/album/explore/album", requestOptions)
+      .then((response) => response.json())
+      .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+      .then((result) => setExploreAlbum(result))
+      .catch((error) => console.log("error", error));
+
+    fetch("http://localhost:8888/album/explore/artist", requestOptions)
+    .then((response) => response.json())
+    .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+    .then((result) => setExploreArtist(result))
+    .catch((error) => console.log("error", error));
   }, []);
-
-  useEffect(() => {
-    const fetchAlbumExploreList = () => {
-      dispatch(getExploreAlbum());
-    };
-    fetchAlbumExploreList();
-  }, [])
   
   if (!exploreSong) return null;
 
@@ -40,6 +54,10 @@ function Explore() {
         <h3>New album arrived</h3>
         <AlbumCardList exploreAlbum={exploreAlbum} />
       </NewAlbum>
+      {/* <Artist>
+        <h3>New artist feature</h3>
+        <ArtistCardList />
+      </Artist> */}
       
     </Wrapper>
   );
@@ -60,6 +78,10 @@ const NewSong = styled.div`
   flex-direction: column;
 `;
 const NewAlbum = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Artist = styled.div`
   display: flex;
   flex-direction: column;
 `;

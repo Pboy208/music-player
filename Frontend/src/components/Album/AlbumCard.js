@@ -2,29 +2,36 @@ import styled from 'styled-components';
 import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
 
-const song = {
-  song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
-  name: 'Mây Hồng Đưa Lối',
-  times_play: 181000,
-  album_id: '20d0b9f3-3e65-1639-9d7d-e8c757976496',
-  name_artist: 'Bâu',
-  artist_id: '27341263-7cbf-193d-781d-bb3758d4bac0',
-  urlImage:
-    'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
-  urlMusic:
-    'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
-};
+// const song = {
+//   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
+//   name: 'Mây Hồng Đưa Lối',
+//   times_play: 181000,
+//   album_id: '20d0b9f3-3e65-1639-9d7d-e8c757976496',
+//   name_artist: 'Bâu',
+//   artist_id: '27341263-7cbf-193d-781d-bb3758d4bac0',
+//   urlImage:
+//     'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
+//   urlMusic:
+//     'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
+// };
 
-function AlbumCardItem() {
+function AlbumCardItem({album}) {
+  
   return (
     <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size1of5">
       <Card onClick={null}>
-        <Media>
-          <Img src={song.urlImage} size="medium" alt=''/>
-        </Media>
+        {/* <Media>
+          {(album.urlImage === "" || album.urlImage === undefined) ?
+            (
+              <Img src="/assets/img/no-image.png" size="medium" alt=''/>
+            ):(
+              <Img src={album.urlImage} size="medium" alt=''/>
+            )
+          }
+        </Media> */}
         <Content>
-          <SongName>{song.name}</SongName>
-          <SongArtist>{song.name_artist}</SongArtist>
+          <SongName>{album.name}</SongName>
+          {/* <SongArtist>{album.name_artist}</SongArtist> */}
         </Content>
       </Card>
     </Wrapper>
@@ -36,8 +43,16 @@ const Wrapper = styled.div`
   padding-bottom: 20px;
 `;
 const Card = styled.div`
+  min-height: 40px;
+  @media (max-width: 1440px) {
+    min-height: 60px;
+  }
+  @media (max-width: 1000px) {
+    min-height: 80px;
+  }
   position: relative;
   display: flex;
+  align-items: center;
   flex-direction: column;
   padding: 5px;
   box-shadow: 0px 0px 7px #c3c1c1;
