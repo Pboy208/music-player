@@ -50,7 +50,7 @@ module.exports = {
       delete song.authorId
       delete song.likedFavourite
       delete song.postID
-
+      song.numberOfLike = song.numberOfLike === null ? 0 : song.numberOfLike;
       song.liked = !!song.liked ;
     }));
     return res.status(200).send({ message: "UPDATE_PROFILE_SUCCESS", data :{

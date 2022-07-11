@@ -1,17 +1,45 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Separator, Icon, Button } from '@ahaui/react';
 import { BsFillPlayCircleFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { playSongNow } from 'store/songSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCommentList, toggleLikePost } from 'api/postAPIs';
+import { timeSince } from 'utils/datetime';
 import Comments from '../Comments';
-import { User } from '../dummyData';
 
 export default function Post({ post, userId, targetUser }) {
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [isCommenting, setIsCommenting] = useState(false);
+  const [isLike, setIsLike] = useState(post?.liked);
+  const [numberOfLike,setNumberOfLike] = useState(post?.numberOfLike);
+  const [commentList, setCommentList] = useState(null);
+  console.log(post);
+  useEffect(() => {
+    getCommentList(post.postId).then(({ data }) => setCommentList(data));
+  }, [isCommenting, post.postId]);
+
+  const likeHandler = () => {
+    toggleLikePost(post.postId);
+    setNumberOfLike((prev) => isLike? prev - 1 : prev+1);
+    setIsLike((prev) => !prev);
+  };
+
+  const commentHandler = (content) => {
+    const newComment = {
+      createdAt: 'now',
+      content,
+      avatar: user.avatar,
+      author: user.name,
+      authorId: user.userID,
+      commentId: new Date() + user.userID,
+    };
+    setCommentList((prev) => [newComment, ...prev]);
+  };
+
   return (
     <div
       className="u-backgroundNeutral20	u-flex u-flexColumn  u-marginBottomMedium u-border u-roundedLarge "
@@ -36,7 +64,7 @@ export default function Post({ post, userId, targetUser }) {
         </div>
         <div className="u-flexGrow1">
           <strong className="u-text400">{targetUser.name}</strong>
-          <div className="u-textPrimary">4 hours ago</div>
+          <div className="u-textPrimary">{timeSince(post.createdAt)}</div>
         </div>
       </div>
       <div>{post.content}</div>
@@ -79,8 +107,8 @@ export default function Post({ post, userId, targetUser }) {
       </div>
       <Separator />
       <div className="u-flex u-justifyContentBetween u-alignItemsCenter">
-        <div>{`${post.numberOfLike} Like${
-          post.numberOfLike === 1 ? null : 's'
+        <div>{`${numberOfLike} Like${
+          numberOfLike <= 1 ? '' : 's'
         }`}</div>
         <div
           className="u-flex"
@@ -88,13 +116,18 @@ export default function Post({ post, userId, targetUser }) {
             gap: 12,
           }}
         >
-          <Button variant="primary_outline" size="small" onlyIcon>
+          <Button
+            variant={isLike ? 'primary_outline' : 'secondary'}
+            size="small"
+            onlyIcon
+            onClick={likeHandler}
+          >
             <Button.Icon>
               <Icon size="medium" name="thumbsUp" />
             </Button.Icon>
           </Button>
           <Button
-            variant="primary_outline"
+            variant={isCommenting ? 'primary_outline' : 'secondary'}
             size="small"
             onlyIcon
             onClick={() => setIsCommenting((prev) => !prev)}
@@ -105,10 +138,15 @@ export default function Post({ post, userId, targetUser }) {
           </Button>
         </div>
       </div>
-      {isCommenting && (
+      {isCommenting && commentList && (
         <>
           <Separator />
-          <Comments />
+          <Comments
+            postId={post.postId}
+            commentList={commentList}
+            commentHandler={commentHandler}
+            user={user}
+          />
         </>
       )}
     </div>

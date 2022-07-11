@@ -62,7 +62,6 @@ function GetResetLink() {
       avatar: res.profileObj.imageUrl,
       name: res.profileObj.name,
     };
-    console.log(loginInfo);
     handleGoogleLogin(loginInfo);
   };
 
