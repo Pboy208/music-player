@@ -50,8 +50,29 @@ function Chart() {
 // urlMusic:
   // console.log(songChart);
   if (!songChart) return null;
-  const transformed = songChart.map(({ albumID,artistID,name,rank,songID,timesPlay,urlImage,urlMusic}) => ({ albumId:albumID ,artistId:artistID,name,rank,songId:songID,timesPlay,urlImage,urlMusic}));
-  // console.log(transformed);
+  const transformed = songChart.map(
+    ({ albumID,
+      artistID,
+      name,
+      nameArtist,
+      rank,
+      songID,
+      timesPlay,
+      urlImage,
+      urlMusic
+    }) => 
+    ({ 
+      albumId: albumID ,
+      authorId: artistID,
+      name,
+      author: nameArtist,
+      rank,
+      songId: songID,
+      timesPlay,
+      urlImage,
+      urlMusic
+    }));
+  console.log(transformed);
   if (!transformed) return null;
 
   return (

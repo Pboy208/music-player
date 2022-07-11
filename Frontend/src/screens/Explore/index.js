@@ -40,15 +40,32 @@ function Explore() {
       .then((result) => setExploreArtist(result))
       .catch((error) => console.log("error", error));
   }, []);
-  
   if (!exploreSong) return null;
+  const transformedSong = exploreSong.map(
+    ({
+      name,
+      artistID,
+      nameArtist,
+      songID,
+      urlImage,
+      urlMusic
+    }) => 
+    ({ 
+      artistId: artistID,
+      name,
+      nameArtist,
+      songId: songID,
+      urlImage,
+      urlMusic
+    }));
+  if (!transformedSong) return null;
 
   return (
     <Wrapper className="card aligned-center">
       <h1>Explorer</h1>
       <NewSong>
         <h3>New release</h3>
-        <SongCardList exploreSong={exploreSong}/>
+        <SongCardList exploreSong={transformedSong}/>
       </NewSong>
       <NewAlbum>
         <h3>New album arrived</h3>

@@ -3,27 +3,15 @@ import styled from 'styled-components';
 import { BsFillPlayCircleFill } from 'react-icons/bs';
 import { playSongNow } from 'store/songSlice';
 import { useDispatch } from 'react-redux';
-
-// const song = {
-//   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
-//   name: 'Mây Hồng Đưa Lối',
-//   times_play: 181000,
-//   album_id: '20d0b9f3-3e65-1639-9d7d-e8c757976496',
-//   name_artist: 'Bâu',
-//   artist_id: '27341263-7cbf-193d-781d-bb3758d4bac0',
-//   urlImage:
-//     'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
-//   urlMusic:
-//     'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
-// };
+import { Link } from 'react-router-dom';
 
 function SongCardItem({ song }) {
   const dispatch = useDispatch();
   
   return (
-    <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size2of10 xl:u-size1of6" onClick={() => dispatch(playSongNow(song))}>
+    <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size2of10 xl:u-size1of6">
       <Card>
-        <Media>
+        <Media onClick={() => dispatch(playSongNow(song))}>
           {(song.urlImage === "" || song.urlImage === undefined) ?
             (
               <Img src="/assets/img/no-image.png" size="medium" alt=''/>
@@ -34,8 +22,8 @@ function SongCardItem({ song }) {
           <div className='play'><BsFillPlayCircleFill/></div>
         </Media>
         <Content>
-          <SongName>{song.name}</SongName>
-          <SongArtist>{song.nameArtist}</SongArtist>
+          <SongName onClick={() => dispatch(playSongNow(song))}>{song.name}</SongName>
+          <SongArtist to={`/profile/${song.artistId}`}>{song.nameArtist}</SongArtist>
         </Content>
       </Card>
     </Wrapper>
@@ -111,7 +99,7 @@ const SongName = styled.div`
   }
 `;
 
-const SongArtist = styled.div`
+const SongArtist = styled(Link)`
   color: inherit;
   font-family: sans-serif;
   font-size: 16px;
@@ -120,6 +108,7 @@ const SongArtist = styled.div`
   display:flex;
   align-items: center;
   min-height: 40px;
+  &:hover {color: blue;}
 `;
 
 const PlayBtn = styled.button`
