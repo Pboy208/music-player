@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Tab } from '@ahaui/react';
 import SongCardList from 'components/Song/SongCardList';
 import AlbumCardList from 'components/Album/AlbumCardList';
+import { Link } from 'react-router-dom';
 
 function Explore() {
   const [currentTab, setCurrentTab] = useState('liked');
@@ -64,7 +65,10 @@ function Explore() {
     <Wrapper className="card aligned-center">
       <h1>Explorer</h1>
       <NewSong>
-        <h3>New release</h3>
+        <div style={{display: "inline-flex"}}>
+          <h3>New release</h3>
+          <Link style={{ marginLeft: "20px",padding: "5px",fontSize: "16px", fontWeight: "600"}} to="/explore/song">More</Link>
+        </div>
         <SongCardList exploreSong={transformedSong}/>
       </NewSong>
       <NewAlbum>

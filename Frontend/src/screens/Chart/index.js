@@ -1,24 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SongListChart from 'components/Song/SongChart';
-import { Tab, Dropdown, Button, Icon, Form } from '@ahaui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getChart } from 'store/songSlice';
-
-
 
 function Chart() {
-  // const [currentTab, setCurrentTab] = useState('liked');
-  // const { chartList: songChart } = useSelector((state) => state.song);
   const [ songChart, setSongChart] = useState([]);
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const fetchSongList = () => {
-  //     dispatch(getChart());
-  //   };
-  //   fetchSongList();
-  // }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,18 +22,8 @@ function Chart() {
       .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
       .then((result) => setSongChart(result))
       .catch((error) => console.log("error", error));
-
   }, []);
-//   albumID: "e96707e6-e952-11ec-aa89-0a5de61f8cc6"
-// artistID: "73a854d5-fc89-11ec-aa89-0a5de61f8cc6"
-// name: "Hoa hải đường"
-// name_artist: "Charlie Puth"
-// rank: 1
-// songID: "3c8ef4e9-f1f5-11ec-aa89-0a5de61f8cc6"
-// timesPlay: 27
-// urlImage: "https://res.cloudinary.com/mp320212/image/upload/Image/135aa3ef-7c39-47c4-d0e4-cbefc3792353"
-// urlMusic:
-  // console.log(songChart);
+
   if (!songChart) return null;
   const transformed = songChart.map(
     ({ albumID,
@@ -72,7 +47,6 @@ function Chart() {
       urlImage,
       urlMusic
     }));
-  console.log(transformed);
   if (!transformed) return null;
 
   return (

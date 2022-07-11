@@ -9,6 +9,7 @@ import Profile from 'components/Profile';
 import GetResetLink from 'components/Auth/GetResetLink';
 import Chart from 'screens/Chart';
 import Explore from 'screens/Explore';
+import ExploreSong from 'screens/Explore/ExploreSong';
 import ResetPassword from 'components/Auth/ResetPassword';
 import { ToastContainer } from '@ahaui/react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -66,6 +67,11 @@ function App() {
           path="/explore"
           exact
           element={<ProtectedRoute component={Explore} />}
+        />
+        <Route
+          path="/explore/song"
+          exact
+          element={<ProtectedRoute component={ExploreSong} />}
         />
         <Route
           path="/chart"
