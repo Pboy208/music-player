@@ -11,6 +11,7 @@ import { useLayoutEffect, useState } from 'react';
 import { toggleLike } from 'store/songSlice';
 import { useDispatch } from 'react-redux';
 import LyricModal from './LyricModal';
+import PlayingQueueModal from './PlayingQueueModal';
 
 function AdditionActions({ volume, prevVolume, setVolume, song }) {
   const toggleMuting = () => setVolume(volume === 0 ? prevVolume : 0);
@@ -31,7 +32,8 @@ function AdditionActions({ volume, prevVolume, setVolume, song }) {
 
   return (
     <>
-      {isOpenLyric && <LyricModal close={() => setIsOpenLyric(false)} />}
+      {isOpenLyric && <LyricModal songId={song.songId} close={() => setIsOpenLyric(false)} />}
+      {isOpenPlayingQueue && <PlayingQueueModal close={() => setIsOpenPlayingQueue(false)} />}
       <Wrapper>
         <div
           style={{

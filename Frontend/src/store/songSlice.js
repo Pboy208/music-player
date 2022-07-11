@@ -148,6 +148,21 @@ const songSlice = createSlice({
         },
       });
     },
+    removeFromQueue: (state, action) => {
+      const songId = action.payload;
+      state.playingQueue = state.playingQueue.filter(
+        (song) => song?.songId !== songId,
+      );
+
+      updateSongState({
+        ...state.storedState,
+        [state.userId]: {
+          currentlyPlaying: state.currentlyPlaying ?? null,
+          playingQueue: state.playingQueue,
+          recentlyPlayed: state.recentlyPlayed ?? [],
+        },
+      });
+    },
     playSongNow: (state, action) => {
       const newSong = action.payload;
       if (state.currentlyPlaying) {
@@ -220,6 +235,7 @@ const songSlice = createSlice({
 export default songSlice.reducer;
 export const {
   resetSongState,
+  removeFromQueue,
   addToQueue,
   playSongNow,
   nextSongAction,

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { playSongNow, addToQueue } from 'store/songSlice';
 
-function useClick({ song, callback }) {
+function useClick({ song, callback, disabled }) {
   const [click, setClick] = useState(0);
   const dispatch = useDispatch();
 
@@ -12,9 +12,9 @@ function useClick({ song, callback }) {
       if (click === 1) {
         if (callback) {
           callback(true);
-        } else {
-          dispatch(addToQueue(song));
-        }
+        } else if (disabled) {
+          dispatch(playSongNow(song));
+        } else dispatch(addToQueue(song));
       }
       setClick(0);
     }, 250);
