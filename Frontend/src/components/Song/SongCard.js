@@ -93,25 +93,33 @@ const Img = styled.img`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 0px;
 `;
 
-const SongName = styled.p`
+const SongName = styled.div`
   padding: 4px;
-  height: 40px;
+  min-height: 40px;
+  display:flex;
+  align-items: center;
   color: inherit;
   font-family: sans-serif;
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 5px;
+  overflow: auto;
+  @media (max-width: 768px) {
+    min-height: 80px;
+  }
 `;
 
-const SongArtist = styled.p`
+const SongArtist = styled.div`
   color: inherit;
   font-family: sans-serif;
   font-size: 16px;
   padding: 4px;
   margin-bottom:0;
+  display:flex;
+  align-items: center;
+  min-height: 40px;
 `;
 
 const PlayBtn = styled.button`
