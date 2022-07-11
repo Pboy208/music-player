@@ -111,7 +111,7 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
             <SearchBoxDropdown
               result={result}
               lastItemRef={lastItemRef}
-              resetSearch={()=>setSearchValue('')}
+              resetSearch={() => setSearchValue('')}
             />
           )}
         </div>
@@ -119,7 +119,15 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
       <ActionsWrapper>
         <Dropdown>
           <CustomizedDropdown
-            icon={<UserAvatar size="medium" src={user.avatar} />}
+            icon={
+              <UserAvatar
+                size="medium"
+                src={
+                  user.avatar ??
+                  'https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg'
+                }
+              />
+            }
             childrenList={[
               { ui: SettingUI(), handler: settingHandler },
               { ui: ToggleThemeUI(), handler: toggleThemeHandler },

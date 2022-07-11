@@ -58,7 +58,10 @@ function Profile({ userId }) {
       <div className="u-flex u-positionRelative u-marginLeftLarge">
         <div className="u-marginRightLarge">
           <Avatar
-            src={targetUser.avatar}
+            src={
+              targetUser.avatar ??
+              'https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg'
+            }
             size="huge"
             style={{
               objectFit: 'cover',

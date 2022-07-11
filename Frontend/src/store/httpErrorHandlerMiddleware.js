@@ -12,7 +12,11 @@ const httpErrorHandlerMiddleware = (store) => (next) => (action) => {
       });
       return Toast.error('Your session is over. Please login again.');
     case '400':
+      if (message === 'SIGN_UP_FAIL_DUPPLICATE_EMAIL')
+        return Toast.error('Account with this email already exists.');
     case '404':
+      if (message === 'SIGN_IN_FAIL')
+        return Toast.error('Wrong credentials. Please try again.');
     case '409':
     case '500':
       return Toast.error(message);
