@@ -21,9 +21,9 @@ module.exports = class Song {
     const [resultSet] = await database.execute(`CALL Proc_Get_Top100Song()`);
     return resultSet;
   });
-  static addNewSong = tryCatchBlock(async (songUrl, imageUrl, lyric, title, author, createdAt) => {
+  static addNewSong = tryCatchBlock(async (userId,songUrl, imageUrl, lyric, title, author, createdAt) => {
     const [resultSet] = await database.execute(
-      `CALL Proc_SaveSong('${songUrl}','${imageUrl}','${lyric}','${title}','${author}','${createdAt}')`,
+      `CALL Proc_SaveSong('${userId}','${songUrl}','${imageUrl}','${lyric}','${title}','${author}','${createdAt}')`,
     );
     return resultSet;
   });
@@ -58,6 +58,14 @@ module.exports = class Song {
   });
   static toggleLikeSong = tryCatchBlock(async (userId, songId) => {
     const [resultSet] = await database.execute(`CALL Proc_ToggleLikeSong('${userId}','${songId}')`);
+    return resultSet;
+  });
+  static getLyrics = tryCatchBlock(async (songId) => {
+    const [resultSet] = await database.execute(`CALL Pro_GetLyrics('${songId}')`);
+    return resultSet;
+  });
+  static increaseTimesPlay = tryCatchBlock(async (songId) => {
+    const [resultSet] = await database.execute(`CALL Pro_IncreaseTimePlay('${songId}')`);
     return resultSet;
   });
 };
