@@ -132,12 +132,21 @@ const songSlice = createSlice({
         if (state.currentlyPlaying.songId === newSong.songId) return;
       }
 
-      state.playingQueue = state.playingQueue.filter(
-        (song) => song?.songId !== newSong.songId,
-      );
-      state.recentlyPlayed = state.recentlyPlayed.filter(
-        (song) => song?.songId !== newSong.songId,
-      );
+      if (state.playingQueue) {
+        state.playingQueue = state.playingQueue.filter(
+          (song) => song?.songId !== newSong.songId,
+        );
+      } else {
+        state.playingQueue = [];
+      }
+
+      if (state.recentlyPlayed) {
+        state.recentlyPlayed = state.recentlyPlayed.filter(
+          (song) => song?.songId !== newSong.songId,
+        );
+      } else {
+        state.recentlyPlayed = [];
+      }
 
       if (state.currentlyPlaying) {
         state.recentlyPlayed = [

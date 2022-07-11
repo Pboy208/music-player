@@ -23,11 +23,11 @@ function Personal() {
 
   return (
     <Wrapper className="card aligned-center">
-      <h1>Favorite</h1>
-      <Tab current={currentTab} onSelect={setCurrentTab}>
+      <h1>Favorite list</h1>
+      {/* <Tab current={currentTab} onSelect={setCurrentTab}>
         <Tab.Item eventKey="liked">Liked</Tab.Item>
         <Tab.Item eventKey="album">Album</Tab.Item>
-      </Tab>
+      </Tab> */}
       <SongList songList={songList} />
     </Wrapper>
   );
