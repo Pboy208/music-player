@@ -113,7 +113,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   background-color: var(--background-color);
   position: var(--navigation-bar-position);
-  z-index: 100;
+  z-index: 3;
   height: 100%;
 `;
 

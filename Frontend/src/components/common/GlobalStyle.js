@@ -33,8 +33,8 @@ const GlobalStyle = createGlobalStyle`
     --text-navigation-color: ${({ theme }) => themes[theme].textNavigation};
     --modal-top:32px;
     border: none;
-    font-family: 'Roboto', sans-serif;
-
+    font-family: 'PT Mono', monospace;
+    ${'' /* font-family: 'Roboto', sans-serif; */}
 
     // responsive for profile editing
     --modal-profile-editing-width: 60%;
