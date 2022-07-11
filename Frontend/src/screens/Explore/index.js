@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { Tab } from '@ahaui/react';
 import SongCardList from 'components/Song/SongCardList';
 import AlbumCardList from 'components/Album/AlbumCardList';
+import ArtistCardList from 'components/Artist/ArtistCardList';
 import { Link } from 'react-router-dom';
 
 function Explore() {
-  const [currentTab, setCurrentTab] = useState('liked');
   const [ exploreSong, setExploreSong ] = useState([]);
   const [ exploreAlbum, setExploreAlbum ] = useState([]);
   const [ exploreArtist, setExploreArtist ] = useState([]);
@@ -35,13 +35,18 @@ function Explore() {
       .then((result) => setExploreAlbum(result))
       .catch((error) => console.log("error", error));
 
-    fetch("http://localhost:8888/album/explore/artist", requestOptions)
+    fetch("http://localhost:8888/song/explore/artist", requestOptions)
       .then((response) => response.json())
       .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
       .then((result) => setExploreArtist(result))
       .catch((error) => console.log("error", error));
   }, []);
+  
+  console.log(exploreArtist);
   if (!exploreSong) return null;
+  if (!exploreAlbum) return null;
+  if (!exploreArtist) return null;
+
   const transformedSong = exploreSong.map(
     ({
       name,
@@ -59,7 +64,6 @@ function Explore() {
       urlImage,
       urlMusic
     }));
-  if (!transformedSong) return null;
 
   return (
     <Wrapper className="card aligned-center">
@@ -71,14 +75,15 @@ function Explore() {
         </div>
         <SongCardList exploreSong={transformedSong}/>
       </NewSong>
+      <Artist>
+        <h3>New artist feature</h3>
+        <ArtistCardList exploreArtist={exploreArtist}/>
+      </Artist>
       <NewAlbum>
         <h3>New album arrived</h3>
         <AlbumCardList exploreAlbum={exploreAlbum} />
       </NewAlbum>
-      {/* <Artist>
-        <h3>New artist feature</h3>
-        <ArtistCardList />
-      </Artist> */}
+
       
     </Wrapper>
   );

@@ -10,7 +10,7 @@ function SongCardList({ exploreSong }) {
   return (
     <Wrapper className='Grid Grid--smallGutter'>
       {newArray.map((song) => (
-        <SongCardItem key={song.songID} song={song} />
+        <SongCardItem key={song.songId} song={song} />
       ))}
     </Wrapper>
   );

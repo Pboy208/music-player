@@ -2,19 +2,6 @@ import styled from 'styled-components';
 import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
 
-// const song = {
-//   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
-//   name: 'Mây Hồng Đưa Lối',
-//   times_play: 181000,
-//   album_id: '20d0b9f3-3e65-1639-9d7d-e8c757976496',
-//   name_artist: 'Bâu',
-//   artist_id: '27341263-7cbf-193d-781d-bb3758d4bac0',
-//   urlImage:
-//     'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
-//   urlMusic:
-//     'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
-// };
-
 function AlbumCardItem({album}) {
   
   return (
