@@ -39,7 +39,7 @@ module.exports = {
     }),
     addNewSong: tryCatchBlock(null, async (req, res, next) => {
       const body = req.body;
-      const song = await Song.addNewSong(body.songUrl,body.imageUrl,body.lyric,body.title,body.author,body.createdAt);
+      const song = await Song.addNewSong(req.userData.userId,body.songUrl,body.imageUrl,body.lyric,body.title,body.author,body.createdAt);
       return res.status(200).send({message: "ADD_NEW_SONG_SUCCESS",data:{
         songId: song[0][0].songId
       }})
@@ -83,5 +83,15 @@ module.exports = {
       let params = req.params;
       const result = await Song.toggleLikeSong(req.userData.userId,params.songId);
       return res.status(200).send({ message: 'TOGGLE_LIKE_SONG_SUCCESS', data: params.songId });
-    })
+    }),
+    getLyrics: tryCatchBlock(null, async (req, res, next) => {
+      let params = req.params;
+      const result = await Song.getLyrics(params.songId);
+      return res.status(200).send({ message: 'GET_LYRIC_SUCCESS', data: result[0] });
+    }),
+    increaseTimesPlay:tryCatchBlock(null, async (req, res, next) => {
+      let params = req.params;
+      const result = await Song.increaseTimesPlay(params.songId);
+      return res.status(200).send({ message: 'INCREASE_TIME_PLAY_SUCCESS' });
+    }),
   };
