@@ -46,7 +46,7 @@ function ResetPassword() {
     <Wrapper>
       <Header>
         <Logo to="/explore">
-          <Img src="/assets/img/zingmp3.png" alt="logo" />
+          <Img src="/assets/img/Muzi-logo.png" alt="logo" />
           <Name>Muzi</Name>
         </Logo>
       </Header>
@@ -222,13 +222,13 @@ const Direct = styled.div`
   border-bottom: 1px solid rgb(217, 218, 220);
 `;
 const ResetButton = styled(Button)`
-  width: 100%;
+  width: 90%;
   @media (min-width: 768px) {
     width: auto;
   }
   border: none;
   letter-spacing: 2px;
-  background-color: var(--background-base, #a845de);
+  background-color: var(--background-base, orange);
   border-radius: 500px;
   padding: 14px 32px;
   cursor: pointer;
@@ -236,6 +236,7 @@ const ResetButton = styled(Button)`
   color: white;
   &:hover {
     transform: scale(1.1);
+    background-color: var(--background-base, orange);
   }
 `;
 const ButtonLabel = styled(Button.Label)`

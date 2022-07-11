@@ -1,26 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SongListChart from 'components/Song/SongChart';
-import { Tab, Dropdown, Button, Icon, Form } from '@ahaui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getChart } from 'store/songSlice';
 
 function Chart() {
-  // const [currentTab, setCurrentTab] = useState('liked');
-  // const { chartList: songChart } = useSelector((state) => state.song);
   const [ songChart, setSongChart] = useState([]);
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const fetchSongList = () => {
-  //     dispatch(getChart());
-  //   };
-  //   fetchSongList();
-  // }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
+    // console.log(token);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -35,10 +22,32 @@ function Chart() {
       .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
       .then((result) => setSongChart(result))
       .catch((error) => console.log("error", error));
-  
   }, []);
 
   if (!songChart) return null;
+  const transformed = songChart.map(
+    ({ albumID,
+      artistID,
+      name,
+      nameArtist,
+      rank,
+      songID,
+      timesPlay,
+      urlImage,
+      urlMusic
+    }) => 
+    ({ 
+      albumId: albumID ,
+      authorId: artistID,
+      name,
+      author: nameArtist,
+      rank,
+      songId: songID,
+      timesPlay,
+      urlImage,
+      urlMusic
+    }));
+  if (!transformed) return null;
 
   return (
     <Wrapper className="card aligned-center">
@@ -67,7 +76,7 @@ function Chart() {
           </Dropdown.Container>
         </Dropdown>
       </Header> */}
-      <SongListChart songChart={songChart}/>
+      <SongListChart songChart={transformed}/>
     </Wrapper>
   );
 }

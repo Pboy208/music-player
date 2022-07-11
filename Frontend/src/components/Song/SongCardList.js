@@ -3,10 +3,9 @@ import styled from 'styled-components';
 import SongCardItem from './SongCard';
 
 function SongCardList({ exploreSong }) {
+  exploreSong.sort(() => Math.random() - Math.random()).slice(0, 12);
   const newArray = exploreSong.slice(0,12);
-
-  // const shuffled = exploreSong.sort(() => 0.5 - Math.random());
-  // const selected = shuffled.slice(0, 12);
+  // console.log(randomArray);
 
   return (
     <Wrapper className='Grid Grid--smallGutter'>

@@ -32,7 +32,7 @@ module.exports = class Song {
     return resultSet;
   });
   static getFavoriteSong = tryCatchBlock(async (userId) => {
-    console.log(userId);
+    // console.log(userId);
     const [resultSet] = await database.execute(`CALL Proc_GetFavoriteSong('${userId}')`);
     return resultSet;
   });

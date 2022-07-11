@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import AlbumCardItem from './AlbumCard';
 
 function AlbumCardList({ exploreAlbum }) {
+  exploreAlbum.sort(() => Math.random() - Math.random()).slice(0, 12);
   const newArray = exploreAlbum.slice(0,10);
   return (
     <Wrapper className='Grid Grid--smallGutter'>
