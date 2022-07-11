@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Tab } from '@ahaui/react';
 import SongCardList from 'components/Song/SongCardList';
 import AlbumCardList from 'components/Album/AlbumCardList';
+import { Link } from 'react-router-dom';
 
 function Explore() {
   const [currentTab, setCurrentTab] = useState('liked');
@@ -12,7 +13,7 @@ function Explore() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
+    // console.log(token);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -35,20 +36,40 @@ function Explore() {
       .catch((error) => console.log("error", error));
 
     fetch("http://localhost:8888/album/explore/artist", requestOptions)
-    .then((response) => response.json())
-    .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
-    .then((result) => setExploreArtist(result))
-    .catch((error) => console.log("error", error));
+      .then((response) => response.json())
+      .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+      .then((result) => setExploreArtist(result))
+      .catch((error) => console.log("error", error));
   }, []);
-  
   if (!exploreSong) return null;
+  const transformedSong = exploreSong.map(
+    ({
+      name,
+      artistID,
+      nameArtist,
+      songID,
+      urlImage,
+      urlMusic
+    }) => 
+    ({ 
+      artistId: artistID,
+      name,
+      nameArtist,
+      songId: songID,
+      urlImage,
+      urlMusic
+    }));
+  if (!transformedSong) return null;
 
   return (
     <Wrapper className="card aligned-center">
       <h1>Explorer</h1>
       <NewSong>
-        <h3>New release</h3>
-        <SongCardList exploreSong={exploreSong}/>
+        <div style={{display: "inline-flex"}}>
+          <h3>New release</h3>
+          <Link style={{ marginLeft: "20px",padding: "5px",fontSize: "16px", fontWeight: "600"}} to="/explore/song">More</Link>
+        </div>
+        <SongCardList exploreSong={transformedSong}/>
       </NewSong>
       <NewAlbum>
         <h3>New album arrived</h3>

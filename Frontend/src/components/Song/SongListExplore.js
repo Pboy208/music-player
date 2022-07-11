@@ -1,21 +1,10 @@
 import { useEffect } from "react";
 import styled from 'styled-components';
-import SongItemChart from './SongItemChart';
+import SongItemExplore from './SongItemExplore';
 
-function compare( a, b ) {
-  if ( a.rank < b.rank ){
-    return -1;
-  }
-  if ( a.rank > b.rank ){
-    return 1;
-  }
-  return 0;
-}
-function SongListChart({ songChart }) {
-  
-  // const reversed = songChart.reverse();
-  songChart.sort(compare);
-  const newArray = songChart.slice(0, 20);
+function SongListExplore({ songChart }) {
+  songChart.sort(() => Math.random() - Math.random()).slice(0, 100);
+  const newArray = songChart.slice(0, 50);
 
   return (
     <Wrapper>
@@ -27,23 +16,17 @@ function SongListChart({ songChart }) {
       >
         <thead>
           <tr>
-            <Title scope="col" width="10%">
-              Rank
-            </Title>
             <Title scope="col" width="80%">
               Song
             </Title>
-            {/* <Title scope="col" width="40%">
-              Album
-            </Title> */}
-            <Title scope="col" width="10%">
+            <Title scope="col" width="20%">
               Time
             </Title>
           </tr>
         </thead>
         <tbody>
           {newArray.map((song) => (
-            <SongItemChart key={song.songId} song={song} />
+            <SongItemExplore key={song.songId} song={song} />
           ))}
         </tbody>
       </table>
@@ -63,4 +46,4 @@ const Title = styled.th`
   width: ${(props) => props.width};
 `;
 
-export default SongListChart;
+export default SongListExplore;
