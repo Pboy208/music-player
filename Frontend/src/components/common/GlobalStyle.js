@@ -63,6 +63,18 @@ const GlobalStyle = createGlobalStyle`
     }
     //-----------------------------------------------------
 
+    // responsive for lyric modal
+    --modal-lyric-width: 600px;
+    --modal-lyric-height: 800px;
+    --modal-lyric-gap: 24px;
+
+    @media (max-width: 660px) {
+      --modal-lyric-width: 360px;
+      --modal-lyric-height: 620px;
+      --modal-lyric-gap: 8px;
+    }
+    //-----------------------------------------------------
+
     // responsive for profile post
     --post-padding: 32px;
 
