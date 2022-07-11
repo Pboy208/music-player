@@ -35,8 +35,8 @@ function SongList({ songList }) {
 }
 
 const Wrapper = styled.div`
-  width: 80%;
-  max-width: 800px;
+  width: 100%;
+  /*max-width: 800px; */
   min-height: 70vh;
   border: 1px solid var(--border-color);
   display: flex;

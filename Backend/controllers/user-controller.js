@@ -32,6 +32,7 @@ module.exports = {
     profile.bio = profile.bio === "null" ? "" : profile.bio;
     let postList = information[1];
     postList.forEach((song => {
+      song.postId = song.postID;
       song.song = {
         urlMusic : song.urlMusic,
         urlImage : song.urlImage,
@@ -48,6 +49,7 @@ module.exports = {
       delete song.author
       delete song.authorId
       delete song.likedFavourite
+      delete song.postID
 
       song.liked = !!song.liked ;
     }));

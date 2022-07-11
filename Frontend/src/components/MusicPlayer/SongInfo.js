@@ -12,7 +12,7 @@ function SongInfo({ song, size }) {
 
   return (
     <Wrapper>
-      <Avatar src={song.urlImage} size={size} />
+      <Avatar src={song.urlImage} size={size}/>
       <Info>
         <Title size={size}>{song.name}</Title>
         <Artist to={`/profile/${song.authorId}`} size={size}>{song.author}</Artist>
@@ -52,6 +52,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 10px;
+  flex: 1 1;
   /* gap: 4px; */
 `;
 

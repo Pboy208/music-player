@@ -121,7 +121,7 @@ function Profile({ userId }) {
       <div className="u-flex u-flexColumn u-alignItemsCenter">
         {postList.map((post) => (
           <Post
-            id={post.postId}
+            key={post.postId}
             post={post}
             userId={user.userId}
             targetUser={targetUser}
