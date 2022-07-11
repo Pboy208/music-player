@@ -71,6 +71,17 @@ const GlobalStyle = createGlobalStyle`
     }
     //-----------------------------------------------------
 
+    // responsive for navigation bar
+    --navigation-bar-position: relative;
+    --navigation-bar-close-button-display: none;
+    --navigation-bar-modal-background-display: none;
+    @media (max-width: 660px) {
+      --navigation-bar-position: absolute;
+      --navigation-bar-close-button-display: flex;
+      --navigation-bar-modal-background-display: revert;
+    }
+    //-----------------------------------------------------
+
   }
 
   .BubbleChat-text{
