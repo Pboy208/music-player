@@ -106,23 +106,45 @@ const songSlice = createSlice({
       });
     },
     prevSongAction: (state) => {
-      if (state.recentlyPlayed.length === 0) return;
+      if (state.recentlyPlayed.length === 0) {
+        state.currentlyPlaying = null;
+      } else {
+        const prevSong = state.recentlyPlayed[0];
+        if (state.currentlyPlaying) {
+          state.playingQueue = [state.currentlyPlaying, ...state.playingQueue];
+        }
 
-      const prevSong = state.recentlyPlayed[0];
-      if (state.currentlyPlaying) {
-        state.playingQueue = [state.currentlyPlaying, ...state.playingQueue];
+        state.currentlyPlaying = prevSong;
+        state.recentlyPlayed = [...state.recentlyPlayed];
+        state.recentlyPlayed.shift();
       }
-
-      state.currentlyPlaying = prevSong;
-      state.recentlyPlayed = [...state.recentlyPlayed];
-      state.recentlyPlayed.shift();
-
       updateSongState({
         ...state.storedState,
         [state.userId]: {
           currentlyPlaying: state.currentlyPlaying,
           playingQueue: state.playingQueue,
           recentlyPlayed: state.recentlyPlayed,
+        },
+      });
+    },
+    addToQueue: (state, action) => {
+      const newSong = action.payload;
+
+      if (!state.playingQueue) {
+        state.playingQueue = [newSong];
+      } else if (state.currentlyPlaying.songId !== newSong.songId) {
+        state.playingQueue = state.playingQueue.filter(
+          (song) => song?.songId !== newSong.songId,
+        );
+        state.playingQueue = [...state.playingQueue, newSong];
+      }
+
+      updateSongState({
+        ...state.storedState,
+        [state.userId]: {
+          currentlyPlaying: state.currentlyPlaying ?? null,
+          playingQueue: state.playingQueue,
+          recentlyPlayed: state.recentlyPlayed ?? [],
         },
       });
     },
@@ -198,6 +220,7 @@ const songSlice = createSlice({
 export default songSlice.reducer;
 export const {
   resetSongState,
+  addToQueue,
   playSongNow,
   nextSongAction,
   prevSongAction,

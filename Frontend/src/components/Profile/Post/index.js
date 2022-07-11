@@ -4,27 +4,27 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Separator, Icon, Button } from '@ahaui/react';
 import { BsFillPlayCircleFill } from 'react-icons/bs';
 import styled from 'styled-components';
-import { playSongNow } from 'store/songSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getCommentList, toggleLikePost } from 'api/postAPIs';
 import { timeSince } from 'utils/datetime';
+import useClick from 'hooks/useClick';
 import Comments from '../Comments';
 
 export default function Post({ post, userId, targetUser }) {
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const [isCommenting, setIsCommenting] = useState(false);
   const [isLike, setIsLike] = useState(post?.liked);
-  const [numberOfLike,setNumberOfLike] = useState(post?.numberOfLike);
+  const [numberOfLike, setNumberOfLike] = useState(post?.numberOfLike);
   const [commentList, setCommentList] = useState(null);
-  console.log(post);
+  const click = useClick({ song: post.song });
+
   useEffect(() => {
     getCommentList(post.postId).then(({ data }) => setCommentList(data));
   }, [isCommenting, post.postId]);
 
   const likeHandler = () => {
     toggleLikePost(post.postId);
-    setNumberOfLike((prev) => isLike? prev - 1 : prev+1);
+    setNumberOfLike((prev) => (isLike ? prev - 1 : prev + 1));
     setIsLike((prev) => !prev);
   };
 
@@ -79,7 +79,7 @@ export default function Post({ post, userId, targetUser }) {
           maxWidth: 400,
           margin: '12px auto',
         }}
-        onClick={() => dispatch(playSongNow(post.song))}
+        onClick={click}
       >
         <audio src={post.song.urlMusic} />
         <img
@@ -107,9 +107,7 @@ export default function Post({ post, userId, targetUser }) {
       </div>
       <Separator />
       <div className="u-flex u-justifyContentBetween u-alignItemsCenter">
-        <div>{`${numberOfLike} Like${
-          numberOfLike <= 1 ? '' : 's'
-        }`}</div>
+        <div>{`${numberOfLike} Like${numberOfLike <= 1 ? '' : 's'}`}</div>
         <div
           className="u-flex"
           style={{

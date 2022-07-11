@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { playSongNow } from 'store/songSlice';
+import useClick from 'hooks/useClick';
 
 // const song = {
 //   song_id: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
@@ -20,9 +19,8 @@ import { playSongNow } from 'store/songSlice';
 // };
 
 function SongItemChart({ song }) {
-  const dispatch = useDispatch();
   const [duration, setDuration] = useState(0);
-
+  const click = useClick(song);
   const audio = new Audio(song.urlMusic);
   audio.onloadedmetadata = (e) => {
     if (audio.readyState > 0) {
@@ -34,29 +32,23 @@ function SongItemChart({ song }) {
       className="u-userSelectNone"
       style={{
         height: 60,
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
-      onClick={() => dispatch(playSongNow(song))}
+      onClick={click}
     >
       <td>
         <Rank>
           {(() => {
-          if (song.rank === 1) {
-            return (
-              <First>{song.rank}</First>
-            )
-          } if (song.rank === 2) {
-            return (
-              <Second>{song.rank}</Second>
-            )
-          } if (song.rank === 3) {
-            return (
-              <Third>{song.rank}</Third>
-            )
-          } 
-            return (
-              <span>{song.rank}</span>
-            )
+            if (song.rank === 1) {
+              return <First>{song.rank}</First>;
+            }
+            if (song.rank === 2) {
+              return <Second>{song.rank}</Second>;
+            }
+            if (song.rank === 3) {
+              return <Third>{song.rank}</Third>;
+            }
+            return <span>{song.rank}</span>;
           })()}
         </Rank>
       </td>

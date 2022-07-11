@@ -7,10 +7,12 @@ import SongInfo from 'components/MusicPlayer/SongInfo';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
-import { playSongNow,toggleLike } from 'store/songSlice';
+import { toggleLike } from 'store/songSlice';
+import useClick from 'hooks/useClick';
 
 function SongItem({ song }) {
   const dispatch = useDispatch();
+  const click = useClick({ song });
   const [duration, setDuration] = useState(0);
   const [isLiked, setIsLiked] = useState(true);
 
@@ -35,7 +37,7 @@ function SongItem({ song }) {
       style={{
         height: 60,
       }}
-      onClick={() => dispatch(playSongNow(song))}
+      onClick={click}
     >
       <td>
         <SongInfo song={song} size="medium" />
