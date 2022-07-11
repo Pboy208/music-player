@@ -12,7 +12,7 @@ function Explore() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
+    // console.log(token);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -35,10 +35,10 @@ function Explore() {
       .catch((error) => console.log("error", error));
 
     fetch("http://localhost:8888/album/explore/artist", requestOptions)
-    .then((response) => response.json())
-    .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
-    .then((result) => setExploreArtist(result))
-    .catch((error) => console.log("error", error));
+      .then((response) => response.json())
+      .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+      .then((result) => setExploreArtist(result))
+      .catch((error) => console.log("error", error));
   }, []);
   
   if (!exploreSong) return null;

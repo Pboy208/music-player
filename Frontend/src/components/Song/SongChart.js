@@ -43,7 +43,7 @@ function SongListChart({ songChart }) {
         </thead>
         <tbody>
           {newArray.map((song) => (
-            <SongItemChart key={song.songID} song={song} />
+            <SongItemChart key={song.songId} song={song} />
           ))}
         </tbody>
       </table>
