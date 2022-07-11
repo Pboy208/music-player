@@ -57,7 +57,6 @@ module.exports = class Song {
     return resultSet;
   });
   static toggleLikeSong = tryCatchBlock(async (userId, songId) => {
-    console.log(songId);
     const [resultSet] = await database.execute(`CALL Proc_ToggleLikeSong('${userId}','${songId}')`);
     return resultSet;
   });

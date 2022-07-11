@@ -52,7 +52,12 @@ export default function ProfileEditing({ user, close, setProfile }) {
   const openFileUploader = () => fileHolder.current.click();
 
   return (
-    <Modal close={close} width={1000} height={400} padding="40px 60px">
+    <Modal
+      close={close}
+      width="var(--modal-profile-editing-width)"
+      height="var( --modal-profile-editing-height)"
+      padding="40px 60px"
+    >
       <input
         type="file"
         ref={fileHolder}
@@ -62,7 +67,7 @@ export default function ProfileEditing({ user, close, setProfile }) {
           display: 'none',
         }}
       />
-      <div className="u-flex u-positionRelative">
+      <div className="u-flex u-positionRelative u-flexWrap">
         <div className="u-marginRightLarge">
           <Avatar
             src={avatar}
@@ -70,11 +75,18 @@ export default function ProfileEditing({ user, close, setProfile }) {
             style={{
               objectFit: 'cover',
               cursor: 'pointer',
+              marginBottom: 24,
             }}
             onClick={openFileUploader}
           />
         </div>
-        <div className="u-flexGrow1">
+        <div
+          className="u-flexGrow1 u-flex u-flexColumn u-justifyContentCenter"
+          style={{
+            width: '100vw',
+            maxWidth: 'var(--max-input-profile-editing-width)',
+          }}
+        >
           <div className="u-marginBottomExtraSmall">
             <Form.Input
               type="text"
@@ -82,7 +94,7 @@ export default function ProfileEditing({ user, close, setProfile }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               style={{
-                width: 600,
+                width: '100%',
               }}
             />
           </div>
@@ -93,7 +105,7 @@ export default function ProfileEditing({ user, close, setProfile }) {
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             style={{
-              width: 600,
+              width: '100%',
               marginBottom: 40,
             }}
           />

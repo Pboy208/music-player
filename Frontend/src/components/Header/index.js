@@ -104,7 +104,6 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
         >
           <SearchBar
             placeholder="Search..."
-            sizeControl="small"
             value={searchValue}
             onChange={searchChangeHandler}
           />
@@ -145,9 +144,13 @@ const Wrapper = styled.div`
   padding: var(--small-space) var(--big-space);
 `;
 
-const SearchBar = styled(SearchBox)`
-  width: 40%;
+const SearchBar = styled.input`
+  width: 100%;
+  max-width: 300px;
   margin: 0;
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
 `;
 
 const MenuButton = styled.div`

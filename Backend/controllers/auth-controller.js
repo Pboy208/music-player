@@ -40,7 +40,7 @@ module.exports = {
   signIn: tryCatchBlock(signInSchema, async (req, res, next) => {
     const { email, password, type } = req.body;
     const user = new User({ email, password });
-    const  userInfo = await user.signIn();
+    const userInfo = await user.signIn();
     if (!userInfo) return res.status(404).send({ message: 'SIGN_IN_FAIL' });
     return (
       res
@@ -53,8 +53,8 @@ module.exports = {
     );
   }),
   googleSignIn: tryCatchBlock(googleSignInSchema, async (req, res, next) => {
-    const { email, username, avatar } = req.body;
-    const  userInfo = await User.getUserByEmail(email,avatar,username);
+    const { email, name, avatar } = req.body;
+    const userInfo = await User.getUserByEmail(email, avatar, name);
     if (!userInfo) return res.status(404).send({ message: 'SIGN_IN_FAIL' });
 
     return (

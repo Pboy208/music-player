@@ -11,18 +11,28 @@ import Chart from 'screens/Chart';
 import Explore from 'screens/Explore';
 import ResetPassword from 'components/Auth/ResetPassword';
 import { ToastContainer } from '@ahaui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLayoutEffect } from 'react';
+import { initializeSongState } from 'store/songSlice';
 
 function Mock() {
   return <div>Mock</div>;
 }
 
 function App() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  useLayoutEffect(() => {
+    if (user?.userID) dispatch(initializeSongState(user.userID));
+  }, [user]);
+
   return (
     <>
       <ToastContainer />
       <GlobalStyle theme="light" />
       <Routes>
-        <Route path="/" exact element={<Navigate to="/home" />} />
+        <Route path="/" exact element={<Navigate to="/explore" />} />
         <Route
           path="/login"
           exact
@@ -41,11 +51,6 @@ function App() {
         <Route
           path="/reset-password/:resetToken"
           element={<UnprotectedRoute component={ResetPassword} />}
-        />
-        <Route
-          path="/home"
-          exact
-          element={<ProtectedRoute component={Mock} />}
         />
         <Route
           path="/profile/:userId"

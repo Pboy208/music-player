@@ -6,11 +6,11 @@ import PlayerQueue from 'components/PlayerQueue';
 import Header from 'components/Header';
 
 function Layout({ children }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <Wrapper>
+    <Wrapper className="layout">
       <Body>
-        {isMenuOpen && <NavigationBar />}
+        {isMenuOpen && <NavigationBar close={() => setIsMenuOpen(false)} />}
         <AppWrapper>
           <Header setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} />
           <App>{children}</App>
@@ -25,6 +25,8 @@ function Layout({ children }) {
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
+  /* min-width: 600px; */
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +37,7 @@ const Body = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  position: relative;
 `;
 
 const AppWrapper = styled.div`

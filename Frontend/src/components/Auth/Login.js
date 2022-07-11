@@ -36,7 +36,7 @@ function Login() {
       .unwrap()
       .then(() => {
         Toast.success('Login success');
-        navigate('/home');
+        navigate('/explore');
       })
       .catch(console.error);
   };
@@ -46,7 +46,7 @@ function Login() {
       .unwrap()
       .then(() => {
         Toast.success('Login success');
-        navigate('/home');
+        navigate('/explore');
       })
       .catch(console.error);
   };
@@ -68,7 +68,7 @@ function Login() {
   return (
     <Wrapper>
       <Header>
-        <Logo to="/home">
+        <Logo to="/explore">
           <Img src="/assets/img/Muzi-logo.png" alt="logo" />
           <Name>Muzi</Name>
         </Logo>
@@ -133,7 +133,9 @@ function Login() {
                     to="/login"
                     onClick={renderProps.onClick}
                     disabled={renderProps.disabled}
-                  >LOGIN WITH GOOGLE</Signup>
+                  >
+                    LOGIN WITH GOOGLE
+                  </Signup>
                 )}
                 onSuccess={googleSuccess}
                 onFailure={googleFailure}

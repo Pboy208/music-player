@@ -10,6 +10,7 @@ const httpErrorHandlerMiddleware = (store) => (next) => (action) => {
       store.dispatch({
         type: 'auth/logout',
       });
+      return Toast.error('Your session is over. Please login again.');
     case '400':
     case '404':
     case '409':

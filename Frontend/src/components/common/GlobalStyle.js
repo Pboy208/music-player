@@ -31,8 +31,90 @@ const GlobalStyle = createGlobalStyle`
     --color-primary: #375DE7;
     --background-color-hover: #c1c7d0;
     --text-navigation-color: ${({ theme }) => themes[theme].textNavigation};
+    --modal-top:32px;
     border: none;
     font-family: 'Roboto', sans-serif;
+
+
+    // responsive for profile editing
+    --modal-profile-editing-width: 60%;
+    --modal-profile-editing-height: 600px;
+    --max-input-profile-editing-width: 600px;
+
+    @media (max-width: 1050px) {
+      --modal-profile-editing-width: 90%;
+      --modal-profile-editing-height: 500px;
+      --max-input-profile-editing-width: 300px;
+    }
+    //-----------------------------------------------------
+
+    // responsive for song adding
+    --modal-song-adding-width: 600px;
+    --modal-song-adding-height: 800px;
+     --modal-song-adding-gap: 24px;
+    --display-song-adding-icon: flex;
+
+    @media (max-width: 660px) {
+      --modal-song-adding-width: 360px;
+      --modal-song-adding-height: 620px;
+      --modal-song-adding-gap: 8px;
+      --display-song-adding-icon: none;
+      --modal-top: 24px;
+    }
+    //-----------------------------------------------------
+
+    // responsive for profile post
+    --post-padding: 32px;
+
+    @media (max-width: 660px) {
+      --post-padding: 12px;
+    }
+    //-----------------------------------------------------
+
+    // responsive for navigation bar
+    --navigation-bar-position: relative;
+    --navigation-bar-close-button-display: none;
+    --navigation-bar-modal-background-display: none;
+    @media (max-width: 660px) {
+      --navigation-bar-position: absolute;
+      --navigation-bar-close-button-display: flex;
+      --navigation-bar-modal-background-display: revert;
+    }
+    //-----------------------------------------------------
+
+    // responsive for music player
+    .volume-wrapper{
+      position:relative;
+
+      &:hover{
+        & > .volume-slider{
+          display:flex;
+        }
+      }
+    }
+
+    .volume-wrapper > .volume-slider{
+      display: none;
+      z-index: 100;
+      top: -120px;
+      left: -4px;
+      position: absolute;
+    }
+    
+    --avatar-music-info-display: block;
+
+    @media (max-width: 660px) {
+      --avatar-music-info-display: none;
+    }
+    //-----------------------------------------------------
+  }
+
+  .BubbleChat-text{
+    padding: 8px;
+  }
+
+  .BubbleChat-time{
+    padding-left: 8px;
   }
 
   a{
@@ -52,8 +134,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .card{
-    padding: 20px 40px;
+    padding: 32px 84px;
     ${'' /* overflow: auto; */}
+    
+    @media (max-width: 760px) {
+      padding: 6px 12px;
+    }
+  }
+
+  .layout{
+    @media (max-width: 600px) {
+      ${'' /* height: 160vh; */}
+    }
   }
 
   .aligned-center {

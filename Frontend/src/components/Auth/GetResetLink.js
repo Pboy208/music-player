@@ -51,7 +51,7 @@ function GetResetLink() {
       .unwrap()
       .then(() => {
         Toast.success('Login success');
-        navigate('/home');
+        navigate('/explore');
       })
       .catch(console.error);
   };
@@ -62,7 +62,6 @@ function GetResetLink() {
       avatar: res.profileObj.imageUrl,
       name: res.profileObj.name,
     };
-    console.log(loginInfo);
     handleGoogleLogin(loginInfo);
   };
 
@@ -73,9 +72,9 @@ function GetResetLink() {
   return (
     <Wrapper>
       <Header>
-        <Logo to="/home">
-          <Img src="/assets/img/Muzi-logo.png" alt="logo" />
-          <Name>Muzi</Name>
+        <Logo to="/explore">
+          <Img src="/assets/img/zingmp3.png" alt="logo" />
+          <Name>Muzi </Name>
         </Logo>
       </Header>
       <Body>

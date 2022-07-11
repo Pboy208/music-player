@@ -14,7 +14,7 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
   const onClickHandler = async () => {
     resetSearch();
     if (isArtistItem) {
-      navigate(`/personal/${id}`);
+      navigate(`/profile/${id}`);
     } else {
       const { data } = await getSongById(id);
       console.log("fetched", data);
@@ -61,6 +61,7 @@ function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
         overflow: 'auto',
+        zIndex: 100,
       }}
     >
       {result.map((item, index) => {

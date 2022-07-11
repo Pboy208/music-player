@@ -1,52 +1,21 @@
-import { search } from 'api/postAPIs';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getArtistExplore, getFavoriteSong, getSongChart, getSongExplore, toggleLikeSong } from 'api/songAPIs';
+import {
+  getArtistExplore,
+  getFavoriteSong,
+  getSongChart,
+  getSongExplore,
+  toggleLikeSong,
+} from 'api/songAPIs';
+import { updateSongState } from 'utils/storage';
 
-const songList = [
-  {
-    songId: '3aa5f4ee-7b51-1bc6-e032-03c92da59c43',
-    name: 'Mây Hồng Đưa Lối',
-    author: 'Bâu',
-    authorId: '27341263-7cbf-193d-781d-bb3758d4bac0',
-    urlImage:
-      'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
-    urlMusic:
-      'https://res.cloudinary.com/mp320212/video/upload/Music/19305c7c-15bd-1841-df99-4d3edfe18939',
-    liked: false,
-  },
-  {
-    songId: '589e28de-7fff-3486-3589-479bce9b28fc',
-    name: 'ô Tấm Ngày Nay (OST Tâm…',
-    author: 'Hoàng Vương',
-    authorId: '1381ce35-168f-779a-f67e-9b9c7c262a46',
-    urlImage:
-      'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
-    urlMusic:
-      'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/6fb6c197-6413-7508-38c7-21b180c0988f.mp3',
-    liked: false,
-  },
-  {
-    songId: '15faf519-3919-45f4-e8a9-deaf32c96293',
-    name: 'You',
-    author: 'uky San',
-    authorId: '4f6dba62-1d39-48a1-839c-90632a97d71b',
-    urlImage:
-      'https://res.cloudinary.com/mp320212/image/upload/Image/66f5692b-4709-2091-4dc1-f32a102323e6',
-    urlMusic:
-      'https://res.cloudinary.com/mp320212/video/upload/Music/6fb6c197-6413-7508-38c7-21b180c0988f',
-    liked: true,
-  },
-];
-
-const initialSong = {
-  urlMusic:
-    'https://res.cloudinary.com/mp320212/video/upload/v1649779823/Music/1926e050-16c9-3039-fec1-8e252c39bb73',
-  timePlays: 181000,
-  urlImage:
-    'https://cdn.entries.clios.com/styles/clio_aotw_ems_image_details_retina/s3/entry_attachments/image/50/1398/35822/70126/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg/OQeOfxOTGwDHa1wxiw1bB1zXRhzCbcrGO1Lm9K5Znvo.jpg?itok=CvqVGEFU',
-  name: "I'm Yours",
-  author: 'Tro Ly Beo',
-  liked: true,
+const initialState = {
+  storedState: JSON.parse(localStorage.getItem('songState')),
+  isLoading: false,
+  currentlyPlaying: null, // song is playing for now
+  playingQueue: [],
+  recentlyPlayed: [],
+  likedList: [],
+  userId: null,
 };
 
 export const getLikedList = createAsyncThunk('song/getLikedList', () =>
@@ -59,16 +28,17 @@ export const toggleLike = createAsyncThunk('song/toggleLikeSong', (songId) =>
 
 const songSlice = createSlice({
   name: 'song',
-  initialState: {
-    isLoading: false,
-    byIds: {},
-    ids: [],
-    currentlyPlaying: initialSong, // song is playing for now
-    playingQueue: songList,
-    recentlyPlayed: [],
-    likedList: null,
-  },
+  initialState,
   reducers: {
+    initializeSongState: (state, action) => {
+      const userId = action.payload;
+      state.userId = userId;
+      if (state.storedState) {
+        state.currentlyPlaying = state.storedState[userId]?.currentlyPlaying;
+        state.playingQueue = state.storedState[userId]?.playingQueue;
+        state.recentlyPlayed = state.storedState[userId]?.recentlyPlayed;
+      }
+    },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
@@ -84,38 +54,108 @@ const songSlice = createSlice({
         (song) => song.songId !== newSong.songId,
       );
       state.playingQueue = [newSong, ...state.playingQueue];
+
+      updateSongState({
+        ...state.storedState,
+        [state.userId]: {
+          currentlyPlaying: state.currentlyPlaying,
+          playingQueue: state.playingQueue,
+          recentlyPlayed: state.recentlyPlayed,
+        },
+      });
     },
     nextSongAction: (state, action) => {
+      if (state.currentlyPlaying) {
+        state.recentlyPlayed = [
+          state.currentlyPlaying,
+          ...state.recentlyPlayed,
+        ];
+      }
+
+      if (state.playingQueue.length === 0) {
+        state.currentlyPlaying = null;
+        updateSongState({
+          ...state.storedState,
+          [state.userId]: {
+            currentlyPlaying: state.currentlyPlaying,
+            playingQueue: state.playingQueue,
+            recentlyPlayed: state.recentlyPlayed,
+          },
+        });
+        return;
+      }
+
       const isShuffle = action.payload;
       const nextIndex = isShuffle
         ? Math.floor(Math.random() * state.playingQueue.length)
         : 0;
       const nextSong = state.playingQueue[nextIndex];
 
-      state.recentlyPlayed = [state.currentlyPlaying, ...state.recentlyPlayed];
       state.currentlyPlaying = nextSong;
       state.playingQueue = state.playingQueue.filter(
         (song) => song.songId !== nextSong.songId,
       );
+
+      updateSongState({
+        ...state.storedState,
+        [state.userId]: {
+          currentlyPlaying: state.currentlyPlaying,
+          playingQueue: state.playingQueue,
+          recentlyPlayed: state.recentlyPlayed,
+        },
+      });
     },
     prevSongAction: (state) => {
-      const prevSong = state.recentlyPlayed[0];
+      if (state.recentlyPlayed.length === 0) return;
 
-      state.playingQueue = [state.currentlyPlaying, ...state.playingQueue];
+      const prevSong = state.recentlyPlayed[0];
+      if (state.currentlyPlaying) {
+        state.playingQueue = [state.currentlyPlaying, ...state.playingQueue];
+      }
+
       state.currentlyPlaying = prevSong;
       state.recentlyPlayed = [...state.recentlyPlayed];
       state.recentlyPlayed.shift();
+
+      updateSongState({
+        ...state.storedState,
+        [state.userId]: {
+          currentlyPlaying: state.currentlyPlaying,
+          playingQueue: state.playingQueue,
+          recentlyPlayed: state.recentlyPlayed,
+        },
+      });
     },
     playSongNow: (state, action) => {
       const newSong = action.payload;
+      if (state.currentlyPlaying) {
+        if (state.currentlyPlaying.songId === newSong.songId) return;
+      }
+
       state.playingQueue = state.playingQueue.filter(
-        (song) => song.songId !== newSong.songId,
+        (song) => song?.songId !== newSong.songId,
       );
       state.recentlyPlayed = state.recentlyPlayed.filter(
-        (song) => song.songId !== newSong.songId,
+        (song) => song?.songId !== newSong.songId,
       );
-      state.recentlyPlayed = [state.currentlyPlaying, ...state.recentlyPlayed];
+
+      if (state.currentlyPlaying) {
+        state.recentlyPlayed = [
+          state.currentlyPlaying,
+          ...state.recentlyPlayed,
+        ];
+      }
+
       state.currentlyPlaying = newSong;
+
+      updateSongState({
+        ...state.storedState,
+        [state.userId]: {
+          currentlyPlaying: state.currentlyPlaying,
+          playingQueue: state.playingQueue,
+          recentlyPlayed: state.recentlyPlayed,
+        },
+      });
     },
   },
   extraReducers: {
@@ -154,4 +194,5 @@ export const {
   prevSongAction,
   likeSong,
   dislikeSong,
+  initializeSongState,
 } = songSlice.actions;

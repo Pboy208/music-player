@@ -29,8 +29,10 @@ module.exports = {
     const params = req.params;
     const information = await User.exploreProfileUser(req.userData.userId,params.userId);
     let profile = information[0][0];
+    profile.bio = profile.bio === "null" ? "" : profile.bio;
     let postList = information[1];
     postList.forEach((song => {
+      song.postId = song.postID;
       song.song = {
         urlMusic : song.urlMusic,
         urlImage : song.urlImage,
@@ -47,7 +49,8 @@ module.exports = {
       delete song.author
       delete song.authorId
       delete song.likedFavourite
-
+      delete song.postID
+      song.numberOfLike = song.numberOfLike === null ? 0 : song.numberOfLike;
       song.liked = !!song.liked ;
     }));
     return res.status(200).send({ message: "UPDATE_PROFILE_SUCCESS", data :{
