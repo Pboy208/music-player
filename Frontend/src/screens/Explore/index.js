@@ -57,9 +57,9 @@ function Explore() {
       urlMusic
     }) => 
     ({ 
-      artistId: artistID,
+      authorId: artistID,
       name,
-      nameArtist,
+      author: nameArtist,
       songId: songID,
       urlImage,
       urlMusic

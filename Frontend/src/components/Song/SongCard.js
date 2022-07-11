@@ -21,7 +21,7 @@ function SongCardItem({ song }) {
         </Media>
         <Content>
           <SongName onClick={click}>{song.name}</SongName>
-          <SongArtist to={`/profile/${song.artistId}`}>{song.nameArtist}</SongArtist>
+          <SongArtist to={`/profile/${song.authorId}`}>{song.author}</SongArtist>
         </Content>
       </Card>
     </Wrapper>
