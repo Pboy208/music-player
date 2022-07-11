@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BsFillPlayCircleFill } from 'react-icons/bs';
-import { playSongNow } from 'store/songSlice';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import useClick from 'hooks/useClick';
 
 function SongCardItem({ song }) {
-  const dispatch = useDispatch();
-  
+  const click = useClick({ song });
   return (
     <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size2of10 xl:u-size1of6">
       <Card>
-        <Media onClick={() => dispatch(playSongNow(song))}>
+        <Media onClick={click}>
           {(song.urlImage === "" || song.urlImage === undefined) ?
             (
               <Img src="/assets/img/no-image.png" size="medium" alt=''/>
@@ -22,7 +19,7 @@ function SongCardItem({ song }) {
           <div className='play'><BsFillPlayCircleFill/></div>
         </Media>
         <Content>
-          <SongName onClick={() => dispatch(playSongNow(song))}>{song.name}</SongName>
+          <SongName onClick={click}>{song.name}</SongName>
           <SongArtist to={`/profile/${song.artistId}`}>{song.nameArtist}</SongArtist>
         </Content>
       </Card>

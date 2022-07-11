@@ -1,26 +1,31 @@
+/* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Avatar } from '@ahaui/react';
 import { getSongById } from 'api/songAPIs';
-import { playSongNow } from 'store/songSlice';
+import { playSongNow, addToQueue } from 'store/songSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import useClick from 'hooks/useClick';
 
 function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
   const isArtistItem = !!type;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onClickHandler = async () => {
-    resetSearch();
-    if (isArtistItem) {
-      navigate(`/profile/${id}`);
-    } else {
-      const { data } = await getSongById(id);
-      console.log("fetched", data);
-      dispatch(playSongNow(data));
-    }
-  };
+  const click = useClick({
+    callback: async (isSingle) => {
+      resetSearch();
+      if (isArtistItem) {
+        navigate(`/profile/${id}`);
+      } else {
+        const { data } = await getSongById(id);
+        return isSingle
+          ? dispatch(addToQueue(data))
+          : dispatch(playSongNow(data));
+      }
+    },
+  });
 
   return (
     <div
@@ -32,7 +37,7 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
         paddingLeft: 12,
       }}
       ref={lastItemRef || null}
-      onClick={onClickHandler}
+      onClick={click}
     >
       <div>
         <Avatar
