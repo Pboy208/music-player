@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BsFillPlayCircleFill } from 'react-icons/bs';
 import useClick from 'hooks/useClick';
+import { Link } from 'react-router-dom';
 
 function SongCardItem({ song }) {
   const click = useClick({ song });

@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { timeFormatter } from 'utils/formatter';
 import SongInfo from 'components/MusicPlayer/SongInfo';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { playSongNow } from 'store/songSlice';
+import useClick from 'hooks/useClick';
 
 function SongItemExplore({ song }) {
-  const dispatch = useDispatch();
+  const click = useClick({ song });
   const [duration, setDuration] = useState(0);
 
   const audio = new Audio(song.urlMusic);
@@ -22,7 +21,7 @@ function SongItemExplore({ song }) {
         height: 60,
         cursor: 'pointer'
       }}
-      onClick={() => dispatch(playSongNow(song))}
+      onClick={click}
     >
       <td>
         <SongInfo song={song} size="large" />

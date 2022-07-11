@@ -39,7 +39,7 @@ function ExploreSong() {
     ({ 
       authorId: artistID,
       name,
-      nameArtist,
+      author: nameArtist,
       songId: songID,
       urlImage,
       urlMusic
