@@ -100,6 +100,9 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
           className="u-positionRelative"
           style={{
             width: '100%',
+            display: 'inline-flex',
+            gap : "20px",
+            alignItems: "center"
           }}
         >
           <SearchBar
@@ -114,6 +117,7 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
               resetSearch={() => setSearchValue('')}
             />
           )}
+          <div>1 click to put the song in queue, 2 clicks to play the song imediately!</div>
         </div>
       </div>
       <ActionsWrapper>

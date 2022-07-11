@@ -66,12 +66,20 @@ const GlobalStyle = createGlobalStyle`
     // responsive for lyric modal
     --modal-lyric-width: 600px;
     --modal-lyric-height: 800px;
-    --modal-lyric-gap: 24px;
 
     @media (max-width: 660px) {
       --modal-lyric-width: 360px;
       --modal-lyric-height: 620px;
-      --modal-lyric-gap: 8px;
+    }
+    //-----------------------------------------------------
+
+    // responsive for playing queue
+    --modal-playing-queue-width: 600px;
+    --modal-playing-queue-height: 800px;
+
+    @media (max-width: 660px) {
+      --modal-playing-queue-width: 360px;
+      --modal-playing-queue-height: 600px;
     }
     //-----------------------------------------------------
 
