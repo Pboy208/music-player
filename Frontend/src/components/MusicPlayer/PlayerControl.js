@@ -87,7 +87,7 @@ const PlayerControl = React.memo(
       } else {
         playerRef.current.pause();
       }
-    }, [isPlaying]);
+    }, [isPlaying,song]);
 
     useEffect(() => {
       playerRef.current.volume = volume / 100 / 20;

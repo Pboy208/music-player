@@ -82,6 +82,31 @@ const GlobalStyle = createGlobalStyle`
     }
     //-----------------------------------------------------
 
+    // responsive for music player
+    .volume-wrapper{
+      position:relative;
+
+      &:hover{
+        & > .volume-slider{
+          display:flex;
+        }
+      }
+    }
+
+    .volume-wrapper > .volume-slider{
+      display: none;
+      z-index: 100;
+      top: -120px;
+      left: -4px;
+      position: absolute;
+    }
+    
+    --avatar-music-info-display: block;
+
+    @media (max-width: 660px) {
+      --avatar-music-info-display: none;
+    }
+    //-----------------------------------------------------
   }
 
   .BubbleChat-text{

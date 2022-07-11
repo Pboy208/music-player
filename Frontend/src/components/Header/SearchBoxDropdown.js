@@ -14,7 +14,7 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
   const onClickHandler = async () => {
     resetSearch();
     if (isArtistItem) {
-      navigate(`/personal/${id}`);
+      navigate(`/profile/${id}`);
     } else {
       const { data } = await getSongById(id);
       console.log("fetched", data);

@@ -46,6 +46,7 @@ const Avatar = styled.img`
   border: 1px solid white;
   border-radius: 4px;
   overflow: hidden;
+  display: var(--avatar-music-info-display);
 `;
 
 const Info = styled.div`
@@ -62,6 +63,7 @@ const Title = styled.span`
 `;
 
 const Artist = styled(Link)`
+  width: fit-content;
   font-size: ${(props) => (props.size === 'medium' ? '12px' : '12px')};
 `;
 

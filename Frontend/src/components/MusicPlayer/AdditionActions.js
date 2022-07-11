@@ -39,31 +39,45 @@ function AdditionActions({ volume, prevVolume, setVolume, song }) {
           <FaRegHeart style={{ fontSize: 28 }} />
         )}
       </div>
-      <Volume>
+      <Volume className="volume-wrapper">
         <VolumeButton onClick={toggleMuting}>
           {volume == 0 ? <FiVolumeX /> : <FiVolume2 />}
         </VolumeButton>
-        <VolumeSlider
-          min={0}
-          max={100}
-          value={volume}
-          onChange={(value) => setVolume(value)}
+        <div
+          className="volume-slider"
           style={{
-            height: 16,
-            width: 120,
-            margin: 0,
-            cursor: 'pointer',
+            width: 28,
+            height: 28,
+            justifyContent: 'center',
           }}
-          handleStyle={{
-            display: 'none',
-          }}
-          trackStyle={{
-            height: 6,
-          }}
-          railStyle={{
-            height: 6,
-          }}
-        />
+        >
+          <VolumeSlider
+            vertical
+            min={0}
+            max={100}
+            value={volume}
+            onChange={(value) => setVolume(value)}
+            style={{
+              height: 120,
+              width: 8,
+              margin: 0,
+              cursor: 'pointer',
+            }}
+            handleStyle={{
+              display: 'none',
+            }}
+            trackStyle={
+              {
+                // height: 6,
+              }
+            }
+            railStyle={
+              {
+                // height: 6,
+              }
+            }
+          />
+        </div>
       </Volume>
     </Wrapper>
   );
@@ -80,19 +94,20 @@ const Wrapper = styled.div`
 `;
 
 const Volume = styled.div`
-  height: 24px;
-  width: 120px;
+  height: 28px;
+  width: 28;
   display: flex;
   align-items: center;
   gap: 12px;
+  position: relative;
 `;
 
 const VolumeButton = styled.div`
-  height: 24px;
+  height: 28px;
   cursor: pointer;
 
   & svg {
-    font-size: 24px;
+    font-size: 28px;
   }
 `;
 

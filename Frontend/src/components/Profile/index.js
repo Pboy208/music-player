@@ -4,39 +4,14 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Separator, Button, Icon } from '@ahaui/react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getProfile } from 'api/profileAPIs';
-import { User, Posts } from './dummyData';
+import * as Toast from 'components/common/Toast';
+import { logout } from 'store/authSlice';
 import Post from './Post';
 // eslint-disable-next-line import/no-named-as-default
 import SongAdding from './SongAdding';
 import ProfileEditing from './ProfileEditing';
-
-const post = {
-  postId: '1234567',
-  liked: true,
-  content: 'This is the favorite song of Pboy',
-  createdAt: new Date(),
-  numberOfLike: 10,
-  song: {
-    urlImage:
-      'https://res.cloudinary.com/mp320212/image/upload/Image/1f7b1037-2475-4221-b699-4d3edfe18939',
-    urlMusic:
-      'https://res.cloudinary.com/mp320212/video/upload/Music/1f7b1037-2475-4221-b699-4d3edfe18939',
-    name: 'Too Good At Goodbyes',
-    songId: '3c91001d-f1f5-11ec-aa89-0a5de61f8cc6',
-    author: 'undefined',
-    authorId: '73a8563d-fc89-11ec-aa89-0a5de61f8cc6',
-    liked: true,
-  },
-};
-
-const profile = User;
-
-const response = {
-  profile,
-  postList: [post, post, post, post, post, post, post, post, post, post],
-};
 
 function Profile({ userId }) {
   const { user } = useSelector((state) => state.auth);
@@ -45,13 +20,22 @@ function Profile({ userId }) {
   const [isPosting, setIsPosting] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [targetUser, setTargetUser] = useState(null);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     const fetchProfile = () => {
-      getProfile(targetUserId).then(({ data }) => {
-        setTargetUser(data.profile);
-        setPostList(data.postList);
-      });
+      getProfile(targetUserId)
+        .then(({ data }) => {
+          setTargetUser(data.profile);
+          setPostList(data.postList);
+        })
+        .catch((error) => {
+          if (error.message === 'AUTHORIZATION_FAILED') {
+            dispatch(logout());
+            Toast.error("Your session is over. Please login again.");
+          }
+        });
     };
     fetchProfile();
     // setPostList(response.postList);
