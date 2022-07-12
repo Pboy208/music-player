@@ -187,10 +187,7 @@ const FormLabel = styled(Form.Label)`
 const FormFeedback = styled(Form.Feedback)`
   font-size: var(--font-size);
   line-height: 30px;
-  color: white;
-  text-align: center;
-  margin: 5px 25%;
-  background-color: red;
+  padding-left: 10px;
 `;
 const FormInput = styled(Form.Input)`
   border: 0px;
