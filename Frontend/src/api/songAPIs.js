@@ -32,6 +32,8 @@ export const getFavoriteSong = () => get('/song/favoriteSong');
 
 export const toggleLikeSong = (songId) => put(`/song/${songId}/toggle-like`);
 
+export const getSongLyric = (songId) => get(`/song/${songId}/lyric`);
+
 // export const getSongChart = () => get('/song/chart');
 
 // export const getSongExplore = () => get('/song/explore/song');

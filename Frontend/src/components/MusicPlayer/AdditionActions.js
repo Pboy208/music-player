@@ -32,7 +32,7 @@ function AdditionActions({ volume, prevVolume, setVolume, song }) {
 
   return (
     <>
-      {isOpenLyric && <LyricModal songId={song.songId} close={() => setIsOpenLyric(false)} />}
+      {isOpenLyric && <LyricModal songId={song.songId} close={() => setIsOpenLyric(false)} name={song.name}/>}
       {isOpenPlayingQueue && <PlayingQueueModal close={() => setIsOpenPlayingQueue(false)} />}
       <Wrapper>
         <div
