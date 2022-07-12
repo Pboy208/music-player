@@ -158,7 +158,7 @@ const Wrapper = styled.div`
 
 const SearchBar = styled.input`
   width: 100%;
-  max-width: 300px;
+  max-width: 500px;
   margin: 0;
   padding: 2px 8px;
   border-radius: 8px;

@@ -59,6 +59,14 @@ const Info = styled.div`
 
 const Title = styled.span`
   font-weight: 400;
+  @media (max-width: 768px){
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 200px;
+    &:hover {
+      white-space: normal;
+    }
+  }
   font-size: ${(props) => (props.size === 'medium' ? '16px' : '18px')};
 `;
 
