@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function ArtistCardItem({ artist }) {
   return (
-    <Wrapper className="sm:u-size1of5 md:u-size1of5 lg:u-size1of5 xl:u-size1of5">
+    <Wrapper className="sm:u-size1of3 md:u-size1of3 lg:u-size1of5 xl:u-size1of5">
       <Link to={`/profile/${artist.id}`}>
         <Card>
           <Media>
@@ -29,6 +29,9 @@ function ArtistCardItem({ artist }) {
 const Wrapper = styled.div`
   border-radius: 5px;
   padding-bottom: 20px;
+  @media (max-width: 576px) {
+    min-width: 150px;
+  }
 `;
 
 const Card = styled.div`
