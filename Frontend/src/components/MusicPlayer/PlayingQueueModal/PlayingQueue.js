@@ -39,7 +39,8 @@ const Wrapper = styled.div`
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  overflow: scroll;
+  margin-bottom: 25px;
 `;
 
 const Title = styled.th`

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Tab } from '@ahaui/react';
 import SongCardList from 'components/Song/SongCardList';
 import AlbumCardList from 'components/Album/AlbumCardList';
 import ArtistCardList from 'components/Artist/ArtistCardList';
@@ -13,7 +12,6 @@ function Explore() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // console.log(token);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -42,10 +40,7 @@ function Explore() {
       .catch((error) => console.log("error", error));
   }, []);
   
-  console.log(exploreArtist);
-  if (!exploreSong) return null;
-  if (!exploreAlbum) return null;
-  if (!exploreArtist) return null;
+  if (!exploreSong || !exploreAlbum || !exploreArtist) return null;
 
   const transformedSong = exploreSong.map(
     ({
