@@ -50,6 +50,13 @@ module.exports = class User {
     );
     return resultSet[0];
   });
+
+  static isUserIDExist = tryCatchBlock(async (userId) => {
+    const resultSet = await database.execute(
+      `SELECT * FROM User where userId = '${userId}';`
+    );
+    return resultSet != null ? 1 : 0;
+  });
   signIn = tryCatchBlock(async () => {
     const [resultSet] = await database.execute(
       `SELECT * FROM User WHERE email LIKE '${this.email}' AND password LIKE '${this.password}'`

@@ -25,6 +25,7 @@ module.exports = {
     const user = await User.updateProfile(req.userData.userId,body.avatar,body.bio,body.name);
     return res.status(200).send({ message: "UPDATE_PROFILE_SUCCESS"})
   },
+  
   exploreProfileUser: async (req, res, next) => {
     const params = req.params;
     const information = await User.exploreProfileUser(req.userData.userId,params.userId);
