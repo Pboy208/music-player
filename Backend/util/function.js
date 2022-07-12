@@ -55,4 +55,7 @@ module.exports = {
       pass: process.env.NODEMAILER_PASS,
     },
   }),
+  normalizeSQLString(input){
+    return input.replace("'","''");
+  }
 };

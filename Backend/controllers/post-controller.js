@@ -1,7 +1,7 @@
 const Post = require("../models/post.js");
 const HttpError = require("../models/http-error");
 const tryCatchBlock = require("../util/function").tryCatchBlockForController;
-
+const normalizeSQLString = require('../util/function').normalizeSQLString;
 require("dotenv").config();
 
 
@@ -12,18 +12,18 @@ module.exports = {
       req.userData.userId,
       req.body.urlMusic,
       req.body.urlImage,
-      req.body.lyric,
-      req.body.title,
+      normalizeSQLString(req.body.lyric),
+      normalizeSQLString(req.body.title),
       req.userData.userId,
       new Date(),
-      req.body.content,
+      normalizeSQLString(req.body.content),
     );
     return res.status(200).send({ message: 'SAVE_POST_SUCCESS', data: post[0][0] });
   }),
   addComment: tryCatchBlock(null, async (req, res, next) => {
     const body = req.body;
     const result = await Post.addComment(
-      body.comment,
+      normalizeSQLString(body.comment),
       body.postId,
       req.userData.userId,
       new Date(),

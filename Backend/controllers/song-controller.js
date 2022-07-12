@@ -1,8 +1,8 @@
 const Song = require('../models/song');
 const HttpError = require('../models/http-error');
 const tryCatchBlock = require('../util/function').tryCatchBlockForController;
-const getImageURLFromID = require('../util/function').getImageURLFromID;
-const getMusicURLFromID = require('../util/function').getMusicURLFromID;
+const normalizeSQLString = require('../util/function').normalizeSQLString;
+
 require('dotenv').config();
 
 module.exports = {
@@ -39,7 +39,8 @@ module.exports = {
     }),
     addNewSong: tryCatchBlock(null, async (req, res, next) => {
       const body = req.body;
-      const song = await Song.addNewSong(req.userData.userId,body.songUrl,body.imageUrl,body.lyric,body.title,body.author,body.createdAt);
+      const song = await Song.addNewSong(req.userData.userId,body.songUrl,
+        body.imageUrl,normalizeSQLString(body.lyric),normalizeSQLString(body.title),normalizeSQLString(body.author),body.createdAt);
       return res.status(200).send({message: "ADD_NEW_SONG_SUCCESS",data:{
         songId: song[0][0].songId
       }})
@@ -72,7 +73,7 @@ module.exports = {
     }),
     search: tryCatchBlock(null, async (req, res, next) => {
       const body = req.body;
-      const result = await Song.search(body.query,body.scrollOffset);
+      const result = await Song.search(normalizeSQLString(body.query),body.scrollOffset);
       return res.status(200).send({message: "SEARCH_SONG_SUCCESS",data: result[0]})
     }),
     exploreArtist: tryCatchBlock(null, async (req, res, next) => {
