@@ -46,7 +46,7 @@ function FileUploader({ title, handler, file }) {
     };
 
     // TODO: Change cloudinary account if needed
-    fetch('https://api.cloudinary.com/v1_1/mp320212/upload', requestOptions)
+    fetch('https://api.cloudinary.com/v1_1/mp32022/upload', requestOptions)
       .then((response) => response.json())
       .then((result) => handler(result.url))
       .catch((error) => console.log('error', error));
