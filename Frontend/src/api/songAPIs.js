@@ -34,6 +34,8 @@ export const toggleLikeSong = (songId) => put(`/song/${songId}/toggle-like`);
 
 export const getSongLyric = (songId) => get(`/song/${songId}/lyric`);
 
+export const listenToSong = (songId) => post(`/song/${songId}/listen`);
+
 // export const getSongChart = () => get('/song/chart');
 
 // export const getSongExplore = () => get('/song/explore/song');
