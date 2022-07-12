@@ -31,7 +31,7 @@ function SongCardItem({ song }) {
 const Wrapper = styled.div`
   border-radius: 5px;
   padding-bottom: 20px;
-  @media (max-width: 575px) {
+  @media (max-width: 576px) {
     min-width: 200px;
   }
 `;

@@ -28,6 +28,9 @@ function AlbumCardItem({album}) {
 const Wrapper = styled.div`
   border-radius: 5px;
   padding-bottom: 20px;
+  @media (max-width: 576px) {
+    min-width: 200px;
+  }
 `;
 const Card = styled.div`
   min-height: 40px;
