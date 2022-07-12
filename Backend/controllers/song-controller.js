@@ -87,7 +87,7 @@ module.exports = {
     getLyrics: tryCatchBlock(null, async (req, res, next) => {
       let params = req.params;
       const result = await Song.getLyrics(params.songId);
-      return res.status(200).send({ message: 'GET_LYRIC_SUCCESS', data: result[0] });
+      return res.status(200).send({ message: 'GET_LYRIC_SUCCESS', data: result[0][0] });
     }),
     increaseTimesPlay:tryCatchBlock(null, async (req, res, next) => {
       let params = req.params;

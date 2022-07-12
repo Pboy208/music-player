@@ -13,6 +13,7 @@ import {
 } from 'react-icons/fa';
 import { timeFormatter } from 'utils/formatter';
 import { Slider as ProgressBar } from '@ahaui/react';
+import {listenToSong} from "api/songAPIs"
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -84,6 +85,7 @@ const PlayerControl = React.memo(
       if (!song) return;
       if (isPlaying) {
         playerRef.current.play();
+        listenToSong(song.songId);
       } else {
         playerRef.current.pause();
       }
