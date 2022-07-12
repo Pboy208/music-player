@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 function SongCardItem({ song }) {
   const click = useClick({ song });
   return (
-    <Wrapper className=" sm:u-size1of3 md:u-size1of4 lg:u-size1of5 xl:u-size1of6 u-sizeFit">
+    <Wrapper className=" sm:u-size1of3 md:u-size1of4 lg:u-size1of5 xl:u-size1of6 xxl:u-size1of8 u-sizeFit">
       <Card>
         <Media onClick={click}>
           {(song.urlImage === "" || song.urlImage === undefined) ?
@@ -86,8 +86,8 @@ const Content = styled.div`
 `;
 
 const SongName = styled.div`
-  padding: 4px;
-  height: 60px;
+  padding: 0 4px;
+  min-height: 40px;
   display:flex;
   align-items: center;
   color: inherit;
@@ -100,21 +100,23 @@ const SongName = styled.div`
   &:hover {
     white-space: normal;
   }
-  @media (max-width: 768px) {
-    min-height: 80px;
-  }
+  // @media (max-width: 768px) {
+  //   min-height: 80px;
+  // }
 `;
 
 const SongArtist = styled(Link)`
   color: inherit;
   font-family: sans-serif;
   font-size: 16px;
-  padding: 4px;
-  margin-bottom:0;
+  padding: 0 4px;
   display:flex;
   align-items: center;
   min-height: 40px;
   &:hover {color: blue;}
+  // @media (max-width: 768px) {
+  //   min-height: 80px;
+  // }
 `;
 
 const PlayBtn = styled.button`

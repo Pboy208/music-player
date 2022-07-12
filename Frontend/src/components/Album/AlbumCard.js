@@ -7,18 +7,8 @@ function AlbumCardItem({album}) {
   return (
     <Wrapper className="sm:u-size4of12 md:u-size3of12 lg:u-size1of5">
       <Card onClick={null}>
-        {/* <Media>
-          {(album.urlImage === "" || album.urlImage === undefined) ?
-            (
-              <Img src="/assets/img/no-image.png" size="medium" alt=''/>
-            ):(
-              <Img src={album.urlImage} size="medium" alt=''/>
-            )
-          }
-        </Media> */}
         <Content>
           <SongName>{album.name}</SongName>
-          {/* <SongArtist>{album.name_artist}</SongArtist> */}
         </Content>
       </Card>
     </Wrapper>
@@ -26,7 +16,7 @@ function AlbumCardItem({album}) {
 }
 
 const Wrapper = styled.div`
-  border-radius: 5px;
+  border-radius: 50px;
   padding-bottom: 20px;
   @media (max-width: 576px) {
     min-width: 200px;
@@ -44,7 +34,7 @@ const Card = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 5px;
+  padding: 10px;
   box-shadow: 0px 0px 7px #c3c1c1;
   &:hover {
     background-color: gray;

@@ -80,7 +80,7 @@ function Login() {
         >
           <Row>
             <Helmet>
-              <title>Login to Spotify</title>
+              <title>Login to Muzi</title>
               <meta name="description" content="Login to Spotify" />
             </Helmet>
             <Suggest>To continue, log in to Muzi.</Suggest>
