@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React,{ useEffect } from "react";
 import styled from 'styled-components';
 import SongItemChart from './SongItemChart';
 
@@ -63,4 +63,4 @@ const Title = styled.th`
   width: ${(props) => props.width};
 `;
 
-export default SongListChart;
+export default React.memo(SongListChart);
