@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 const util = require('../util/function');
 const generateHTMLForResetPwLink = require('../views/generateHTMLForResetPasswordMail');
 const constUtils = require('../util/const');
+const normalizeSQLString = require('../util/function').normalizeSQLString;
 
 module.exports = {
   signUp: tryCatchBlock(signUpSchema, async (req, res, next) => {
@@ -45,10 +46,6 @@ module.exports = {
     return (
       res
         .status(200)
-        // .cookie('token', Authentication.createToken(userInfo), {
-        //   httpOnly: true,
-        //   secure:true,
-        // })
         .send({ message: 'SIGN_IN_SUCCESS', data: Authentication.createToken(userInfo) })
     );
   }),
@@ -60,10 +57,6 @@ module.exports = {
     return (
       res
         .status(200)
-        // .cookie('token', Authentication.createToken(userInfo), {
-        //   httpOnly: true,
-        //   secure:true,
-        // })
         .send({ message: 'SIGN_IN_SUCCESS', data: Authentication.createToken(userInfo) })
     );
   }),

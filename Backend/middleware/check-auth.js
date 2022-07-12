@@ -11,9 +11,9 @@ module.exports = async (req, res, next) => {
     if (!token) throw new Error();
 
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECURITY_KEY);
-    // const userIDIsExist = await User.isUserIDExist(decodedToken.userID);
-    // if (!userIDIsExist)
-    //   return next(new HttpError("AUTHORIZATION_FAIL_USERID_NOT_EXIST", 404));
+    const userIDIsExist = await User.isUserIDExist(decodedToken.userID);
+    if (!userIDIsExist)
+      return next(new HttpError("AUTHORIZATION_FAIL_USERID_NOT_EXIST", 404));
 
     req.userData = { userId: decodedToken.userID };
     next();
