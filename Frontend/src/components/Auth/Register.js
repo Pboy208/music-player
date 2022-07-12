@@ -50,7 +50,7 @@ function Register() {
     <Wrapper>
       <Header>
         <Logo to="/explore">
-          <Img src="/assets/img/Muzi-logo.png" alt="logo" />
+          <Img src="/MuziIcon.ico" alt="logo" />
           <Name>Muzi</Name>
         </Logo>
       </Header>
@@ -133,42 +133,6 @@ function Register() {
                 {errors?.phoneNumber?.message}
               </FormFeedback>
             </FormGroup>
-            {/* 
-            <FormGroup controlId="registerForm.dob">
-              <FormLabel>What's your date of birth?</FormLabel>
-              <FormInput
-                type="date"
-                isInvalid={isDobInvalid}
-                {...register('dob')}
-                onBlur={(e) => setValue('dob', e.target.value.trim())}
-              />
-              <FormFeedback type="invalid" role="alert">
-                {errors?.dob?.message}
-              </FormFeedback>
-            </FormGroup>
-
-            <FormGroup>
-              <FormLabel>What's your gender?</FormLabel>
-              <FormCheckGroup>
-                {['Male', 'Female', 'Non-binary'].map((value) => (
-                  <FormCheck
-                    key={value.id}
-                    checked={value === selectedValue}
-                    onChange={() => setSelectedValue(value)}
-                    type="radio"
-                    label={`${value}`}
-                    id={`${value}`}
-                  />
-                ))}
-              </FormCheckGroup>
-            </FormGroup>
-
-            <FormGroup controlId="registerForm.confirmShare">
-              <FormCheckBox
-                label={`Share my registration data with Muzi's content providers for marketing purposes.`}
-              />
-            </FormGroup> */}
-
             <RegisterButton variant="primary">
               <Button.Label>
                 {isLoading ? (
@@ -176,7 +140,6 @@ function Register() {
                 ) : (
                   'Register'
                 )}
-                
               </Button.Label>
             </RegisterButton>
 
@@ -224,7 +187,7 @@ const Name = styled.h1`
   font-weight: 600;
   font-size: 30px;
   margin-top: 5px;
-  color: orange;
+  color: black;
 `;
 const Footer = styled.div`
   display: flex;
