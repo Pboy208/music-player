@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -8,9 +10,8 @@ import {
 import { RiVipCrownFill } from 'react-icons/ri';
 import { logout } from 'store/authSlice';
 import CustomizedDropdown from 'components/common/CustomizedDropdown';
-import { SearchBox, Button, Icon } from '@ahaui/react';
-import { useEffect, useState } from 'react';
-import * as songAPIs from 'api/songAPIs';
+import { Icon } from '@ahaui/react';
+import {  useState } from 'react';
 import useSearch from 'hooks/useSearch';
 import SearchBoxDropdown from './SearchBoxDropdown';
 
@@ -110,6 +111,23 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
             value={searchValue}
             onChange={searchChangeHandler}
           />
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: 30,
+              height: 30,
+              borderRight: '1px solid var(--border-color)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onClick={() => setSearchValue('')}
+          >
+            X
+          </div>
           {!!searchValue && (
             <SearchBoxDropdown
               result={result}
@@ -160,7 +178,7 @@ const SearchBar = styled.input`
   width: 100%;
   max-width: 500px;
   margin: 0;
-  padding: 2px 8px;
+  padding: 2px 12px 2px 34px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
 `;
