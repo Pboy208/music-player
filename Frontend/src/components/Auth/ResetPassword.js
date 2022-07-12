@@ -57,7 +57,7 @@ function ResetPassword() {
         >
           <Row>
             <Helmet>
-              <title>Login to Spotify</title>
+              <title>Login to Muzi</title>
               <meta name="description" content="Login to Spotify" />
             </Helmet>
             <Suggest>Enter your new password here</Suggest>
