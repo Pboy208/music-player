@@ -5,10 +5,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Icon, Form, Button } from '@ahaui/react';
 import Modal from 'components/common/Modal';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from 'api/postAPIs';
 import { ImArrowRight, ImPlay3 } from 'react-icons/im';
 import * as Toast from "components/common/Toast";
+import { logout } from 'store/authSlice';
 
 const Upload = {
   SONG: 'Your song',

@@ -26,7 +26,7 @@ function ArtistCardList() {
     if (!exploreArtist) return null;
 
     const filterResult = exploreArtist.filter((artist) => artist.type === 0);
-    
+
     return (
         <Wrapper className='Grid Grid--smallGutter'>
             {filterResult.map((artist) => (

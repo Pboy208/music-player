@@ -56,7 +56,6 @@ function DropdownItem({ avatar, name, type, id, lastItemRef, resetSearch }) {
 
 function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
   if (result.length === 0) return null;
-  console.log(result);
   return (
     <div
       className="u-flex u-flexColumn u-positionAbsolute u-border"

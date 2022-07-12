@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import SongCardList from 'components/Song/SongCardList';
 import ArtistCardList from 'components/Artist/ArtistCardList';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import * as Toast from 'components/common/Toast';
+import { logout } from 'store/authSlice';
 
 function Explore() {
-    return (
+
+  return (
     <Wrapper className="card aligned-center">
       <h1>Explorer</h1>
       <NewSong>
