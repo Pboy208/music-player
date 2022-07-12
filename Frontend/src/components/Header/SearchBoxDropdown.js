@@ -61,7 +61,8 @@ function SearchBoxDropdown({ lastItemRef, result, resetSearch }) {
     <div
       className="u-flex u-flexColumn u-positionAbsolute u-border"
       style={{
-        width: '40%',
+        width: '100%',
+        maxWidth: 500,
         maxHeight: '30vh',
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,

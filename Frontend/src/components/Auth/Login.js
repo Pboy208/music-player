@@ -69,7 +69,7 @@ function Login() {
     <Wrapper>
       <Header>
         <Logo to="/explore">
-          <Img src="/assets/img/Muzi-logo.png" alt="logo" />
+          <Img src="/MuziIcon.ico" alt="logo" />
           <Name>Muzi</Name>
         </Logo>
       </Header>
@@ -189,7 +189,7 @@ const Name = styled.div`
   font-size: 30px;
   font-family: "Roboto","segoe ui",Helvetica,Arial,sans-serif;
   margin: 0;
-  color: orange;
+  color: black;
 `;
 const Footer = styled.div`
   display: flex;
@@ -239,9 +239,7 @@ const FormLabel = styled(Form.Label)`
 const FormFeedback = styled(Form.Feedback)`
   font-size: var(--font-size);
   line-height: 30px;
-  color: white;
-  text-align: center;
-  background-color: red;
+  padding-left: 10px;
 `;
 const FormInput = styled(Form.Input)`
   border: 0px;
