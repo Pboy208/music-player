@@ -5,7 +5,7 @@ import GlobalStyle from 'components/common/GlobalStyle';
 import Favorite from 'screens/Favorite';
 import ProtectedRoute from 'components/common/ProtectedRoute';
 import UnprotectedRoute from 'components/common/UnprotectedRoute';
-import Profile from 'components/Profile';
+import Profile from 'screens/Profile';
 import GetResetLink from 'components/Auth/GetResetLink';
 import Chart from 'screens/Chart';
 import Explore from 'screens/Explore';

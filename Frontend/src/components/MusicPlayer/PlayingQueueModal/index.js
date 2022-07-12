@@ -4,7 +4,6 @@ import PlayingQueue from './PlayingQueue';
 
 function PlayingQueueModal({ close }) {
   const songState = useSelector((state) => state.song);
-  console.log(songState);
   if (!songState) return null;
 
   return (

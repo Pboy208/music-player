@@ -25,12 +25,7 @@ function NavigationBar({ close }) {
           display: 'var(--navigation-bar-modal-background-display)',
         }}
       />
-      <Wrapper
-        onBlur={() => {
-          console.log('on blur');
-          // close();
-        }}
-      >
+      <Wrapper >
         <MenuButton onClick={() => close()}>
           <Icon
             size="small"
@@ -44,6 +39,7 @@ function NavigationBar({ close }) {
           to="/explore"
           className="u-selectNone u-cursorPointer u-textPrimary"
         >
+          <Img src="/MuziIcon.ico" alt="logo" />
           Muzi
         </Logo>
         <Navigators>
@@ -124,6 +120,7 @@ const Logo = styled(LogoLink)`
   font-size: 48px;
   display: flex;
   justify-content: center;
+  color:black;
 `;
 
 const Navigators = styled.div`
@@ -159,6 +156,11 @@ const NavLink = styled(Link)`
     text-decoration: none;
     background-color: var(--background-color-hover);
   }
+`;
+
+const Img = styled.img`
+  height: 100%;
+  border-radius: 50%;
 `;
 
 export default NavigationBar;

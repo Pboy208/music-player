@@ -6,7 +6,6 @@ const httpErrorHandlerMiddleware = (store) => (next) => (action) => {
   const { message, code } = action.error;
   switch (code) {
     case '401':
-      console.log('case 401 triggered');
       store.dispatch({
         type: 'auth/logout',
       });

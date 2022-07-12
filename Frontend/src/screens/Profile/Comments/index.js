@@ -8,7 +8,7 @@ export default function Comments({ postId, commentList, commentHandler,user }) {
   const [comment, setComment] = useState();
 
   const handleSubmit = (e) => {
-    addComment(comment, postId).then((res) => console.log(res));
+    addComment(comment, postId).then();
     commentHandler(comment);
     setComment('');
   };

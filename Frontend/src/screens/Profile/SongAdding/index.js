@@ -5,10 +5,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Icon, Form, Button } from '@ahaui/react';
 import Modal from 'components/common/Modal';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from 'api/postAPIs';
 import { ImArrowRight, ImPlay3 } from 'react-icons/im';
-import { FaSmileBeam } from 'react-icons/fa';
+import * as Toast from "components/common/Toast";
+import { logout } from 'store/authSlice';
 
 const Upload = {
   SONG: 'Your song',
@@ -141,7 +142,7 @@ export default function SongAdding({ close, addNewPost }) {
         postId: data.postId,
         liked: false,
         content,
-        createdAt: new Date(),
+        createdAt: 'now',
         numberOfLike: 0,
         song: {
           urlMusic: song,
@@ -154,7 +155,8 @@ export default function SongAdding({ close, addNewPost }) {
         },
       };
       addNewPost(newAddedPost);
-      console.log('postId:::', data);
+      Toast.success('Song added successfully');
+      close();
     });
   };
 
