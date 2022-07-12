@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
   try {
     const token = getTokenFromRequest(req);
     if (!token) throw new Error();
-
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECURITY_KEY);
     const userIDIsExist = await User.isUserIDExist(decodedToken.userID);
     if (!userIDIsExist)
