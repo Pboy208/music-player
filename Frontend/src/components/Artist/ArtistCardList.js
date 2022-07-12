@@ -4,7 +4,6 @@ import ArtistCard from './ArtistCard';
 
 function ArtistCardList({ exploreArtist }) {
     const filterResult = exploreArtist.filter((artist) => artist.type === 0);
-    // console.log(filterResult);
     return (
         <Wrapper className='Grid Grid--smallGutter'>
             {filterResult.map((artist) => (

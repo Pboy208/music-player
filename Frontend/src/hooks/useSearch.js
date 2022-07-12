@@ -22,7 +22,6 @@ const useSearch = (query) => {
       setNextOffset((prev) => prev + 1);
       try {
         const { data } = await search(query, offset);
-        console.log(data);
         if (!data) return;
         // eslint-disable-next-line no-unused-expressions
         data.length === 0
@@ -36,7 +35,6 @@ const useSearch = (query) => {
     };
 
     const searchValueDebounce = setTimeout(() => {
-      console.log(hasMore, offset, nextOffset, !!query);
       if (hasMore && offset === nextOffset && !!query) searchWithOffset();
     }, 500);
 

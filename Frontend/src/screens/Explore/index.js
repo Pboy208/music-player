@@ -4,11 +4,15 @@ import SongCardList from 'components/Song/SongCardList';
 import AlbumCardList from 'components/Album/AlbumCardList';
 import ArtistCardList from 'components/Artist/ArtistCardList';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import * as Toast from 'components/common/Toast';
+import { logout } from 'store/authSlice';
 
 function Explore() {
   const [ exploreSong, setExploreSong ] = useState([]);
   const [ exploreAlbum, setExploreAlbum ] = useState([]);
   const [ exploreArtist, setExploreArtist ] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -25,19 +29,36 @@ function Explore() {
       .then((response) => response.json())
       .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
       .then((result) => setExploreSong(result))
-      .catch((error) => console.log("error", error));
+      .catch((error) => {if (error.message === 'AUTHORIZATION_FAILED') {
+        dispatch(logout());
+        Toast.error('Your session is over. Please login again.');
+      }});
 
-    fetch("http://localhost:8888/album/explore/album", requestOptions)
+    fetch('http://localhost:8888/album/explore/album', requestOptions)
       .then((response) => response.json())
-      .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+      .then((result) =>
+        result.data.map((val, index, array) => array[array.length - 1 - index]),
+      )
       .then((result) => setExploreAlbum(result))
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        if (error.message === 'AUTHORIZATION_FAILED') {
+          dispatch(logout());
+          Toast.error('Your session is over. Please login again.');
+        }
+      });
 
-    fetch("http://localhost:8888/song/explore/artist", requestOptions)
+    fetch('http://localhost:8888/song/explore/artist', requestOptions)
       .then((response) => response.json())
-      .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
+      .then((result) =>
+        result.data.map((val, index, array) => array[array.length - 1 - index]),
+      )
       .then((result) => setExploreArtist(result))
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        if (error.message === 'AUTHORIZATION_FAILED') {
+          dispatch(logout());
+          Toast.error('Your session is over. Please login again.');
+        }
+      });
   }, []);
   
   if (!exploreSong || !exploreAlbum || !exploreArtist) return null;

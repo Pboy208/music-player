@@ -25,12 +25,7 @@ function NavigationBar({ close }) {
           display: 'var(--navigation-bar-modal-background-display)',
         }}
       />
-      <Wrapper
-        onBlur={() => {
-          console.log('on blur');
-          // close();
-        }}
-      >
+      <Wrapper >
         <MenuButton onClick={() => close()}>
           <Icon
             size="small"

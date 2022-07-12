@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import SongListExplore from 'components/Song/SongListExplore';
 import { Link } from 'react-router-dom';
 import { BiChevronLeft } from 'react-icons/bi';
+import { useDispatch,  } from 'react-redux';
+import * as Toast from "components/common/Toast";
+import { logout } from 'store/authSlice';
 
 function ExploreSong() {
   const [ exploreSong, setExploreSong ] = useState([]);
-
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // console.log(token);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -23,7 +26,10 @@ function ExploreSong() {
       .then((response) => response.json())
       .then((result) => result.data.map((val, index, array) => array[array.length - 1 - index]))
       .then((result) => setExploreSong(result))
-      .catch((error) => console.log("error", error));
+      .catch((error) => {if (error.message === 'AUTHORIZATION_FAILED') {
+        dispatch(logout());
+        Toast.error('Your session is over. Please login again.');
+      }});
   }, []);
 
   if (!exploreSong) return null;

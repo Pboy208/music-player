@@ -21,12 +21,6 @@ const useGetSong = () => {
   } = useSelector((state) => state.song);
   const dispatch = useDispatch();
 
-  console.log({
-    currentlyPlaying, // song is playing for now
-    playingQueue,
-    recentlyPlayed,
-  });
-
   const [state, setState] = useReducer(reducer, {
     isShuffle: false,
     isPlayback: false,
