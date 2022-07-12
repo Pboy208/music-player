@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import MusicPlayer from 'components/MusicPlayer';
 import NavigationBar from 'components/NavigationBar';
-import PlayerQueue from 'components/PlayerQueue';
 import Header from 'components/Header';
 
 function Layout({ children }) {
@@ -15,7 +14,6 @@ function Layout({ children }) {
           <Header setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} />
           <App>{children}</App>
         </AppWrapper>
-        {/* <PlayerQueue /> */}
       </Body>
       <MusicPlayer />
     </Wrapper>
