@@ -18,6 +18,7 @@ function SongCardList({ exploreSong }) {
 
 const Wrapper = styled.div`
   width: 100%;
+  flex: wrap;
 `;
 
 export default React.memo(SongCardList);
