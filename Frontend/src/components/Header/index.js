@@ -133,9 +133,9 @@ function Header({ setIsMenuOpen, isMenuOpen }) {
               />
             }
             childrenList={[
-              { ui: SettingUI(), handler: settingHandler },
-              { ui: ToggleThemeUI(), handler: toggleThemeHandler },
-              { ui: PurchaseVIPUI(), handler: purchaseVIPHandler },
+              // { ui: SettingUI(), handler: settingHandler },
+              // { ui: ToggleThemeUI(), handler: toggleThemeHandler },
+              // { ui: PurchaseVIPUI(), handler: purchaseVIPHandler },
               { ui: LogoutUI(), handler: logoutHandler },
             ]}
           />
